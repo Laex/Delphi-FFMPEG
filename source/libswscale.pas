@@ -327,7 +327,7 @@ procedure sws_freeFilter(filter: pSwsFilter); cdecl; external swscale_dll;
 // int flags, SwsFilter *srcFilter,
 // SwsFilter *dstFilter, const double *param);
 function sws_getCachedContext(context: pSwsContext; srcW: int; srcH: int; srcFormat: AVPixelFormat; dstW: int; dstH: int;
-  dstFormat: AVPixelFormat; flags: int; srcFilter: pSwsFilter; dstFilter: SwsFilter; const param: pdouble): pSwsContext; cdecl;
+  dstFormat: AVPixelFormat; flags: int; srcFilter: pSwsFilter; dstFilter: pSwsFilter; const param: pdouble): pSwsContext; cdecl;
   external swscale_dll;
 
 (*
