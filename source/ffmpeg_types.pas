@@ -3,6 +3,7 @@ unit ffmpeg_types;
 interface
 
 Type
+  Bool = WordBool;
   float = Single;
   ppDouble = ^pDouble;
 
@@ -64,6 +65,9 @@ Type
   parray4_ptrdiff_t = ^array4_ptrdiff_t;
 
   time_t = LongInt;
+
+  AnsiCharArray = array[0..0] of pAnsiChar;
+  pAnsiCharArray = ^AnsiCharArray;
 
   (* MICROSOFT VC++ STDIO'S FILE DEFINITION *)
   _iobuf = record

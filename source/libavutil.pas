@@ -1803,14 +1803,12 @@ Type
     // < ITU-R BT2020
     AVCOL_PRI_SMPTE428 = 10,
     // < SMPTE ST 428-1 (CIE 1931 XYZ)
-    AVCOL_PRI_SMPTEST428_1 = AVCOL_PRI_SMPTE428, AVCOL_PRI_SMPTE431 = 11,
-    // < SMPTE ST 431-2 (2011) / DCI P3
-    AVCOL_PRI_SMPTE432 = 12,
-    // < SMPTE ST 432-1 (2010) / P3 D65 / Display P3
-    AVCOL_PRI_JEDEC_P22 = 22,
-    // < JEDEC P22 phosphors
-    AVCOL_PRI_NB
-    // < Not part of ABI
+    AVCOL_PRI_SMPTEST428_1 = AVCOL_PRI_SMPTE428, //
+    AVCOL_PRI_SMPTE431 = 11,                     // < SMPTE ST 431-2 (2011) / DCI P3
+    AVCOL_PRI_SMPTE432 = 12,                     // < SMPTE ST 432-1 (2010) / P3 D65 / Display P3
+    AVCOL_PRI_EBU3213 = 22,                      // < EBU Tech. 3213-E / JEDEC P22 phosphors
+    AVCOL_PRI_JEDEC_P22 = AVCOL_PRI_EBU3213,     //
+    AVCOL_PRI_NB                                 // < Not part of ABI
     );
 
   (* *
@@ -8992,6 +8990,106 @@ procedure av_tea_init(ctx: pAVTEA; const key: puint8_t; rounds: int); cdecl; ext
 procedure av_tea_crypt(ctx: pAVTEA; dst: puint8_t; const src: puint8_t; count: int; iv: puint8_t; decrypt: int); cdecl; external avutil_dll;
 
 {$ENDREGION}
+{$REGION 'hwcontext_videotoolbox.h'}
+(*
+  * Convert a VideoToolbox (actually CoreVideo) format to AVPixelFormat.
+  * Returns AV_PIX_FMT_NONE if no known equivalent was found.
+*)
+// enum AVPixelFormat av_map_videotoolbox_format_to_pixfmt(uint32_t cv_fmt);
+function av_map_videotoolbox_format_to_pixfmt(cv_fmt: uint32_t): AVPixelFormat; cdecl; external avutil_dll;
+
+(*
+  * Convert an AVPixelFormat to a VideoToolbox (actually CoreVideo) format.
+  * Returns 0 if no known equivalent was found.
+*)
+// uint32_t av_map_videotoolbox_format_from_pixfmt(enum AVPixelFormat pix_fmt);
+function av_map_videotoolbox_format_from_pixfmt(pix_fmt: AVPixelFormat): uint32_t; cdecl; external avutil_dll;
+
+(*
+  * Same as av_map_videotoolbox_format_from_pixfmt function, but can map and
+  * return full range pixel formats via a flag.
+*)
+// uint32_t av_map_videotoolbox_format_from_pixfmt2(enum AVPixelFormat pix_fmt, bool full_range);
+function av_map_videotoolbox_format_from_pixfmt2(pix_fmt: AVPixelFormat; full_range: bool): uint32_t; cdecl; external avutil_dll;
+
+{$ENDREGION}
+{$REGION 'tx.h'}
+
+// typedef struct AVTXContext AVTXContext;
+Type
+  AVTXContext = record
+  end;
+
+  pAVTXContext = ^AVTXContext;
+
+  AVComplexFloat = record
+    re, im: float;
+  end;
+
+  AVComplexDouble = record
+    re, im: double;
+  end;
+
+  AVTXType = (
+    (*
+      * Standard complex to complex FFT with sample data type AVComplexFloat.
+      * Scaling currently unsupported
+    *)
+    AV_TX_FLOAT_FFT = 0,
+    (*
+      * Standard MDCT with sample data type of float and a scale type of
+      * float. Length is the frame size, not the window size (which is 2x frame)
+    *)
+    AV_TX_FLOAT_MDCT = 1,
+    (*
+      * Same as AV_TX_FLOAT_FFT with a data type of AVComplexDouble.
+    *)
+    AV_TX_DOUBLE_FFT = 2,
+    (*
+      * Same as AV_TX_FLOAT_MDCT with data and scale type of double.
+    *)
+    AV_TX_DOUBLE_MDCT = 3 //
+    );
+
+  (*
+    * Function pointer to a function to perform the transform.
+    *
+    * @note Using a different context than the one allocated during av_tx_init()
+    * is not allowed.
+    *
+    * @param s the transform context
+    * @param out the output array
+    * @param in the input array
+    * @param stride the input or output stride (depending on transform direction)
+    * in bytes, currently implemented for all MDCT transforms
+  *)
+  // typedef void (*av_tx_fn)(AVTXContext *s, void *out, void *in, ptrdiff_t stride);
+  av_tx_fn = procedure(s: pAVTXContext; &out, &in: Pointer; stride: ptrdiff_t); cdecl;
+
+  (*
+    * Initialize a transform context with the given configuration
+    * Currently power of two lengths from 4 to 131072 are supported, along with
+    * any length decomposable to a power of two and either 3, 5 or 15.
+    *
+    * @param ctx the context to allocate, will be NULL on error
+    * @param tx pointer to the transform function pointer to set
+    * @param type type the type of transform
+    * @param inv whether to do an inverse or a forward transform
+    * @param len the size of the transform in samples
+    * @param scale pointer to the value to scale the output if supported by type
+    * @param flags currently unused
+    *
+    * @return 0 on success, negative error code on failure
+  *)
+  // int av_tx_init(AVTXContext **ctx, av_tx_fn *tx, enum AVTXType type, int inv, int len, const void *scale, uint64_t flags);
+function av_tx_init(Var ctx: pAVTXContext; tx: av_tx_fn; &type: AVTXType; inv, len: int; const scale: Pointer; flags: uint64_t):int; cdecl; external avutil_dll;
+
+(*
+  * Frees a context and sets ctx to NULL, does nothing when ctx == NULL
+*)
+// void av_tx_uninit(AVTXContext **ctx);
+procedure av_tx_uninit(Var ctx: pAVTXContext); cdecl; external avutil_dll;
+{$ENDREGION}
 
 implementation
 
@@ -9151,7 +9249,7 @@ end;
 
 function av_mod_uintp2_c(a: UINT; p: UINT): UINT; inline;
 begin
-  Result := a and ((1 shl p) - 1);
+  Result := a and ((UINT(1) shl p) - 1);
 end;
 
 function av_sat_add32_c(a: int; b: int): int; inline;

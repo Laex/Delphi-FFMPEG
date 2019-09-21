@@ -284,6 +284,7 @@ type
     AV_CODEC_ID_AGM,           //
     AV_CODEC_ID_LSCR,          //
     AV_CODEC_ID_VP4,           //
+    AV_CODEC_ID_IMM5,          //
 
     (* various PCM "codecs" *)
     AV_CODEC_ID_FIRST_AUDIO = $10000, // < A dummy id pointing at the start of audio codecs
@@ -480,7 +481,8 @@ type
     AV_CODEC_ID_APTX_HD,              //
     AV_CODEC_ID_SBC,                  //
     AV_CODEC_ID_ATRAC9,               //
-    AV_CODEC_ID_HCOM,
+    AV_CODEC_ID_HCOM,                 //
+    AV_CODEC_ID_ACELP_KELVIN,         //
 
     (* subtitle codecs *)                                                                                           //
     AV_CODEC_ID_FIRST_SUBTITLE = $17000,
@@ -515,19 +517,19 @@ type
     AV_CODEC_ID_ARIB_CAPTION,       //
 
     (* other specific kind of codecs (generally used for attachments) *)
-    AV_CODEC_ID_FIRST_UNKNOWN = $18000,
-    /// < A dummy ID pointing at the start of various fake codecs.
-    AV_CODEC_ID_TTF = $18000, //
+    AV_CODEC_ID_FIRST_UNKNOWN = $18000, // < A dummy ID pointing at the start of various fake codecs.
+    AV_CODEC_ID_TTF = $18000,           //
 
-    AV_CODEC_ID_SCTE_35,
-    /// < Contain timestamp estimated through PCR of program stream.                            //
-    AV_CODEC_ID_BINTEXT = $18800, AV_CODEC_ID_XBIN, //
-    AV_CODEC_ID_IDF,                                //
-    AV_CODEC_ID_OTF,                                //
-    AV_CODEC_ID_SMPTE_KLV,                          //
-    AV_CODEC_ID_DVD_NAV,                            //
-    AV_CODEC_ID_TIMED_ID3,                          //
-    AV_CODEC_ID_BIN_DATA,                           //
+    AV_CODEC_ID_SCTE_35,          // < Contain timestamp estimated through PCR of program stream.
+    AV_CODEC_ID_EPG,              //
+    AV_CODEC_ID_BINTEXT = $18800, //
+    AV_CODEC_ID_XBIN,             //
+    AV_CODEC_ID_IDF,              //
+    AV_CODEC_ID_OTF,              //
+    AV_CODEC_ID_SMPTE_KLV,        //
+    AV_CODEC_ID_DVD_NAV,          //
+    AV_CODEC_ID_TIMED_ID3,        //
+    AV_CODEC_ID_BIN_DATA,         //
 
     AV_CODEC_ID_MPEG2TS = $20000, (* < _FAKE_ codec to indicate a raw MPEG-2 TS
       * stream (only used by libavformat) *)

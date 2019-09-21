@@ -977,8 +977,28 @@ function avio_size(s: pAVIOContext): int64_t; cdecl; external avformat_dll;
 // int avio_feof(AVIOContext *s);
 function avio_feof(s: pAVIOContext): int; cdecl; external avformat_dll;
 
-(* * @warning Writes up to 4 KiB per call *)
+(*
+  * Writes a formatted string to the context.
+  * @return number of bytes written, < 0 on error.
+*)
 // int avio_printf(AVIOContext *s, const char *fmt, ...) av_printf_format(2, 3);
+
+(* *
+  * Write a NULL terminated array of strings to the context.
+  * Usually you don't need to use this function directly but its macro wrapper,
+  * avio_print.
+*)
+// void avio_print_string_array(AVIOContext *s, const char *strings[]);
+procedure avio_print_string_array(s: pAVIOContext; const strings: pAnsiCharArray); cdecl; external avformat_dll;
+
+(*
+  * Write strings (const char* ) to the context.
+  * This is a convenience macro around avio_print_string_array and it
+  * automatically creates the string array from the variable argument list.
+  * For simple string concatenations this function is more performant than using
+  * avio_printf since it does not need a temporary buffer.
+*)
+// #define avio_print(s, ...) avio_print_string_array(s, (const char*[]){__VA_ARGS__, NULL})
 
 (* *
   * Force flushing of buffered data.
