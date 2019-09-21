@@ -1,5 +1,9 @@
 unit libswresample;
 
+{$IFDEF FPC}
+{$MODE Delphi}
+{$ENDIF}
+
 interface
 
 Uses

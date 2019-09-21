@@ -1,11 +1,16 @@
 unit libavformat;
-
+
+{$IFDEF FPC}
+{$MODE Delphi}
+{$ENDIF}
+
 interface
 
 Uses
   ffmpeg_types, libavutil, libavcodec;
 
 {$I ffmpeg.inc}
+
 {$REGION 'formats.h'}
 
 (* *
@@ -4207,4 +4212,3 @@ begin
 end;
 
 end.
-

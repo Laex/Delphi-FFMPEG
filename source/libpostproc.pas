@@ -1,5 +1,9 @@
 unit libpostproc;
 
+{$IFDEF FPC}
+{$MODE Delphi}
+{$ENDIF}
+
 interface
 
 Uses

@@ -1,5 +1,9 @@
 unit libavdevice;
-
+
+{$IFDEF FPC}
+{$MODE Delphi}
+{$ENDIF}
+
 interface
 
 Uses
@@ -516,4 +520,3 @@ function avdevice_list_output_sinks(device: pAVOutputFormat; const device_name: 
 implementation
 
 end.
-

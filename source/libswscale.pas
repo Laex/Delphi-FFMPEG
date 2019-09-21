@@ -1,5 +1,9 @@
 ﻿unit libswscale;
-
+
+{$IFDEF FPC}
+{$MODE Delphi}
+{$ENDIF}
+
 interface
 
 Uses
@@ -370,4 +374,3 @@ function sws_get_class(): pAVClass; cdecl; external swscale_dll;
 implementation
 
 end.
-

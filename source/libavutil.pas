@@ -1,11 +1,16 @@
 unit libavutil;
-
+
+{$IFDEF FPC}
+{$MODE Delphi}
+{$ENDIF}
+
 interface
 
 Uses
   ffmpeg_types;
 
 {$I ffmpeg.inc}
+
 {$REGION 'avconfig.h'}
 
 const
@@ -2564,7 +2569,7 @@ type
     private_ref: pAVBufferRef;
   end;
 
-{$IF FF_API_FRAME_GET_SET}
+{$IFDEF FF_API_FRAME_GET_SET}
 
   (* *
     * Accessors for some AVFrame fields. These used to be provided for ABI
@@ -9586,4 +9591,3 @@ end;
 {$ENDREGION}
 
 end.
-

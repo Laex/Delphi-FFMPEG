@@ -1,16 +1,16 @@
 {$POINTERMATH ON}
 {$MINENUMSIZE 4} (* use 4-byte enums *)
 {$WRITEABLECONST ON}
-(*
-  * FF_API_* defines may be placed below to indicate public API that will be
-  * dropped at a future version bump. The defines themselves are not part of
-  * the public API and may change, break or disappear at any time.
-  *
-  * @note, when bumping the major version it is recommended to manually
-  * disable each FF_API_* in its own commit instead of disabling them all
-  * at once through the bump. This improves the git bisect-ability of the change.
-*)
 
+  (*
+    * FF_API_* defines may be placed below to indicate public API that will be
+    * dropped at a future version bump. The defines themselves are not part of
+    * the public API and may change, break or disappear at any time.
+    *
+    * @note, when bumping the major version it is recommended to manually
+    * disable each FF_API_* in its own commit instead of disabling them all
+    * at once through the bump. This improves the git bisect-ability of the change.
+  *)
 const
 {$REGION 'libavutil'}
   LIBAVUTIL_VERSION_MAJOR     = 56;

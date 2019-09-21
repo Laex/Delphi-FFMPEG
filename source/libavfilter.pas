@@ -1,12 +1,15 @@
 unit libavfilter;
 
+{$IFDEF FPC}
+{$MODE Delphi}
+{$ENDIF}
+
 interface
 
 Uses
   ffmpeg_types, libavutil, libavformat;
 
 {$I ffmpeg.inc}
-
 {$REGION 'avfilter.h'}
 (* *
   * Return the LIBAVFILTER_VERSION_INT constant.
@@ -262,8 +265,7 @@ type
       *          AVERROR(ENOSYS) on unsupported commands
     *)
     // int (*process_command)(AVFilterContext *, const char *cmd, const char *arg, char *res, int res_len, int flags);
-    process_command: function(ctx: pAVFilterContext; const cmd: pAnsiChar; const arg: pAnsiChar; res: pAnsiChar; res_len: int; flags: int)
-      : int; cdecl;
+    process_command: function(ctx: pAVFilterContext; const cmd: pAnsiChar; const arg: pAnsiChar; res: pAnsiChar; res_len: int; flags: int): int; cdecl;
     (* *
       * Filter initialization function, alternative to the init()
       * callback. Args contains the user-supplied parameters, opaque is
@@ -301,12 +303,12 @@ type
     name: pAnsiChar; // < name of this filter instance
 
     input_pads: pAVFilterPad; // < array of input pads
-    inputs: ppAVFilterLink; // < array of pointers to input links
-    nb_inputs: unsigned; // < number of input pads
+    inputs: ppAVFilterLink;   // < array of pointers to input links
+    nb_inputs: unsigned;      // < number of input pads
 
     output_pads: pAVFilterPad; // < array of output pads
-    outputs: ppAVFilterLink; // < array of pointers to output links
-    nb_outputs: unsigned; // < number of output pads
+    outputs: ppAVFilterLink;   // < array of pointers to output links
+    nb_outputs: unsigned;      // < number of output pads
 
     priv: pointer; // < private data for use by the filter
 
@@ -338,9 +340,9 @@ type
     command_queue: pAVFilterCommand;
 
     enable_str: pAnsiChar; // < enable expression string
-    enable: pointer; // < parsed expression (AVExpr*)
-    var_values: pdouble; // < variable values for the enable expression
-    is_disabled: int; // < the enabled state from the last expression evaluation
+    enable: pointer;       // < parsed expression (AVExpr*)
+    var_values: pdouble;   // < variable values for the enable expression
+    is_disabled: int;      // < the enabled state from the last expression evaluation
 
     (* *
       * For filters which will create hardware frames, sets the device the
@@ -416,8 +418,7 @@ type
   *)
   // typedef int (avfilter_execute_func)(AVFilterContext *ctx, avfilter_action_func *func,
   // void *arg, int *ret, int nb_jobs);
-  Tavfilter_execute_func = function(ctx: pAVFilterContext; func: Tavfilter_action_func; arg: pointer; var ret: int; nb_jobs: int)
-    : int; cdecl;
+  Tavfilter_execute_func = function(ctx: pAVFilterContext; func: Tavfilter_action_func; arg: pointer; var ret: int; nb_jobs: int): int; cdecl;
 
   AVFilterGraph = record
     av_class: pAVClass;
@@ -503,28 +504,28 @@ type
     * In the future, access to the header may be reserved for filters
     * implementation.
   *)
-  Tinit_state = ( //
+  Tinit_state = (      //
     AVLINK_UNINIT = 0, // < not started
-    AVLINK_STARTINIT, // < started, but incomplete
-    AVLINK_INIT // < complete
+    AVLINK_STARTINIT,  // < started, but incomplete
+    AVLINK_INIT        // < complete
     );
 
   AVFilterLink = record
     src: pAVFilterContext; // < source filter
-    srcpad: pAVFilterPad; // < output pad on the source filter
+    srcpad: pAVFilterPad;  // < output pad on the source filter
 
     dst: pAVFilterContext; // < dest filter
-    dstpad: pAVFilterPad; // < input pad on the dest filter
+    dstpad: pAVFilterPad;  // < input pad on the dest filter
 
     _type: AVMediaType; // < filter media type
 
     (* These parameters apply only to video *)
-    w: int; // < agreed upon image width
-    h: int; // < agreed upon image height
+    w: int;                          // < agreed upon image width
+    h: int;                          // < agreed upon image height
     sample_aspect_ratio: AVRational; // < agreed upon sample aspect ratio
     (* These parameters apply only to audio *)
     channel_layout: uint64_t; // < channel layout of current buffer (see libavutil/channel_layout.h)
-    sample_rate: int; // < samples per second
+    sample_rate: int;         // < samples per second
 
     format: int; // < agreed upon media format
 
@@ -767,8 +768,8 @@ const
     * It is recommended to use avfilter_graph_send_command().
   *)
   // int avfilter_process_command(AVFilterContext *filter, const char *cmd, const char *arg, char *res, int res_len, int flags);
-function avfilter_process_command(filter: pAVFilterContext; const cmd: pAnsiChar; const arg: pAnsiChar; res: pAnsiChar; res_len: int;
-  flags: int): int; cdecl; external avfilter_dll;
+function avfilter_process_command(filter: pAVFilterContext; const cmd: pAnsiChar; const arg: pAnsiChar; res: pAnsiChar; res_len: int; flags: int): int; cdecl;
+  external avfilter_dll;
 (* *
   * Iterate over all registered filters.
   *
@@ -870,8 +871,8 @@ procedure avfilter_free(filter: pAVFilterContext); cdecl; external avfilter_dll;
 *)
 // int avfilter_insert_filter(AVFilterLink *link, AVFilterContext *filt,
 // unsigned filt_srcpad_idx, unsigned filt_dstpad_idx);
-function avfilter_insert_filter(link: pAVFilterLink; filt: pAVFilterContext; filt_srcpad_idx: unsigned; filt_dstpad_idx: unsigned): int;
-  cdecl; external avfilter_dll;
+function avfilter_insert_filter(link: pAVFilterLink; filt: pAVFilterContext; filt_srcpad_idx: unsigned; filt_dstpad_idx: unsigned): int; cdecl;
+  external avfilter_dll;
 (* *
   * @return AVClass for AVFilterContext.
   *
@@ -904,8 +905,7 @@ function avfilter_graph_alloc(): pAVFilterGraph; cdecl; external avfilter_dll;
 // AVFilterContext *avfilter_graph_alloc_filter(AVFilterGraph *graph,
 // const AVFilter *filter,
 // const char *name);
-function avfilter_graph_alloc_filter(graph: pAVFilterGraph; const filter: pAVFilter; const name: pAnsiChar): pAVFilterContext; cdecl;
-  external avfilter_dll;
+function avfilter_graph_alloc_filter(graph: pAVFilterGraph; const filter: pAVFilter; const name: pAnsiChar): pAVFilterContext; cdecl; external avfilter_dll;
 (* *
   * Get a filter instance identified by instance name from graph.
   *
@@ -932,8 +932,8 @@ function avfilter_graph_get_filter(graph: pAVFilterGraph; const name: pAnsiChar)
 // int avfilter_graph_create_filter(AVFilterContext **filt_ctx, const AVFilter *filt,
 // const char *name, const char *args, void *opaque,
 // AVFilterGraph *graph_ctx);
-function avfilter_graph_create_filter(var filt_ctx: pAVFilterContext; const filt: pAVFilter; const name: pAnsiChar; const args: pAnsiChar;
-  opaque: pointer; graph_ctx: pAVFilterGraph): int; cdecl; external avfilter_dll;
+function avfilter_graph_create_filter(var filt_ctx: pAVFilterContext; const filt: pAVFilter; const name: pAnsiChar; const args: pAnsiChar; opaque: pointer;
+  graph_ctx: pAVFilterGraph): int; cdecl; external avfilter_dll;
 (* *
   * Enable or disable automatic format conversion inside the graph.
   *
@@ -947,7 +947,7 @@ procedure avfilter_graph_set_auto_convert(graph: pAVFilterGraph; flags: unsigned
 
 const
 
-  AVFILTER_AUTO_CONVERT_ALL = 0; (* *< all automatic conversions enabled *)
+  AVFILTER_AUTO_CONVERT_ALL  = 0;  (* *< all automatic conversions enabled *)
   AVFILTER_AUTO_CONVERT_NONE = -1; (* *< all automatic conversions disabled *)
 
   (* *
@@ -1026,8 +1026,8 @@ procedure avfilter_inout_free(var inout: pAVFilterInOut); cdecl; external avfilt
 // int avfilter_graph_parse(AVFilterGraph *graph, const char *filters,
 // AVFilterInOut *inputs, AVFilterInOut *outputs,
 // void *log_ctx);
-function avfilter_graph_parse(graph: pAVFilterGraph; const filters: pAnsiChar; inputs: pAVFilterInOut; outputs: pAVFilterInOut;
-  log_ctx: pointer): int; cdecl; external avfilter_dll;
+function avfilter_graph_parse(graph: pAVFilterGraph; const filters: pAnsiChar; inputs: pAVFilterInOut; outputs: pAVFilterInOut; log_ctx: pointer): int; cdecl;
+  external avfilter_dll;
 (* *
   * Add a graph described by a string to a graph.
   *
@@ -1048,8 +1048,8 @@ function avfilter_graph_parse(graph: pAVFilterGraph; const filters: pAnsiChar; i
 // int avfilter_graph_parse_ptr(AVFilterGraph *graph, const char *filters,
 // AVFilterInOut **inputs, AVFilterInOut **outputs,
 // void *log_ctx);
-function avfilter_graph_parse_ptr(graph: pAVFilterGraph; const filters: pAnsiChar; var inputs: pAVFilterInOut; var outputs: pAVFilterInOut;
-  log_ctx: pointer): int; cdecl; external avfilter_dll;
+function avfilter_graph_parse_ptr(graph: pAVFilterGraph; const filters: pAnsiChar; var inputs: pAVFilterInOut; var outputs: pAVFilterInOut; log_ctx: pointer)
+  : int; cdecl; external avfilter_dll;
 (* *
   * Add a graph described by a string to a graph.
   *
@@ -1075,8 +1075,8 @@ function avfilter_graph_parse_ptr(graph: pAVFilterGraph; const filters: pAnsiCha
 // int avfilter_graph_parse2(AVFilterGraph *graph, const char *filters,
 // AVFilterInOut **inputs,
 // AVFilterInOut **outputs);
-function avfilter_graph_parse2(graph: pAVFilterGraph; const filters: pAnsiChar; var inputs: pAVFilterInOut; var outputs: pAVFilterInOut)
-  : int; cdecl; external avfilter_dll;
+function avfilter_graph_parse2(graph: pAVFilterGraph; const filters: pAnsiChar; var inputs: pAVFilterInOut; var outputs: pAVFilterInOut): int; cdecl;
+  external avfilter_dll;
 (* *
   * Send a command to one or more filter instances.
   *
@@ -1093,8 +1093,8 @@ function avfilter_graph_parse2(graph: pAVFilterGraph; const filters: pAnsiChar; 
   *              AVERROR(ENOSYS) on unsupported commands
 *)
 // int avfilter_graph_send_command(AVFilterGraph *graph, const char *target, const char *cmd, const char *arg, char *res, int res_len, int flags);
-function avfilter_graph_send_command(graph: pAVFilterGraph; const target: pAnsiChar; const cmd: pAnsiChar; const arg: pAnsiChar;
-  res: pAnsiChar; res_len: int; flags: int): int; cdecl; external avfilter_dll;
+function avfilter_graph_send_command(graph: pAVFilterGraph; const target: pAnsiChar; const cmd: pAnsiChar; const arg: pAnsiChar; res: pAnsiChar; res_len: int;
+  flags: int): int; cdecl; external avfilter_dll;
 (* *
   * Queue a command for one or more filter instances.
   *
@@ -1111,8 +1111,8 @@ function avfilter_graph_send_command(graph: pAVFilterGraph; const target: pAnsiC
   *       from the filter is provided, also AVFILTER_CMD_FLAG_ONE is not supported.
 *)
 // int avfilter_graph_queue_command(AVFilterGraph *graph, const char *target, const char *cmd, const char *arg, int flags, double ts);
-function avfilter_graph_queue_command(graph: pAVFilterGraph; const target: pAnsiChar; const cmd: pAnsiChar; const arg: pAnsiChar;
-  flags: int; ts: double): int; cdecl; external avfilter_dll;
+function avfilter_graph_queue_command(graph: pAVFilterGraph; const target: pAnsiChar; const cmd: pAnsiChar; const arg: pAnsiChar; flags: int; ts: double): int;
+  cdecl; external avfilter_dll;
 (* *
   * Dump a graph into a human-readable string representation.
   *

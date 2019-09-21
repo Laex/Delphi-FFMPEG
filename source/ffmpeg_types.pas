@@ -1,5 +1,9 @@
 unit ffmpeg_types;
 
+{$IFDEF FPC}
+{$MODE Delphi}
+{$ENDIF}
+
 interface
 
 Type
@@ -12,15 +16,15 @@ Type
   ptrdiff_t = UInt32;
   uint32_t = Cardinal;
   unsigned = uint32_t;
-  unsignedint = uint32;
+  unsignedint = UInt32;
   UINT = unsigned;
-  unsigned_int = uint32;
+  unsigned_int = UInt32;
   punsigned_int = ^unsigned_int;
-  unsigned_long= Cardinal;
+  unsigned_long = Cardinal;
 
   unsignedchar = Byte;
   unsigned_char = unsignedchar;
-  punsignedchar = PByte;//^unsignedchar;
+  punsignedchar = PByte; // ^unsignedchar;
   punsigned_char = punsignedchar;
 
   Int = Integer;
@@ -31,7 +35,7 @@ Type
   pint8_t = ^int8_t;
 
   uint8_t = Byte;
-  puint8_t = PByte;//^uint8_t;
+  puint8_t = PByte; // ^uint8_t;
   ppuint8_t = ^puint8_t;
   PPByte = ppuint8_t;
 
@@ -58,15 +62,15 @@ Type
   array4_int = array [0 .. 3] of Int;
   parray4_int = ^array4_int;
 
-  array4_puint8_t = array[0..3] of puint8_t;
+  array4_puint8_t = array [0 .. 3] of puint8_t;
   parray4_puint8_t = ^array4_puint8_t;
 
-  array4_ptrdiff_t = array[0..3] of ptrdiff_t;
+  array4_ptrdiff_t = array [0 .. 3] of ptrdiff_t;
   parray4_ptrdiff_t = ^array4_ptrdiff_t;
 
   time_t = LongInt;
 
-  AnsiCharArray = array[0..0] of pAnsiChar;
+  AnsiCharArray = array [0 .. 0] of pAnsiChar;
   pAnsiCharArray = ^AnsiCharArray;
 
   (* MICROSOFT VC++ STDIO'S FILE DEFINITION *)
