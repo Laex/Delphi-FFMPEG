@@ -10,7 +10,6 @@ Uses
   ffmpeg_types, libavutil, libavcodec;
 
 {$I ffmpeg.inc}
-
 {$REGION 'formats.h'}
 
 (* *
@@ -3509,7 +3508,8 @@ function av_find_best_stream(ic: pAVFormatContext; _type: AVMediaType; wanted_st
   * @return 0 if OK, < 0 on error or end of file
 *)
 // int av_read_frame(AVFormatContext *s, AVPacket *pkt);
-function av_read_frame(s: pAVFormatContext; pkt: pAVPacket): int; cdecl; external avformat_dll;
+function av_read_frame(s: pAVFormatContext; pkt: pAVPacket): int; cdecl; overload; external avformat_dll;
+function av_read_frame(s: pAVFormatContext; var pkt: AVPacket): int; cdecl; overload; external avformat_dll;
 
 (* *
   * Seek to the keyframe at timestamp.

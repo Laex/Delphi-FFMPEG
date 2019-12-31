@@ -10,7 +10,6 @@ Uses
   ffmpeg_types;
 
 {$I ffmpeg.inc}
-
 {$REGION 'avconfig.h'}
 
 const
@@ -3472,7 +3471,9 @@ function av_sample_fmt_is_planar(sample_fmt: AVSampleFormat): int; cdecl; extern
 *)
 // int av_samples_get_buffer_size(int *linesize, int nb_channels, int nb_samples,
 // enum AVSampleFormat sample_fmt, int align);
-function av_samples_get_buffer_size(var linesize: int; nb_channels: int; nb_samples: int; sample_fmt: AVSampleFormat; align: int): int; cdecl;
+function av_samples_get_buffer_size(var linesize: int; nb_channels: int; nb_samples: int; sample_fmt: AVSampleFormat; align: int): int; cdecl; overload;
+  external avutil_dll;
+function av_samples_get_buffer_size(linesize: pint; nb_channels: int; nb_samples: int; sample_fmt: AVSampleFormat; align: int): int; cdecl; overload;
   external avutil_dll;
 (* *
   * @}
@@ -7340,8 +7341,24 @@ function av_image_fill_pointers(data: pav_image_array4_puint8_t; pix_fmt: AVPixe
 *)
 // int av_image_alloc(uint8_t *pointers[4], int linesizes[4],
 // int w, int h, enum AVPixelFormat pix_fmt, int align);
-function av_image_alloc(pointers: pav_image_array4_puint8_t; linesizes: pav_image_array4_int; w: int; h: int; pix_fmt: AVPixelFormat; align: int): int; cdecl;
-  external avutil_dll;
+function av_image_alloc(               //
+  pointers: pav_image_array4_puint8_t; //
+  linesizes: pav_image_array4_int;     //
+  w: int;                              //
+  h: int;                              //
+  pix_fmt: AVPixelFormat;              //
+  align: int):                         //
+  int; cdecl; overload; external avutil_dll;
+
+function av_image_alloc(  //
+  pointers: Pointer;      //
+  linesizes: Pointer;     //
+  w: int;                 //
+  h: int;                 //
+  pix_fmt: AVPixelFormat; //
+  align: int):            //
+  int; cdecl; overload; external avutil_dll;
+
 (* *
   * Copy image plane from src to dst.
   * That is, copy "height" number of lines of "bytewidth" bytes each.
@@ -9087,7 +9104,8 @@ Type
     * @return 0 on success, negative error code on failure
   *)
   // int av_tx_init(AVTXContext **ctx, av_tx_fn *tx, enum AVTXType type, int inv, int len, const void *scale, uint64_t flags);
-function av_tx_init(Var ctx: pAVTXContext; tx: av_tx_fn; &type: AVTXType; inv, len: int; const scale: Pointer; flags: uint64_t):int; cdecl; external avutil_dll;
+function av_tx_init(Var ctx: pAVTXContext; tx: av_tx_fn; &type: AVTXType; inv, len: int; const scale: Pointer; flags: uint64_t): int; cdecl;
+  external avutil_dll;
 
 (*
   * Frees a context and sets ctx to NULL, does nothing when ctx == NULL

@@ -48,6 +48,9 @@ uses
   libswresample,
   libswscale;
 
+const
+  cResourceResultDefault = '..\..\result\';
+
 Const
   INBUF_SIZE = 4096;
   AUDIO_INBUF_SIZE = 20480;
@@ -71,7 +74,7 @@ end;
 (* just pick the highest supported samplerate *)
 function select_sample_rate(const codec: pAVCodec): Integer;
 Var
-  p: pInteger;
+  p: pInt;
   best_samplerate: Integer;
 begin
   best_samplerate := 0;
@@ -120,7 +123,7 @@ Var
   codec: pAVCodec;
   c: pAVCodecContext;
   frame: pAVFrame;
-  pkt: TAVPacket;
+  pkt: AVPacket;
   i, j, k, ret, got_output: Integer;
   buffer_size: Integer;
   f: File;
@@ -252,17 +255,23 @@ begin
   av_free(c);
 end;
 
+const
+  FF_INPUT_BUFFER_PADDING_SIZE = AV_INPUT_BUFFER_PADDING_SIZE;
+  CODEC_CAP_TRUNCATED = AV_CODEC_CAP_TRUNCATED;
+  CODEC_FLAG_TRUNCATED = AV_CODEC_FLAG_TRUNCATED;
+
 (*
   * Audio decoding.
 *)
 procedure audio_decode_example(const outfilename: String; const filename: String);
+
 Var
   codec: pAVCodec;
   c: pAVCodecContext;
   len: Integer;
   f, outfile: File;
   inbuf: array [0 .. AUDIO_INBUF_SIZE + FF_INPUT_BUFFER_PADDING_SIZE - 1] of byte;
-  avpkt: TAVPacket;
+  avpkt: AVPacket;
   decoded_frame: pAVFrame;
   got_frame: Integer;
   data_size: Integer;
@@ -335,7 +344,7 @@ begin
         WriteLn('Failed to calculate data size');
         Exit;
       end;
-      BlockWrite(outfile, decoded_frame^.data^, data_size);
+      BlockWrite(outfile, decoded_frame^.data[0]^, data_size);
     end;
     avpkt.size := avpkt.size - len;
     avpkt.data := avpkt.data + len;
@@ -364,14 +373,14 @@ end;
 (*
   * Video encoding example
 *)
-procedure video_encode_example(const filename: String; codec_id: TAVCodecID);
+procedure video_encode_example(const filename: String; codec_id: AVCodecID);
 Var
   codec: pAVCodec;
   c: pAVCodecContext;
   i, ret, x, y, got_output: Integer;
   f: File;
   frame: pAVFrame;
-  pkt: TAVPacket;
+  pkt: AVPacket;
   endcode: array [0 .. 3] of byte;
 begin
   c := nil;
@@ -436,7 +445,7 @@ begin
   frame^.height := c^.height;
   (* the image can be allocated by any means and av_image_alloc() is
     * just the most convenient way if av_malloc() is to be used *)
-  ret := av_image_alloc(frame^.data, frame^.linesize, c^.width, c^.height, c^.pix_fmt, 32);
+  ret := av_image_alloc(@frame^.data, @frame^.linesize, c^.width, c^.height, c^.pix_fmt, 32);
   if (ret < 0) then
   begin
     WriteLn('Could not allocate raw picture buffer');
@@ -566,7 +575,7 @@ Var
   f: File;
   frame: pAVFrame;
   inbuf: array [0 .. INBUF_SIZE + FF_INPUT_BUFFER_PADDING_SIZE - 1] of byte;
-  avpkt: TAVPacket;
+  avpkt: AVPacket;
 begin
   c := nil;
   av_init_packet(@avpkt);

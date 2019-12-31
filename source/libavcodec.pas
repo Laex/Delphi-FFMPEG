@@ -3716,7 +3716,7 @@ type
 
   AVPicture = record
     // attribute_deprecated
-    data: pAVNDPArray_puint8_t deprecated; // < pointers to the image data planes
+    data: TAVNDPArray_puint8_t deprecated; // < pointers to the image data planes
 
     // attribute_deprecated
     linesize: TAVNDPArray_int deprecated; // < number of bytes per line
@@ -4407,7 +4407,8 @@ function av_copy_packet_side_data(dst: pAVPacket; const src: pAVPacket): int; cd
   * @param pkt packet to free
 *)
 // attribute_deprecated void av_free_packet(AVPacket * pkt);
-procedure av_free_packet(pkt: pAVPacket); cdecl; external avcodec_dll; deprecated;
+procedure av_free_packet(pkt: pAVPacket); cdecl; overload; external avcodec_dll; deprecated;
+procedure av_free_packet(Var pkt: AVPacket); cdecl; overload; external avcodec_dll; deprecated;
 {$ENDIF}
 (*
   * Allocate new information of a packet.
@@ -5422,7 +5423,8 @@ function avcodec_encode_subtitle(avctx: pAVCodecContext; buf: puint8_t; buf_size
 *)
 // attribute_deprecated
 // int avpicture_alloc(AVPicture * picture, enum AVPixelFormat pix_fmt, int width, int height);
-function avpicture_alloc(picture: pAVPicture; pix_fmt: AVPixelFormat; width: int; height: int): int; cdecl; external avcodec_dll; deprecated;
+function avpicture_alloc(picture: pAVPicture; pix_fmt: AVPixelFormat; width: int; height: int): int; cdecl; overload; external avcodec_dll; deprecated;
+function avpicture_alloc(Var picture: AVPicture; pix_fmt: AVPixelFormat; width: int; height: int): int; cdecl; overload; external avcodec_dll; deprecated;
 
 (*
   * @deprecated unused

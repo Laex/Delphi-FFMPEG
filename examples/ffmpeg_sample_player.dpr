@@ -1,6 +1,7 @@
 program ffmpeg_sample_player;
 
-{ .$APPTYPE CONSOLE }
+{$APPTYPE CONSOLE}
+{$POINTERMATH ON}
 {$R *.res}
 
 uses
@@ -36,7 +37,8 @@ var
   event: TSDL_Event;
 
 const
-  std_filename = cResourceMedia + 'trailer.avi';
+  cResourceMedia = '..\..\resource\';
+  std_filename   = cResourceMedia + '768x576.avi';
 
 begin
   try
@@ -104,15 +106,24 @@ begin
 
     bmp := SDL_CreateYUVOverlay(codec_context^.width, codec_context^.height, SDL_YV12_OVERLAY, screen);
 
-    img_convert_context := sws_getCachedContext(nil, codec_context^.width, codec_context^.height, codec_context^.pix_fmt, codec_context^.width, codec_context^.height, AV_PIX_FMT_YUV420P, SWS_BICUBIC,
+    img_convert_context := sws_getCachedContext( //
+      nil,                                       //
+      codec_context^.width,                      //
+      codec_context^.height,                     //
+      codec_context^.pix_fmt,                    //
+      codec_context^.width,                      //
+      codec_context^.height,                     //
+      AV_PIX_FMT_YUV420P,                        //
+      SWS_BICUBIC,                               //
       nil, nil, nil);
+
     if (img_convert_context = nil) then
     begin
       WriteLn('Cannot initialize the conversion context');
       Halt(1);
     end;
 
-    frame := av_frame_alloc();//avcodec_alloc_frame();
+    frame := av_frame_alloc(); // avcodec_alloc_frame();
     while (av_read_frame(format_context, packet) >= 0) do
     begin
       if (packet.stream_index = video_stream) then
