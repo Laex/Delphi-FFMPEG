@@ -174,7 +174,7 @@ begin
     avcodec_close(codec_context);
 
     // Close the video file
-    avformat_close_input(&format_context);
+    avformat_close_input(format_context);
 
     avformat_network_deinit;
 

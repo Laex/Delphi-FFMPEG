@@ -987,13 +987,14 @@ function avio_feof(s: pAVIOContext): int; cdecl; external avformat_dll;
 *)
 // int avio_printf(AVIOContext *s, const char *fmt, ...) av_printf_format(2, 3);
 
+// --> 4.2.2
 (* *
   * Write a NULL terminated array of strings to the context.
   * Usually you don't need to use this function directly but its macro wrapper,
   * avio_print.
 *)
 // void avio_print_string_array(AVIOContext *s, const char *strings[]);
-procedure avio_print_string_array(s: pAVIOContext; const strings: pAnsiCharArray); cdecl; external avformat_dll;
+//procedure avio_print_string_array(s: pAVIOContext; const strings: pAnsiCharArray); cdecl; external avformat_dll; //4.2.2
 
 (*
   * Write strings (const char* ) to the context.
@@ -1003,6 +1004,7 @@ procedure avio_print_string_array(s: pAVIOContext; const strings: pAnsiCharArray
   * avio_printf since it does not need a temporary buffer.
 *)
 // #define avio_print(s, ...) avio_print_string_array(s, (const char*[]){__VA_ARGS__, NULL})
+// <-- 4.2.2
 
 (* *
   * Force flushing of buffered data.
@@ -3404,7 +3406,8 @@ function av_probe_input_buffer(pb: pAVIOContext; var fmt: pAVInputFormat; const 
   * @note If you want to use custom IO, preallocate the format context and set its pb field.
 *)
 // int avformat_open_input(AVFormatContext **ps, const char *url, AVInputFormat *fmt, AVDictionary **options);
-function avformat_open_input(var ps: pAVFormatContext; const url: PAnsiChar; fmt: pAVInputFormat; options: ppAVDictionary): int; cdecl; external avformat_dll;
+function avformat_open_input(var ps: pAVFormatContext; const url: PAnsiChar; fmt: pAVInputFormat; options: ppAVDictionary): int; cdecl; overload; external avformat_dll;
+function avformat_open_input(var ps: pAVFormatContext; const url: PAnsiChar; fmt: pAVInputFormat; var options: pAVDictionary): int; cdecl; overload; external avformat_dll;
 
 // attribute_deprecated
 // int av_demuxer_open(AVFormatContext *ic);
@@ -3432,7 +3435,8 @@ function av_demuxer_open(ic: pAVFormatContext): int; cdecl; external avformat_dl
   *       we do not waste time getting stuff the user does not need.
 *)
 // int avformat_find_stream_info(AVFormatContext *ic, AVDictionary **options);
-function avformat_find_stream_info(ic: pAVFormatContext; options: ppAVDictionary): int; cdecl; external avformat_dll;
+function avformat_find_stream_info(ic: pAVFormatContext; options: ppAVDictionary): int; cdecl; overload; external avformat_dll;
+function avformat_find_stream_info(ic: pAVFormatContext; Var options: pAVDictionary): int; cdecl; overload; external avformat_dll;
 
 (* *
   * Find the programs which belong to a given stream.
@@ -3480,7 +3484,7 @@ procedure av_program_add_stream_index(ac: pAVFormatContext; progid: int; idx: un
 // int related_stream,
 // AVCodec **decoder_ret,
 // int flags);
-function av_find_best_stream(ic: pAVFormatContext; _type: AVMediaType; wanted_stream_nb: int; related_stream: int; decoder_ret: ppAVCodec; flags: int): int;
+function av_find_best_stream(ic: pAVFormatContext; _type: AVMediaType; wanted_stream_nb: int; related_stream: int; var decoder_ret: pAVCodec; flags: int): int;
   cdecl; external avformat_dll;
 
 (* *

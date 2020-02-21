@@ -1,5 +1,5 @@
 unit libavcodec;
-
+
 {$IFDEF FPC}
 {$MODE Delphi}
 {$ENDIF}
@@ -10,7 +10,6 @@ Uses
   ffmpeg_types, libavutil;
 
 {$I ffmpeg.inc}
-
 {$REGION 'avcodec.h'}
 
 (*
@@ -274,7 +273,7 @@ type
     AV_CODEC_ID_AGM,           //
     AV_CODEC_ID_LSCR,          //
     AV_CODEC_ID_VP4,           //
-    AV_CODEC_ID_IMM5,          //
+//    AV_CODEC_ID_IMM5,          // 4.2.2
 
     (* various PCM "codecs" *)
     AV_CODEC_ID_FIRST_AUDIO = $10000, // < A dummy id pointing at the start of audio codecs
@@ -472,7 +471,7 @@ type
     AV_CODEC_ID_SBC,                  //
     AV_CODEC_ID_ATRAC9,               //
     AV_CODEC_ID_HCOM,                 //
-    AV_CODEC_ID_ACELP_KELVIN,         //
+//    AV_CODEC_ID_ACELP_KELVIN,         // 4.2.2
 
     (* subtitle codecs *)                                                                                           //
     AV_CODEC_ID_FIRST_SUBTITLE = $17000,
@@ -511,7 +510,7 @@ type
     AV_CODEC_ID_TTF = $18000,           //
 
     AV_CODEC_ID_SCTE_35,          // < Contain timestamp estimated through PCR of program stream.
-    AV_CODEC_ID_EPG,              //
+//    AV_CODEC_ID_EPG,              // 4.2.2
     AV_CODEC_ID_BINTEXT = $18800, //
     AV_CODEC_ID_XBIN,             //
     AV_CODEC_ID_IDF,              //
@@ -4323,7 +4322,8 @@ procedure av_packet_free(var pkt: pAVPacket); cdecl; external avcodec_dll;
   * @param pkt packet
 *)
 // void av_init_packet(AVPacket * pkt);
-procedure av_init_packet(pkt: pAVPacket); cdecl; external avcodec_dll;
+procedure av_init_packet(pkt: pAVPacket); cdecl; overload; external avcodec_dll;
+procedure av_init_packet(var pkt: AVPacket); cdecl; overload; external avcodec_dll;
 
 (*
   * Allocate the payload of a packet and initialize its fields with
@@ -4855,7 +4855,8 @@ function avcodec_decode_subtitle2(avctx: pAVCodecContext; var sub: AVSubtitle; v
   *      other errors: legitimate decoding errors
 *)
 // int avcodec_send_packet(AVCodecContext * avctx, const AVPacket * avpkt);
-function avcodec_send_packet(avctx: pAVCodecContext; const avpkt: pAVPacket): int; cdecl; external avcodec_dll;
+function avcodec_send_packet(avctx: pAVCodecContext; const avpkt: pAVPacket): int; cdecl; overload; external avcodec_dll;
+function avcodec_send_packet(avctx: pAVCodecContext; var avpkt: AVPacket): int; cdecl; overload; external avcodec_dll;
 
 (*
   * Return decoded output data from a decoder.
@@ -4935,7 +4936,8 @@ function avcodec_send_frame(avctx: pAVCodecContext; const frame: pAVFrame): int;
   *      other errors: legitimate decoding errors
 *)
 // int avcodec_receive_packet(AVCodecContext * avctx, AVPacket * avpkt);
-function avcodec_receive_packet(avctx: pAVCodecContext; avpkt: pAVPacket): int; cdecl; external avcodec_dll;
+function avcodec_receive_packet(avctx: pAVCodecContext; avpkt: pAVPacket): int; cdecl; overload; external avcodec_dll;
+function avcodec_receive_packet(avctx: pAVCodecContext; var avpkt: AVPacket): int; cdecl; overload; external avcodec_dll;
 
 (*
   * Create and return a AVHWFramesContext with values adequate for hardware
@@ -5411,8 +5413,10 @@ function avcodec_encode_audio2(avctx: pAVCodecContext; avpkt: pAVPacket; const f
 *)
 // attribute_deprecated
 // int avcodec_encode_video2(AVCodecContext * avctx, AVPacket * avpkt, const AVFrame * frame, int * got_packet_ptr);
-function avcodec_encode_video2(avctx: pAVCodecContext; avpkt: pAVPacket; const frame: pAVFrame; var got_packet_ptr: int): int; cdecl; external avcodec_dll;
-  deprecated;
+function avcodec_encode_video2(avctx: pAVCodecContext; avpkt: pAVPacket; const frame: pAVFrame; var got_packet_ptr: int): int; cdecl; overload;
+  external avcodec_dll; deprecated;
+function avcodec_encode_video2(avctx: pAVCodecContext; var avpkt: AVPacket; const frame: pAVFrame; var got_packet_ptr: int): int; cdecl; overload;
+  external avcodec_dll; deprecated;
 
 // int avcodec_encode_subtitle(AVCodecContext * avctx, uint8_t * buf, int buf_size, const AVSubtitle * sub);
 function avcodec_encode_subtitle(avctx: pAVCodecContext; buf: puint8_t; buf_size: int; const sub: pAVSubtitle): int; cdecl; external avcodec_dll;
@@ -6778,3 +6782,4 @@ function av_dirac_parse_sequence_header(var dsh: pAVDiracSeqHeader; const buf: p
 implementation
 
 end.
+

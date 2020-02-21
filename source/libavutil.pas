@@ -1,5 +1,5 @@
 unit libavutil;
-
+
 {$IFDEF FPC}
 {$MODE Delphi}
 {$ENDIF}
@@ -1092,17 +1092,15 @@ function av_q2intfloat(q: AVRational): uint32_t; cdecl; external avutil_dll;
   * @brief Media Type
 *)
 type
-  AVMediaType = ( //
-    AVMEDIA_TYPE_UNKNOWN = -1,
-    // < Usually treated as AVMEDIA_TYPE_DATA
-    AVMEDIA_TYPE_VIDEO = 0, //
-    AVMEDIA_TYPE_AUDIO = 1, //
-    AVMEDIA_TYPE_DATA = 2,
-    // < Opaque data information usually continuous
-    AVMEDIA_TYPE_SUBTITLE = 3, //
-    AVMEDIA_TYPE_ATTACHMENT = 4,
-    // < Opaque data information usually sparse
-    AVMEDIA_TYPE_NB = 5);
+  AVMediaType = (                //
+    AVMEDIA_TYPE_UNKNOWN = -1,   // < Usually treated as AVMEDIA_TYPE_DATA
+    AVMEDIA_TYPE_VIDEO = 0,      //
+    AVMEDIA_TYPE_AUDIO = 1,      //
+    AVMEDIA_TYPE_DATA = 2,       // < Opaque data information usually continuous
+    AVMEDIA_TYPE_SUBTITLE = 3,   //
+    AVMEDIA_TYPE_ATTACHMENT = 4, // < Opaque data information usually sparse
+    AVMEDIA_TYPE_NB = 5          //
+    );
 
   (* *
     * @defgroup lavu_const Constants
@@ -1162,22 +1160,16 @@ const
     * @{
   *)
 type
-  AVPictureType = ( //
-    AV_PICTURE_TYPE_NONE = 0,
-    // < Undefined
-    AV_PICTURE_TYPE_I = 1,
-    // < Intra
-    AV_PICTURE_TYPE_P = 2,
-    // < Predicted
-    AV_PICTURE_TYPE_B = 3,
-    // < Bi-dir predicted
-    AV_PICTURE_TYPE_S = 4,
-    // < S(GMC)-VOP MPEG-4
-    AV_PICTURE_TYPE_SI = 5,
-    // < Switching Intra
-    AV_PICTURE_TYPE_SP = 6,
-    // < Switching Predicted
-    AV_PICTURE_TYPE_BI = 7);
+  AVPictureType = (           //
+    AV_PICTURE_TYPE_NONE = 0, // < Undefined
+    AV_PICTURE_TYPE_I = 1,    // < Intra
+    AV_PICTURE_TYPE_P = 2,    // < Predicted
+    AV_PICTURE_TYPE_B = 3,    // < Bi-dir predicted
+    AV_PICTURE_TYPE_S = 4,    // < S(GMC)-VOP MPEG-4
+    AV_PICTURE_TYPE_SI = 5,   // < Switching Intra
+    AV_PICTURE_TYPE_SP = 6,   // < Switching Predicted
+    AV_PICTURE_TYPE_BI = 7    //
+    );
   // < BI type
 {$ENDREGION}
 {$REGION 'pixfmt.h'}
@@ -1211,64 +1203,41 @@ type
   pAVPixelFormat = ^AVPixelFormat;
   AVPixelFormat = (       //
     AV_PIX_FMT_NONE = -1, //
-    AV_PIX_FMT_YUV420P,
-    // < planar YUV 4:2:0, 12bpp, (1 Cr & Cb sample per 2x2 Y samples)
-    AV_PIX_FMT_YUYV422,
-    // < packed YUV 4:2:2, 16bpp, Y0 Cb Y1 Cr
-    AV_PIX_FMT_RGB24,
-    // < packed RGB 8:8:8, 24bpp, RGBRGB...
-    AV_PIX_FMT_BGR24,
-    // < packed RGB 8:8:8, 24bpp, BGRBGR...
-    AV_PIX_FMT_YUV422P,
-    // < planar YUV 4:2:2, 16bpp, (1 Cr & Cb sample per 2x1 Y samples)
-    AV_PIX_FMT_YUV444P,
-    // < planar YUV 4:4:4, 24bpp, (1 Cr & Cb sample per 1x1 Y samples)
-    AV_PIX_FMT_YUV410P,
-    // < planar YUV 4:1:0,  9bpp, (1 Cr & Cb sample per 4x4 Y samples)
-    AV_PIX_FMT_YUV411P,
-    // < planar YUV 4:1:1, 12bpp, (1 Cr & Cb sample per 4x1 Y samples)
-    AV_PIX_FMT_GRAY8,
-    // <        Y        ,  8bpp
-    AV_PIX_FMT_MONOWHITE,
-    // <        Y        ,  1bpp, 0 is white, 1 is black, in each byte pixels are ordered from the msb to the lsb
-    AV_PIX_FMT_MONOBLACK,
-    // <        Y        ,  1bpp, 0 is black, 1 is white, in each byte pixels are ordered from the msb to the lsb
-    AV_PIX_FMT_PAL8,
-    // < 8 bits with AV_PIX_FMT_RGB32 palette
-    AV_PIX_FMT_YUVJ420P,
-    // < planar YUV 4:2:0, 12bpp, full scale (JPEG), deprecated in favor of AV_PIX_FMT_YUV420P and setting color_range
-    AV_PIX_FMT_YUVJ422P,
-    // < planar YUV 4:2:2, 16bpp, full scale (JPEG), deprecated in favor of AV_PIX_FMT_YUV422P and setting color_range
-    AV_PIX_FMT_YUVJ444P,
-    // < planar YUV 4:4:4, 24bpp, full scale (JPEG), deprecated in favor of AV_PIX_FMT_YUV444P and setting color_range
+    AV_PIX_FMT_YUV420P,   // < planar YUV 4:2:0, 12bpp, (1 Cr & Cb sample per 2x2 Y samples)
+    AV_PIX_FMT_YUYV422,   // < packed YUV 4:2:2, 16bpp, Y0 Cb Y1 Cr
+    AV_PIX_FMT_RGB24,     // < packed RGB 8:8:8, 24bpp, RGBRGB...
+    AV_PIX_FMT_BGR24,     // < packed RGB 8:8:8, 24bpp, BGRBGR...
+    AV_PIX_FMT_YUV422P,   // < planar YUV 4:2:2, 16bpp, (1 Cr & Cb sample per 2x1 Y samples)
+    AV_PIX_FMT_YUV444P,   // < planar YUV 4:4:4, 24bpp, (1 Cr & Cb sample per 1x1 Y samples)
+    AV_PIX_FMT_YUV410P,   // < planar YUV 4:1:0,  9bpp, (1 Cr & Cb sample per 4x4 Y samples)
+    AV_PIX_FMT_YUV411P,   // < planar YUV 4:1:1, 12bpp, (1 Cr & Cb sample per 4x1 Y samples)
+    AV_PIX_FMT_GRAY8,     // <        Y        ,  8bpp
+    AV_PIX_FMT_MONOWHITE, // <        Y        ,  1bpp, 0 is white, 1 is black, in each byte pixels are ordered from the msb to the lsb
+    AV_PIX_FMT_MONOBLACK, // <        Y        ,  1bpp, 0 is black, 1 is white, in each byte pixels are ordered from the msb to the lsb
+    AV_PIX_FMT_PAL8,      // < 8 bits with AV_PIX_FMT_RGB32 palette
+    AV_PIX_FMT_YUVJ420P,  // < planar YUV 4:2:0, 12bpp, full scale (JPEG), deprecated in favor of AV_PIX_FMT_YUV420P and setting color_range
+    AV_PIX_FMT_YUVJ422P,  // < planar YUV 4:2:2, 16bpp, full scale (JPEG), deprecated in favor of AV_PIX_FMT_YUV422P and setting color_range
+    AV_PIX_FMT_YUVJ444P,  // < planar YUV 4:4:4, 24bpp, full scale (JPEG), deprecated in favor of AV_PIX_FMT_YUV444P and setting color_range
 {$IFDEF FF_API_XVMC}
-    AV_PIX_FMT_XVMC_MPEG2_MC,
-    // < XVideo Motion Acceleration via common packet passing
-    AV_PIX_FMT_XVMC_MPEG2_IDCT, AV_PIX_FMT_XVMC = AV_PIX_FMT_XVMC_MPEG2_IDCT,
-{$ENDIF} (* FF_API_XVMC *)
-    AV_PIX_FMT_UYVY422,
-    // < packed YUV 4:2:2, 16bpp, Cb Y0 Cr Y1
-    AV_PIX_FMT_UYYVYY411,
-    // < packed YUV 4:1:1, 12bpp, Cb Y0 Y1 Cr Y2 Y3
-    AV_PIX_FMT_BGR8,
-    // < packed RGB 3:3:2,  8bpp, (msb)2B 3G 3R(lsb)
+    AV_PIX_FMT_XVMC_MPEG2_MC,                     // < XVideo Motion Acceleration via common packet passing
+    AV_PIX_FMT_XVMC_MPEG2_IDCT,                   //
+    AV_PIX_FMT_XVMC = AV_PIX_FMT_XVMC_MPEG2_IDCT, //
+{$ENDIF}                                          (* FF_API_XVMC *)
+    AV_PIX_FMT_UYVY422,                           // < packed YUV 4:2:2, 16bpp, Cb Y0 Cr Y1
+    AV_PIX_FMT_UYYVYY411,                         // < packed YUV 4:1:1, 12bpp, Cb Y0 Y1 Cr Y2 Y3
+    AV_PIX_FMT_BGR8,                              // < packed RGB 3:3:2,  8bpp, (msb)2B 3G 3R(lsb)
     AV_PIX_FMT_BGR4,
     // < packed RGB 1:2:1 bitstream,  4bpp, (msb)1B 2G 1R(lsb), a byte contains two pixels, the first pixel in the byte is the one composed by the 4 msb bits
-    AV_PIX_FMT_BGR4_BYTE,
-    // < packed RGB 1:2:1,  8bpp, (msb)1B 2G 1R(lsb)
-    AV_PIX_FMT_RGB8,
-    // < packed RGB 3:3:2,  8bpp, (msb)2R 3G 3B(lsb)
+    AV_PIX_FMT_BGR4_BYTE, // < packed RGB 1:2:1,  8bpp, (msb)1B 2G 1R(lsb)
+    AV_PIX_FMT_RGB8,      // < packed RGB 3:3:2,  8bpp, (msb)2R 3G 3B(lsb)
     AV_PIX_FMT_RGB4,
     // < packed RGB 1:2:1 bitstream,  4bpp, (msb)1R 2G 1B(lsb), a byte contains two pixels, the first pixel in the byte is the one composed by the 4 msb bits
-    AV_PIX_FMT_RGB4_BYTE,
-    // < packed RGB 1:2:1,  8bpp, (msb)1R 2G 1B(lsb)
+    AV_PIX_FMT_RGB4_BYTE, // < packed RGB 1:2:1,  8bpp, (msb)1R 2G 1B(lsb)
     AV_PIX_FMT_NV12,
     // < planar YUV 4:2:0, 12bpp, 1 plane for Y and 1 plane for the UV components, which are interleaved (first byte U and the following byte V)
-    AV_PIX_FMT_NV21,
-    // < as above, but U and V bytes are swapped
+    AV_PIX_FMT_NV21, // < as above, but U and V bytes are swapped
 
-    AV_PIX_FMT_ARGB,
-    // < packed ARGB 8:8:8:8, 32bpp, ARGBARGB...
+    AV_PIX_FMT_ARGB, // < packed ARGB 8:8:8:8, 32bpp, ARGBARGB...
     AV_PIX_FMT_RGBA,
     // < packed RGBA 8:8:8:8, 32bpp, RGBARGBA...
     AV_PIX_FMT_ABGR,
@@ -1810,9 +1779,10 @@ Type
     AVCOL_PRI_SMPTEST428_1 = AVCOL_PRI_SMPTE428, //
     AVCOL_PRI_SMPTE431 = 11,                     // < SMPTE ST 431-2 (2011) / DCI P3
     AVCOL_PRI_SMPTE432 = 12,                     // < SMPTE ST 432-1 (2010) / P3 D65 / Display P3
-    AVCOL_PRI_EBU3213 = 22,                      // < EBU Tech. 3213-E / JEDEC P22 phosphors
-    AVCOL_PRI_JEDEC_P22 = AVCOL_PRI_EBU3213,     //
-    AVCOL_PRI_NB                                 // < Not part of ABI
+    AVCOL_PRI_JEDEC_P22 = 22,
+    /// < JEDEC P22 phosphors
+    AVCOL_PRI_NB
+    /// < Not part of ABI
     );
 
   (* *
@@ -1821,36 +1791,26 @@ Type
   AVColorTransferCharacteristic = ( //
     AVCOL_TRC_RESERVED0 = 0, AVCOL_TRC_BT709 = 1,
     // < also ITU-R BT1361
-    AVCOL_TRC_UNSPECIFIED = 2, AVCOL_TRC_RESERVED = 3, AVCOL_TRC_GAMMA22 = 4,
-    // < also ITU-R BT470M / ITU-R BT1700 625 PAL & SECAM
-    AVCOL_TRC_GAMMA28 = 5,
-    // < also ITU-R BT470BG
-    AVCOL_TRC_SMPTE170M = 6,
-    // < also ITU-R BT601-6 525 or 625 / ITU-R BT1358 525 or 625 / ITU-R BT1700 NTSC
-    AVCOL_TRC_SMPTE240M = 7, AVCOL_TRC_LINEAR = 8,
-    // < "Linear transfer characteristics"
-    AVCOL_TRC_LOG = 9,
-    // < "Logarithmic transfer characteristic (100:1 range)"
-    AVCOL_TRC_LOG_SQRT = 10,
-    // < "Logarithmic transfer characteristic (100 * Sqrt(10) : 1 range)"
-    AVCOL_TRC_IEC61966_2_4 = 11,
-    // < IEC 61966-2-4
-    AVCOL_TRC_BT1361_ECG = 12,
-    // < ITU-R BT1361 Extended Colour Gamut
-    AVCOL_TRC_IEC61966_2_1 = 13,
-    // < IEC 61966-2-1 (sRGB or sYCC)
-    AVCOL_TRC_BT2020_10 = 14,
-    // < ITU-R BT2020 for 10-bit system
-    AVCOL_TRC_BT2020_12 = 15,
-    // < ITU-R BT2020 for 12-bit system
-    AVCOL_TRC_SMPTE2084 = 16,
-    // < SMPTE ST 2084 for 10-, 12-, 14- and 16-bit systems
-    AVCOL_TRC_SMPTEST2084 = AVCOL_TRC_SMPTE2084, AVCOL_TRC_SMPTE428 = 17,
-    // < SMPTE ST 428-1
-    AVCOL_TRC_SMPTEST428_1 = AVCOL_TRC_SMPTE428, AVCOL_TRC_ARIB_STD_B67 = 18,
-    // < ARIB STD-B67, known as "Hybrid log-gamma"
-    AVCOL_TRC_NB
-    // < Not part of ABI
+    AVCOL_TRC_UNSPECIFIED = 2,                   //
+    AVCOL_TRC_RESERVED = 3,                      //
+    AVCOL_TRC_GAMMA22 = 4,                       // < also ITU-R BT470M / ITU-R BT1700 625 PAL & SECAM
+    AVCOL_TRC_GAMMA28 = 5,                       // < also ITU-R BT470BG
+    AVCOL_TRC_SMPTE170M = 6,                     // < also ITU-R BT601-6 525 or 625 / ITU-R BT1358 525 or 625 / ITU-R BT1700 NTSC
+    AVCOL_TRC_SMPTE240M = 7,                     //
+    AVCOL_TRC_LINEAR = 8,                        // < "Linear transfer characteristics"
+    AVCOL_TRC_LOG = 9,                           // < "Logarithmic transfer characteristic (100:1 range)"
+    AVCOL_TRC_LOG_SQRT = 10,                     // < "Logarithmic transfer characteristic (100 * Sqrt(10) : 1 range)"
+    AVCOL_TRC_IEC61966_2_4 = 11,                 // < IEC 61966-2-4
+    AVCOL_TRC_BT1361_ECG = 12,                   // < ITU-R BT1361 Extended Colour Gamut
+    AVCOL_TRC_IEC61966_2_1 = 13,                 // < IEC 61966-2-1 (sRGB or sYCC)
+    AVCOL_TRC_BT2020_10 = 14,                    // < ITU-R BT2020 for 10-bit system
+    AVCOL_TRC_BT2020_12 = 15,                    // < ITU-R BT2020 for 12-bit system
+    AVCOL_TRC_SMPTE2084 = 16,                    // < SMPTE ST 2084 for 10-, 12-, 14- and 16-bit systems
+    AVCOL_TRC_SMPTEST2084 = AVCOL_TRC_SMPTE2084, //
+    AVCOL_TRC_SMPTE428 = 17,                     // < SMPTE ST 428-1
+    AVCOL_TRC_SMPTEST428_1 = AVCOL_TRC_SMPTE428, //
+    AVCOL_TRC_ARIB_STD_B67 = 18,                 // < ARIB STD-B67, known as "Hybrid log-gamma"
+    AVCOL_TRC_NB                                 // < Not part of ABI
     );
 
   (* *
@@ -3290,10 +3250,11 @@ type
   PVA_LIST = ^VA_LIST;
   VA_LIST = array [0 .. 0] of Pointer;
 
+const
   (* *
     * Print no output.
   *)
-const
+
   AV_LOG_QUIET = -8;
 
   (* *
@@ -4281,15 +4242,15 @@ procedure av_log_format_line(ptr: Pointer; level: int; const fmt: PAnsiChar; vl:
 function av_log_format_line2(ptr: Pointer; level: int; const fmt: PAnsiChar; vl: PVA_LIST; line: PAnsiChar; line_size: int; Var print_prefix: int): int; cdecl;
   external avutil_dll;
 
-(* *
-  * Skip repeated messages, this requires the user app to use av_log() instead of
-  * (f)printf as the 2 would otherwise interfere and lead to
-  * "Last message repeated x times" messages below (f)printf messages with some
-  * bad luck.
-  * Also to receive the last, "last repeated" line if any, the user app must
-  * call av_log(NULL, AV_LOG_QUIET, "%s", ""); at the end
-*)
 const
+  (* *
+    * Skip repeated messages, this requires the user app to use av_log() instead of
+    * (f)printf as the 2 would otherwise interfere and lead to
+    * "Last message repeated x times" messages below (f)printf messages with some
+    * bad luck.
+    * Also to receive the last, "last repeated" line if any, the user app must
+    * call av_log(NULL, AV_LOG_QUIET, "%s", ""); at the end
+  *)
   AV_LOG_SKIP_REPEATED = 1;
 
   (* *
@@ -4521,178 +4482,92 @@ const
   AV_ERROR_MAX_STRING_SIZE = 64;
 
   // errno.h
-  AVERROR_EPERM = -1;
-  // < Operation not permitted
-  AVERROR_ENOENT = -2;
-  // < No such file or directory
-  AVERROR_ESRCH = -3;
-  // < No such process
-  AVERROR_EINTR = -4;
-  // < Interrupted function call
-  AVERROR_EIO = -5;
-  // < I/O error
-  AVERROR_ENXIO = -6;
-  // < No such device or address
-  AVERROR_E2BIG = -7;
-  // < Argument list too long
-  AVERROR_ENOEXEC = -8;
-  // < Exec format error
-  AVERROR_EBADF = -9;
-  // < Bad file number
-  AVERROR_ECHILD = -10;
-  // < No child processes
-  AVERROR_EAGAIN = -11;
-  // < Resource temporarily unavailable / Try again
-  AVERROR_ENOMEM = -12;
-  // < Not enough space / Out of memory
-  AVERROR_EACCES = -13;
-  // < Permission denied
-  AVERROR_EFAULT = -14;
-  // < Bad address
-  AVERROR_ENOTBLK = -15;
-  // < Block device required (WIN: Unknown error)
-  AVERROR_EBUSY = -16;
-  // < Device or resource busy
-  AVERROR_EEXIST = -17;
-  // < File exists
-  AVERROR_EXDEV = -18;
-  // < Cross-device link
-  AVERROR_ENODEV = -19;
-  // < No such device
-  AVERROR_ENOTDIR = -20;
-  // < Not a directory
-  AVERROR_EISDIR = -21;
-  // < Is a directory
-  AVERROR_EINVAL = -22;
-  // < Invalid argument
-  AVERROR_ENFILE = -23;
-  // < Too many open files in system / File table overflow
-  AVERROR_EMFILE = -24;
-  // < Too many open files
-  AVERROR_ENOTTY = -25;
-  // < Inappropriate I/O control operation / Not a typewriter
-  AVERROR_ETXTBSY = -26;
-  // < Text file busy (WIN: Unknown error)
-  AVERROR_EFBIG = -27;
-  // < File too large
-  AVERROR_ENOSPC = -28;
-  // < No space left on device
-  AVERROR_ESPIPE = -29;
-  // < Illegal seek
-  AVERROR_EROFS = -30;
-  // < Read-only file system
-  AVERROR_EMLINK = -31;
-  // < Too many links
-  AVERROR_EPIPE = -32;
-  // < Broken pipe
-  AVERROR_EDOM = -33;
-  // < Math argument out of domain of func
-  AVERROR_ERANGE = -34;
-  // < Math result not representable
-  AVERROR_EDEADLK = -36;
-  // < Resource deadlock avoided
-  AVERROR_ENAMETOOLONG = -38;
-  // < File name too long
-  AVERROR_ENOLCK = -39;
-  // < No locks available
-  AVERROR_ENOSYS = -40;
-  // < Function not implemented
-  AVERROR_ENOTEMPTY = -41;
-  // < Directory not empty
-  AVERROR_ELOOP = -114;
-  // < Too many symbolic links encountered
-  AVERROR_ENOMSG = -91;
-  // < No message of desired type (WIN: Unknown error)
-  AVERROR_EIDRM = -90;
-  // < Identifier removed (WIN: Unknown error)
-  AVERROR_ENOSTR = -99;
-  // < Device not a stream
-  AVERROR_ENODATA = -96;
-  // < No data available
-  AVERROR_ETIME = -101;
-  // < Timer expired
-  AVERROR_ENOSR = -98;
-  // < Out of streams resources
-  AVERROR_EREMOTE = -71;
-  // < Too many levels of remote in path
-  AVERROR_ENOLINK = -97;
-  // < Link has been severed
-  AVERROR_EMULTIHOP = -95;
-  // < Multihop attempted
-  AVERROR_EBADMSG = -94;
-  // < Not a data message
-  AVERROR_EPROTO = -134;
-  // < Protocol error
-  AVERROR_EOVERFLOW = -132;
-  // < Value too large for defined data type
-  AVERROR_EILSEQ = -42;
-  // < Illegal byte sequence
-  AVERROR_EUSERS = -68;
-  // < Too many users
-  AVERROR_ENOTSOCK = -128;
-  // < Socket operation on non-socket
-  AVERROR_EDESTADDRREQ = -109;
-  // < Destination address required
-  AVERROR_EMSGSIZE = -115;
-  // < Message too long
-  AVERROR_EPROTOTYPE = -136;
-  // < Protocol wrong type for socket
-  AVERROR_ENOPROTOOPT = -123;
-  // < Protocol not available
-  AVERROR_EPROTONOSUPPORT = -135;
-  // < Protocol not supported
-  AVERROR_ESOCKTNOSUPPORT = -44;
-  // < Socket type not supported
-  AVERROR_EOPNOTSUPP = -130;
-  // < Operation not supported on transport endpoint
-  AVERROR_EPFNOSUPPORT = -46;
-  // < Protocol family not supported
-  AVERROR_EAFNOSUPPORT = -102;
-  // < Address family not supported by protocol
-  AVERROR_EADDRINUSE = -100;
-  // < Address already in use
-  AVERROR_EADDRNOTAVAIL = -101;
-  // < Cannot assign requested address
-  AVERROR_ENETDOWN = -116;
-  // < Network is down
-  AVERROR_ENETUNREACH = -118;
-  // < Network is unreachable
-  AVERROR_ENETRESET = -117;
-  // < Network dropped connection because of reset
-  AVERROR_ECONNABORTED = -106;
-  // < Software caused connection abort
-  AVERROR_ECONNRESET = -108;
-  // < Connection reset by peer
-  AVERROR_ENOBUFS = -119;
-  // < No buffer space available
-  AVERROR_EISCONN = -113;
-  // < Transport endpoint is already connected
-  AVERROR_ENOTCONN = -126;
-  // < Transport endpoint is not connected
-  AVERROR_ESHUTDOWN = -58;
-  // < Cannot send after transport endpoint shutdown
-  AVERROR_ETOOMANYREFS = -59;
-  // < Too many references: cannot splice
-  AVERROR_ETIMEDOUT = -138;
-  // < Connection timed out
-  AVERROR_ECONNREFUSED = -107;
-  // < Connection refused
-  AVERROR_EHOSTDOWN = -64;
-  // < Host is down
-  AVERROR_EHOSTUNREACH = -110;
-  // < No route to host
-  AVERROR_EALREADY = -103;
-  // < Operation already in progress
-  AVERROR_EINPROGRESS = -112;
-  // < Operation now in progress
-  AVERROR_ESTALE = -70;
-  // < Stale NFS file handle
-  AVERROR_ECANCELED = -105;
-  // < Operation Canceled
-  AVERROR_EOWNERDEAD = -133;
-  // < Owner died
-  AVERROR_ENOTRECOVERABLE = -44;
-  // < State not recoverable
+  AVERROR_EPERM           = -1;   // < Operation not permitted
+  AVERROR_ENOENT          = -2;   // < No such file or directory
+  AVERROR_ESRCH           = -3;   // < No such process
+  AVERROR_EINTR           = -4;   // < Interrupted function call
+  AVERROR_EIO             = -5;   // < I/O error
+  AVERROR_ENXIO           = -6;   // < No such device or address
+  AVERROR_E2BIG           = -7;   // < Argument list too long
+  AVERROR_ENOEXEC         = -8;   // < Exec format error
+  AVERROR_EBADF           = -9;   // < Bad file number
+  AVERROR_ECHILD          = -10;  // < No child processes
+  AVERROR_EAGAIN          = -11;  // < Resource temporarily unavailable / Try again
+  AVERROR_ENOMEM          = -12;  // < Not enough space / Out of memory
+  AVERROR_EACCES          = -13;  // < Permission denied
+  AVERROR_EFAULT          = -14;  // < Bad address
+  AVERROR_ENOTBLK         = -15;  // < Block device required (WIN: Unknown error)
+  AVERROR_EBUSY           = -16;  // < Device or resource busy
+  AVERROR_EEXIST          = -17;  // < File exists
+  AVERROR_EXDEV           = -18;  // < Cross-device link
+  AVERROR_ENODEV          = -19;  // < No such device
+  AVERROR_ENOTDIR         = -20;  // < Not a directory
+  AVERROR_EISDIR          = -21;  // < Is a directory
+  AVERROR_EINVAL          = -22;  // < Invalid argument
+  AVERROR_ENFILE          = -23;  // < Too many open files in system / File table overflow
+  AVERROR_EMFILE          = -24;  // < Too many open files
+  AVERROR_ENOTTY          = -25;  // < Inappropriate I/O control operation / Not a typewriter
+  AVERROR_ETXTBSY         = -26;  // < Text file busy (WIN: Unknown error)
+  AVERROR_EFBIG           = -27;  // < File too large
+  AVERROR_ENOSPC          = -28;  // < No space left on device
+  AVERROR_ESPIPE          = -29;  // < Illegal seek
+  AVERROR_EROFS           = -30;  // < Read-only file system
+  AVERROR_EMLINK          = -31;  // < Too many links
+  AVERROR_EPIPE           = -32;  // < Broken pipe
+  AVERROR_EDOM            = -33;  // < Math argument out of domain of func
+  AVERROR_ERANGE          = -34;  // < Math result not representable
+  AVERROR_EDEADLK         = -36;  // < Resource deadlock avoided
+  AVERROR_ENAMETOOLONG    = -38;  // < File name too long
+  AVERROR_ENOLCK          = -39;  // < No locks available
+  AVERROR_ENOSYS          = -40;  // < Function not implemented
+  AVERROR_ENOTEMPTY       = -41;  // < Directory not empty
+  AVERROR_ELOOP           = -114; // < Too many symbolic links encountered
+  AVERROR_ENOMSG          = -91;  // < No message of desired type (WIN: Unknown error)
+  AVERROR_EIDRM           = -90;  // < Identifier removed (WIN: Unknown error)
+  AVERROR_ENOSTR          = -99;  // < Device not a stream
+  AVERROR_ENODATA         = -96;  // < No data available
+  AVERROR_ETIME           = -101; // < Timer expired
+  AVERROR_ENOSR           = -98;  // < Out of streams resources
+  AVERROR_EREMOTE         = -71;  // < Too many levels of remote in path
+  AVERROR_ENOLINK         = -97;  // < Link has been severed
+  AVERROR_EMULTIHOP       = -95;  // < Multihop attempted
+  AVERROR_EBADMSG         = -94;  // < Not a data message
+  AVERROR_EPROTO          = -134; // < Protocol error
+  AVERROR_EOVERFLOW       = -132; // < Value too large for defined data type
+  AVERROR_EILSEQ          = -42;  // < Illegal byte sequence
+  AVERROR_EUSERS          = -68;  // < Too many users
+  AVERROR_ENOTSOCK        = -128; // < Socket operation on non-socket
+  AVERROR_EDESTADDRREQ    = -109; // < Destination address required
+  AVERROR_EMSGSIZE        = -115; // < Message too long
+  AVERROR_EPROTOTYPE      = -136; // < Protocol wrong type for socket
+  AVERROR_ENOPROTOOPT     = -123; // < Protocol not available
+  AVERROR_EPROTONOSUPPORT = -135; // < Protocol not supported
+  AVERROR_ESOCKTNOSUPPORT = -44;  // < Socket type not supported
+  AVERROR_EOPNOTSUPP      = -130; // < Operation not supported on transport endpoint
+  AVERROR_EPFNOSUPPORT    = -46;  // < Protocol family not supported
+  AVERROR_EAFNOSUPPORT    = -102; // < Address family not supported by protocol
+  AVERROR_EADDRINUSE      = -100; // < Address already in use
+  AVERROR_EADDRNOTAVAIL   = -101; // < Cannot assign requested address
+  AVERROR_ENETDOWN        = -116; // < Network is down
+  AVERROR_ENETUNREACH     = -118; // < Network is unreachable
+  AVERROR_ENETRESET       = -117; // < Network dropped connection because of reset
+  AVERROR_ECONNABORTED    = -106; // < Software caused connection abort
+  AVERROR_ECONNRESET      = -108; // < Connection reset by peer
+  AVERROR_ENOBUFS         = -119; // < No buffer space available
+  AVERROR_EISCONN         = -113; // < Transport endpoint is already connected
+  AVERROR_ENOTCONN        = -126; // < Transport endpoint is not connected
+  AVERROR_ESHUTDOWN       = -58;  // < Cannot send after transport endpoint shutdown
+  AVERROR_ETOOMANYREFS    = -59;  // < Too many references: cannot splice
+  AVERROR_ETIMEDOUT       = -138; // < Connection timed out
+  AVERROR_ECONNREFUSED    = -107; // < Connection refused
+  AVERROR_EHOSTDOWN       = -64;  // < Host is down
+  AVERROR_EHOSTUNREACH    = -110; // < No route to host
+  AVERROR_EALREADY        = -103; // < Operation already in progress
+  AVERROR_EINPROGRESS     = -112; // < Operation now in progress
+  AVERROR_ESTALE          = -70;  // < Stale NFS file handle
+  AVERROR_ECANCELED       = -105; // < Operation Canceled
+  AVERROR_EOWNERDEAD      = -133; // < Owner died
+  AVERROR_ENOTRECOVERABLE = -44;  // < State not recoverable
 
   WSABASEERR = -10000;
 {$EXTERNALSYM WSABASEERR}
@@ -9032,7 +8907,7 @@ function av_map_videotoolbox_format_from_pixfmt(pix_fmt: AVPixelFormat): uint32_
   * return full range pixel formats via a flag.
 *)
 // uint32_t av_map_videotoolbox_format_from_pixfmt2(enum AVPixelFormat pix_fmt, bool full_range);
-function av_map_videotoolbox_format_from_pixfmt2(pix_fmt: AVPixelFormat; full_range: bool): uint32_t; cdecl; external avutil_dll;
+// function av_map_videotoolbox_format_from_pixfmt2(pix_fmt: AVPixelFormat; full_range: bool): uint32_t; cdecl; external avutil_dll; //4.2.2
 
 {$ENDREGION}
 {$REGION 'tx.h'}
@@ -9048,9 +8923,10 @@ Type
     re, im: float;
   end;
 
-  AVComplexDouble = record
-    re, im: double;
-  end;
+  // 4.2.2
+  // AVComplexDouble = record
+  // re, im: double;
+  // end;
 
   AVTXType = (
     (*
@@ -9062,15 +8938,18 @@ Type
       * Standard MDCT with sample data type of float and a scale type of
       * float. Length is the frame size, not the window size (which is 2x frame)
     *)
-    AV_TX_FLOAT_MDCT = 1,
-    (*
-      * Same as AV_TX_FLOAT_FFT with a data type of AVComplexDouble.
-    *)
-    AV_TX_DOUBLE_FFT = 2,
-    (*
-      * Same as AV_TX_FLOAT_MDCT with data and scale type of double.
-    *)
-    AV_TX_DOUBLE_MDCT = 3 //
+    AV_TX_FLOAT_MDCT = 1
+
+    // 4.2.2
+    // ,
+    // (*
+    // * Same as AV_TX_FLOAT_FFT with a data type of AVComplexDouble.
+    // *)
+    // AV_TX_DOUBLE_FFT = 2,
+    // (*
+    // * Same as AV_TX_FLOAT_MDCT with data and scale type of double.
+    // *)
+    // AV_TX_DOUBLE_MDCT = 3 //
     );
 
   (*
@@ -9112,6 +8991,73 @@ function av_tx_init(Var ctx: pAVTXContext; tx: av_tx_fn; &type: AVTXType; inv, l
 *)
 // void av_tx_uninit(AVTXContext **ctx);
 procedure av_tx_uninit(Var ctx: pAVTXContext); cdecl; external avutil_dll;
+{$ENDREGION}
+{$REGION 'lfg.h'}
+
+(* *
+  * Context structure for the Lagged Fibonacci PRNG.
+  * The exact layout, types and content of this struct may change and should
+  * not be accessed directly. Only its sizeof() is guranteed to stay the same
+  * to allow easy instanciation.
+*)
+type
+  pAVLFG = ^AVLFG;
+
+  AVLFG = record
+    state: array [0 .. 63] of uint;
+    index: int;
+  end;
+
+  // void av_lfg_init(AVLFG *c, unsigned int seed);
+procedure av_lfg_init(c: pAVLFG; seed: uint); cdecl; external avutil_dll;
+
+(* *
+  * Seed the state of the ALFG using binary data.
+  *
+  * Return value: 0 on success, negative value (AVERROR) on failure.
+*)
+// int av_lfg_init_from_data(AVLFG *c, const uint8_t *data, unsigned int length);
+function av_lfg_init_from_data(c: pAVLFG; const data: puint8_t; length: uint): int; cdecl; external avutil_dll;
+
+(* *
+  * Get the next random unsigned 32-bit number using an ALFG.
+  *
+  * Please also consider a simple LCG like state= state*1664525+1013904223,
+  * it may be good enough and faster for your specific use case.
+*)
+// static inline unsigned int av_lfg_get(AVLFG *c){
+// unsigned a = c->state[c->index & 63] = c->state[(c->index-24) & 63] + c->state[(c->index-55) & 63];
+// c->index += 1U;
+// return a;
+// }
+function av_lfg_get(c: pAVLFG): uint; inline;
+
+(* *
+  * Get the next random unsigned 32-bit number using a MLFG.
+  *
+  * Please also consider av_lfg_get() above, it is faster.
+*)
+// static inline unsigned int av_mlfg_get(AVLFG *c){
+// unsigned int a= c->state[(c->index-55) & 63];
+// unsigned int b= c->state[(c->index-24) & 63];
+// a = c->state[c->index & 63] = 2*a*b+a+b;
+// c->index += 1U;
+// return a;
+// }
+
+function av_mlfg_get(c: pAVLFG): uint; inline;
+
+(* *
+  * Get the next two numbers generated by a Box-Muller Gaussian
+  * generator using the random numbers issued by lfg.
+  *
+  * @param out array where the two generated numbers are placed
+*)
+// void av_bmg_get(AVLFG *lfg, double out[2]);
+Type
+  Tav_bmg_get_arrayofdouble = array [0 .. 1] of double;
+
+procedure av_bmg_get(lfg: pAVLFG; &out: Tav_bmg_get_arrayofdouble); cdecl; external avutil_dll;
 {$ENDREGION}
 
 implementation
@@ -9262,7 +9208,7 @@ begin
     Result := a;
 end;
 
-function av_clip_uintp2_c(a: int; p: int): UINT; inline;
+function av_clip_uintp2_c(a: int; p: int): uint; inline;
 begin
   if (a and (not((1 shl p) - 1))) <> 0 then
     Result := (not a) shr 31 and ((1 shl p) - 1)
@@ -9270,9 +9216,9 @@ begin
     Result := a;
 end;
 
-function av_mod_uintp2_c(a: UINT; p: UINT): UINT; inline;
+function av_mod_uintp2_c(a: uint; p: uint): uint; inline;
 begin
-  Result := a and ((UINT(1) shl p) - 1);
+  Result := a and ((uint(1) shl p) - 1);
 end;
 
 function av_sat_add32_c(a: int; b: int): int; inline;
@@ -9518,7 +9464,7 @@ begin
     p := 'NOPTS'
   else
     str(ts, p);
-  m := Length(p);
+  m := length(p);
   if m > AV_TS_MAX_STRING_SIZE then
     m := AV_TS_MAX_STRING_SIZE;
   move(p[1], buf^, m);
@@ -9548,7 +9494,7 @@ begin
     p := 'NOPTS'
   else
     str((av_q2d(tb^) * ts): 1: 6, p);
-  m := Length(p);
+  m := length(p);
   if m > AV_TS_MAX_STRING_SIZE then
     m := AV_TS_MAX_STRING_SIZE;
   move(p[1], buf^, m);
@@ -9607,5 +9553,34 @@ begin
 end;
 
 {$ENDREGION}
+{$REGION 'lfg.h'}
+
+function av_lfg_get(c: pAVLFG): uint; inline;
+begin
+  // unsigned a = c->state[c->index & 63] = c->state[(c->index-24) & 63] + c->state[(c->index-55) & 63];
+  Result := c^.state[(c^.index - 24) and 63] + c^.state[(c^.index - 55) and 63];
+  c^.state[c^.index and 63] := Result;
+  // c->index += 1U;
+  c^.index := c^.index + 1;
+  // return a;
+end;
+
+function av_mlfg_get(c: pAVLFG): uint; inline;
+var
+  a, b: uint;
+begin
+  // unsigned int a= c->state[(c->index-55) & 63];
+  a := c^.state[(c^.index - 55) and 63];
+  // unsigned int b= c->state[(c->index-24) & 63];
+  b := c^.state[(c^.index - 24) and 63];
+  // a = c->state[c->index & 63] = 2*a*b+a+b;
+  Result := 2 * a * b + a + b;
+  c^.state[c^.index and 63] := Result;
+  // c->index += 1U;
+  // return a;
+end;
+
+{$ENDREGION}
 
 end.
+
