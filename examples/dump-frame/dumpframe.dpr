@@ -119,7 +119,8 @@ begin
 
     av_dump_format(fmt_ctx, 0, PAnsiChar(ansistring(input_file)), 0);
 
-    ret := av_find_best_stream(fmt_ctx, AVMEDIA_TYPE_VIDEO, -1, -1, nil, 0);
+    codec := nil;
+    ret := av_find_best_stream(fmt_ctx, AVMEDIA_TYPE_VIDEO, -1, -1, codec, 0);
     if ret < 0 then
     begin
       raise Exception.CreateFmt('Could not find %s stream', [string(ansistring(av_get_media_type_string(AVMEDIA_TYPE_VIDEO)))]);

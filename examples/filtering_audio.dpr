@@ -86,7 +86,7 @@ external 'msvcrt' name '_snprintf';
     end;
 
     (* select the audio stream *)
-    ret := av_find_best_stream(fmt_ctx, AVMEDIA_TYPE_AUDIO, -1, -1, @avdec, 0);
+    ret := av_find_best_stream(fmt_ctx, AVMEDIA_TYPE_AUDIO, -1, -1, avdec, 0);
     if ret < 0 then
     begin
       av_log(nil, AV_LOG_ERROR, 'Cannot find an audio stream in the input file'#10);

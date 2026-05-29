@@ -265,7 +265,7 @@ begin
   end;
 
   (* find the video stream information *)
-  ret := av_find_best_stream(input_ctx, AVMEDIA_TYPE_VIDEO, -1, -1, @decoder, 0);
+  ret := av_find_best_stream(input_ctx, AVMEDIA_TYPE_VIDEO, -1, -1, decoder, 0);
   if ret < 0 then
   begin
     Writeln(ErrOutput, 'Cannot find a video stream in the input file');

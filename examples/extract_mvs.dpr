@@ -115,7 +115,7 @@ begin
   avdec := nil;
   opts := nil;
 
-  ret := av_find_best_stream(fmt_ctx, type_, -1, -1, @avdec, 0);
+  ret := av_find_best_stream(fmt_ctx, type_, -1, -1, avdec, 0);
   if ret < 0 then
   begin
     Writeln(ErrOutput, Format('Could not find %s stream in input file "%s"',
