@@ -66,6 +66,9 @@
         <Projects Include="dump-frame\dumpframe.dproj">
             <Dependencies/>
         </Projects>
+        <Projects Include="mediainfo\MediaInfo.dproj">
+            <Dependencies/>
+        </Projects>
     </ItemGroup>
     <ProjectExtensions>
         <Borland.Personality>Default.Personality.12</Borland.Personality>
@@ -263,14 +266,23 @@
     <Target Name="dumpframe:Make">
         <MSBuild Projects="dump-frame\dumpframe.dproj" Targets="Make"/>
     </Target>
+    <Target Name="MediaInfo">
+        <MSBuild Projects="mediainfo\MediaInfo.dproj"/>
+    </Target>
+    <Target Name="MediaInfo:Clean">
+        <MSBuild Projects="mediainfo\MediaInfo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MediaInfo:Make">
+        <MSBuild Projects="mediainfo\MediaInfo.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="avio_dir_cmd;avio_reading;decode_audio;decode_video;decoding_encoding;demuxing_decoding;encode_audio;encode_video;extract_mvs;ffmpeg_sample_player;filter_audio;filtering_audio;filtering_video;hw_decode;metadata;muxing;remuxing;resampling_audio;scaling_video;Project1;dumpframe"/>
+        <CallTarget Targets="avio_dir_cmd;avio_reading;decode_audio;decode_video;decoding_encoding;demuxing_decoding;encode_audio;encode_video;extract_mvs;ffmpeg_sample_player;filter_audio;filtering_audio;filtering_video;hw_decode;metadata;muxing;remuxing;resampling_audio;scaling_video;Project1;dumpframe;MediaInfo"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="avio_dir_cmd:Clean;avio_reading:Clean;decode_audio:Clean;decode_video:Clean;decoding_encoding:Clean;demuxing_decoding:Clean;encode_audio:Clean;encode_video:Clean;extract_mvs:Clean;ffmpeg_sample_player:Clean;filter_audio:Clean;filtering_audio:Clean;filtering_video:Clean;hw_decode:Clean;metadata:Clean;muxing:Clean;remuxing:Clean;resampling_audio:Clean;scaling_video:Clean;Project1:Clean;dumpframe:Clean"/>
+        <CallTarget Targets="avio_dir_cmd:Clean;avio_reading:Clean;decode_audio:Clean;decode_video:Clean;decoding_encoding:Clean;demuxing_decoding:Clean;encode_audio:Clean;encode_video:Clean;extract_mvs:Clean;ffmpeg_sample_player:Clean;filter_audio:Clean;filtering_audio:Clean;filtering_video:Clean;hw_decode:Clean;metadata:Clean;muxing:Clean;remuxing:Clean;resampling_audio:Clean;scaling_video:Clean;Project1:Clean;dumpframe:Clean;MediaInfo:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="avio_dir_cmd:Make;avio_reading:Make;decode_audio:Make;decode_video:Make;decoding_encoding:Make;demuxing_decoding:Make;encode_audio:Make;encode_video:Make;extract_mvs:Make;ffmpeg_sample_player:Make;filter_audio:Make;filtering_audio:Make;filtering_video:Make;hw_decode:Make;metadata:Make;muxing:Make;remuxing:Make;resampling_audio:Make;scaling_video:Make;Project1:Make;dumpframe:Make"/>
+        <CallTarget Targets="avio_dir_cmd:Make;avio_reading:Make;decode_audio:Make;decode_video:Make;decoding_encoding:Make;demuxing_decoding:Make;encode_audio:Make;encode_video:Make;extract_mvs:Make;ffmpeg_sample_player:Make;filter_audio:Make;filtering_audio:Make;filtering_video:Make;hw_decode:Make;metadata:Make;muxing:Make;remuxing:Make;resampling_audio:Make;scaling_video:Make;Project1:Make;dumpframe:Make;MediaInfo:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

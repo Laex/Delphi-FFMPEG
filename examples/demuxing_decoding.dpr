@@ -189,8 +189,9 @@ var
   opts: PAVDictionary;
 begin
   opts := nil;
+  avdec := nil;
 
-  ret := av_find_best_stream(fmt_ctx, type_, -1, -1, nil, 0);
+  ret := av_find_best_stream(fmt_ctx, type_, -1, -1, avdec, 0);
   if ret < 0 then
   begin
     Writeln(ErrOutput, Format('Could not find %s stream in input file ''%s''', [string(av_get_media_type_string(type_)), src_filename]));
