@@ -282,7 +282,7 @@
    {$WARN UNSAFE_TYPE OFF} {Disable warning for unsafe types in Delphi 7}
    {$DEFINE Has_Int64}
    {$DEFINE HAS_TYPES}
-{$ENDIF ver180}
+{$ENDIF ver185}
 
 {$IFDEF VER230} { Delphi XE2 }
    {$DEFINE Delphi}
@@ -372,7 +372,7 @@
    {$WARN UNSAFE_TYPE OFF} {Disable warning for unsafe types in Delphi 7}
    {$DEFINE Has_Int64}
    {$DEFINE HAS_TYPES}
-{$ENDIF VER270}
+{$ENDIF VER280}
 
 {$IFDEF VER290} { Delphi XE8 }
    {$DEFINE Delphi}
@@ -387,7 +387,7 @@
    {$WARN UNSAFE_TYPE OFF} {Disable warning for unsafe types in Delphi 7}
    {$DEFINE Has_Int64}
    {$DEFINE HAS_TYPES}
-{$ENDIF VER270}
+{$ENDIF VER290}
 
 {$IFDEF VER300} { Delphi 10 }
    {$DEFINE Delphi}
