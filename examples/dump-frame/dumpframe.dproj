@@ -1,4 +1,4 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{359D11AB-F131-45B2-977A-9197FB25D35F}</ProjectGuid>
         <ProjectVersion>18.8</ProjectVersion>
@@ -81,6 +81,7 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
+        <DCC_UnitSearchPath>..\..\source;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
         <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
         <SanitizedProjectName>dumpframe</SanitizedProjectName>

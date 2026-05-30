@@ -1,4 +1,4 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{9A9168CE-E510-43EA-BA8D-0413CCAE674A}</ProjectGuid>
         <MainSource>ffmpeg_sample_player.dpr</MainSource>
@@ -67,6 +67,7 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
+        <DCC_UnitSearchPath>..\source;..\sdl;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_E>false</DCC_E>
         <DCC_F>false</DCC_F>
         <DCC_K>false</DCC_K>

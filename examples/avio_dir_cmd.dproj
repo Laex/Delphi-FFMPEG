@@ -1,4 +1,4 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
         <ProjectGuid>{5BDEC47C-6BF4-4211-893D-A0A9105B4657}</ProjectGuid>
         <MainSource>avio_dir_cmd.dpr</MainSource>
@@ -79,6 +79,7 @@
         <Base>true</Base>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
+        <DCC_UnitSearchPath>..\source;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <DCC_E>false</DCC_E>
         <DCC_F>false</DCC_F>
         <DCC_K>false</DCC_K>

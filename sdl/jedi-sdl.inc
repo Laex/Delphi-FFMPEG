@@ -449,6 +449,22 @@
    {$DEFINE HAS_TYPES}
 {$ENDIF VER330}
 
+{$IF CompilerVersion >= 34.0}
+   {$DEFINE Delphi}
+   {$DEFINE Delphi32}
+   {$DEFINE Delphi4UP}
+   {$DEFINE Delphi5UP}
+   {$DEFINE Delphi6UP}
+   {$DEFINE Delphi7UP}
+   {$DEFINE Delphi8UP}
+   {$DEFINE Delphi9UP}
+   {$DEFINE Delphi10UP}
+   {$WARN UNSAFE_TYPE OFF}
+   {$DEFINE Has_Int64}
+   {$DEFINE HAS_TYPES}
+   {$DEFINE JEDI_SDL_NO_EXTERNALSYM}
+{$IFEND}
+
 {$IFDEF UNIX}
   {$ifdef VER140}    // Kylix 1 & 2
     {$DEFINE KYLIX}
