@@ -5,7 +5,7 @@
   (*
     * Version constants synced with FFmpeg n8.1.1 (libav*/version.h).
     * DLL file names use VERSION_MAJOR only (stable across minor bumps).
-    * Runtime: BtbN shared build ffmpeg-n8.1-latest (see bin/download_ffmpeg_dll.ps1).
+    * Runtime: BtbN shared build ffmpeg-n8.1-latest (see bin/scripts/download_ffmpeg_dll.ps1).
   *)
 const
 {$REGION 'libavutil'}

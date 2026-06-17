@@ -1,22 +1,35 @@
-# PowerShell script to compile FFmpeg binding examples into bin/
+# PowerShell script to compile FFmpeg binding examples into bin/win32 or bin/win64
 
-Write-Host "=== Building examples ===" -ForegroundColor Green
+param(
+    [ValidateSet('Win32', 'Win64')]
+    [string]$Platform = 'Win64'
+)
+
+Write-Host "=== Building examples ($Platform) ===" -ForegroundColor Green
 
 $RootDir = (Get-Item ..).FullName
-$BinDir = Join-Path $RootDir "bin"
-$Dcc64 = "C:\Program Files (x86)\Embarcadero\Studio\37.0\bin\dcc64.exe"
+$BinDir = Join-Path $RootDir "bin\$($Platform.ToLower())"
 
-if (-not (Test-Path $Dcc64)) {
-    $Dcc64 = (Get-Command dcc64 -ErrorAction SilentlyContinue).Source
+if ($Platform -eq 'Win32') {
+    $Dcc = "C:\Program Files (x86)\Embarcadero\Studio\37.0\bin\dcc32.exe"
+    if (-not (Test-Path $Dcc)) {
+        $Dcc = (Get-Command dcc32 -ErrorAction SilentlyContinue).Source
+    }
+} else {
+    $Dcc = "C:\Program Files (x86)\Embarcadero\Studio\37.0\bin\dcc64.exe"
+    if (-not (Test-Path $Dcc)) {
+        $Dcc = (Get-Command dcc64 -ErrorAction SilentlyContinue).Source
+    }
 }
-if (-not $Dcc64) {
-    Write-Host "[ERROR] dcc64 not found in PATH" -ForegroundColor Red
+
+if (-not $Dcc) {
+    Write-Host "[ERROR] dcc$($Platform.Substring(3)) not found in PATH" -ForegroundColor Red
     exit 1
 }
 
 if (-not (Test-Path $BinDir)) {
     New-Item -ItemType Directory -Path $BinDir | Out-Null
-    Write-Host "Created bin directory" -ForegroundColor Yellow
+    Write-Host "Created $BinDir" -ForegroundColor Yellow
 }
 
 $CommonArgs = @(
@@ -57,7 +70,7 @@ foreach ($Project in $Projects) {
     Write-Host "Building $Name..." -NoNewline
 
     $Args = $CommonArgs + $Project.Extra + @("`"$((Join-Path $PSScriptRoot $Project.Path))`"")
-    $Process = Start-Process $Dcc64 -ArgumentList $Args -NoNewWindow -PassThru -Wait
+    $Process = Start-Process $Dcc -ArgumentList $Args -NoNewWindow -PassThru -Wait
 
     if ($Process.ExitCode -eq 0) {
         Write-Host " [OK]" -ForegroundColor Green
@@ -68,7 +81,7 @@ foreach ($Project in $Projects) {
     }
 }
 
-Write-Host "`n=== Build finished ===" -ForegroundColor Green
+Write-Host "`n=== Build finished ($Platform) ===" -ForegroundColor Green
 $Color = if ($FailedCount -gt 0) { "Red" } else { "Green" }
 Write-Host "Success: $SuccessCount, Failed: $FailedCount" -ForegroundColor $Color
 
