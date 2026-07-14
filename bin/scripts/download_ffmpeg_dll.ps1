@@ -36,6 +36,14 @@ try {
     }
     Write-Host " [OK]" -ForegroundColor Green
 
+    foreach ($Tool in @('ffmpeg.exe', 'ffprobe.exe')) {
+        $Src = Join-Path $DllSourcePath $Tool
+        if (Test-Path $Src) {
+            Copy-Item $Src $DestDir -Force
+            Write-Host "Copied $Tool" -ForegroundColor Yellow
+        }
+    }
+
     Write-Host "`nCopied libraries:" -ForegroundColor Green
     $Dlls | ForEach-Object { Write-Host " - $($_.Name)" -ForegroundColor Yellow }
 

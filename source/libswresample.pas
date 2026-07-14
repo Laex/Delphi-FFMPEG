@@ -1,4 +1,4 @@
-unit libswresample;
+﻿unit libswresample;
 
 {$IFDEF FPC}
 {$MODE Delphi}
@@ -170,7 +170,7 @@ type
     * @return the AVClass of SwrContext
   *)
   // const AVClass *swr_get_class(void);
-function swr_get_class(): pAVClass; cdecl; external swresample_dll;
+function swr_get_class(): pAVClass; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * @name SwrContext constructor functions
@@ -187,7 +187,7 @@ function swr_get_class(): pAVClass; cdecl; external swresample_dll;
   * @return NULL on error, allocated context otherwise
 *)
 // struct SwrContext *swr_alloc(void);
-function swr_alloc(): pSwrContext; cdecl; external swresample_dll;
+function swr_alloc(): pSwrContext; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Initialize context after user parameters have been set.
@@ -200,7 +200,7 @@ function swr_alloc(): pSwrContext; cdecl; external swresample_dll;
   * @return AVERROR error code in case of failure.
 *)
 // int swr_init(struct SwrContext *s);
-function swr_init(s: pSwrContext): int; cdecl; external swresample_dll;
+function swr_init(s: pSwrContext): int; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Check whether an swr context has been initialized or not.
@@ -210,7 +210,7 @@ function swr_init(s: pSwrContext): int; cdecl; external swresample_dll;
   * @return positive if it has been initialized, 0 if not initialized
 *)
 // int swr_is_initialized(struct SwrContext *s);
-function swr_is_initialized(s: pSwrContext): int; cdecl; external swresample_dll;
+function swr_is_initialized(s: pSwrContext): int; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Allocate SwrContext if needed and set/reset common parameters.
   *
@@ -238,7 +238,7 @@ function swr_is_initialized(s: pSwrContext): int; cdecl; external swresample_dll
 function swr_alloc_set_opts2(var ps: pSwrContext;
   const out_ch_layout: pAVChannelLayout; out_sample_fmt: AVSampleFormat; out_sample_rate: int;
   const in_ch_layout: pAVChannelLayout; in_sample_fmt: AVSampleFormat; in_sample_rate: int;
-  log_offset: int; log_ctx: Pointer): int; cdecl; external swresample_dll;
+  log_offset: int; log_ctx: Pointer): int; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @}
   *
@@ -252,7 +252,7 @@ function swr_alloc_set_opts2(var ps: pSwrContext;
   * @param[in] s a pointer to a pointer to Swr context
 *)
 // void swr_free(struct SwrContext **s);
-procedure swr_free(var s: pSwrContext); cdecl; external swresample_dll;
+procedure swr_free(var s: pSwrContext); cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Closes the context so that swr_is_initialized() returns 0.
   *
@@ -264,7 +264,7 @@ procedure swr_free(var s: pSwrContext); cdecl; external swresample_dll;
   * @param[in,out] s Swr context to be closed
 *)
 // void swr_close(struct SwrContext *s);
-procedure swr_close(s: pSwrContext); cdecl; external swresample_dll;
+procedure swr_close(s: pSwrContext); cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @}
   *
@@ -292,7 +292,7 @@ procedure swr_close(s: pSwrContext); cdecl; external swresample_dll;
 *)
 // int swr_convert(struct SwrContext *s, uint8_t **out, int out_count,
 // const uint8_t **in , int in_count);
-function swr_convert(s: pSwrContext; _out: ppuint8_t; out_count: int; const _in: ppuint8_t; in_count: int): int; cdecl; external swresample_dll;
+function swr_convert(s: pSwrContext; _out: ppuint8_t; out_count: int; const _in: ppuint8_t; in_count: int): int; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Convert the next timestamp from input to output
   * timestamps are in 1/(in_sample_rate * out_sample_rate) units.
@@ -311,7 +311,7 @@ function swr_convert(s: pSwrContext; _out: ppuint8_t; out_count: int; const _in:
   * @return the output timestamp for the next output sample
 *)
 // int64_t swr_next_pts(struct SwrContext *s, int64_t pts);
-function swr_next_pts(s: pSwrContext; pts: int64_t): int64_t; cdecl; external swresample_dll;
+function swr_next_pts(s: pSwrContext; pts: int64_t): int64_t; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @}
   *
@@ -338,7 +338,7 @@ function swr_next_pts(s: pSwrContext; pts: int64_t): int64_t; cdecl; external sw
   *            @li swr_init() fails when called.
 *)
 // int swr_set_compensation(struct SwrContext *s, int sample_delta, int compensation_distance);
-function swr_set_compensation(s: pSwrContext; sample_delta: int; compensation_distance: int): int; cdecl; external swresample_dll;
+function swr_set_compensation(s: pSwrContext; sample_delta: int; compensation_distance: int): int; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Set a customized input channel mapping.
   *
@@ -348,7 +348,7 @@ function swr_set_compensation(s: pSwrContext; sample_delta: int; compensation_di
   * @return >= 0 on success, or AVERROR error code in case of failure.
 *)
 // int swr_set_channel_mapping(struct SwrContext *s, const int *channel_map);
-function swr_set_channel_mapping(s: pSwrContext; const channel_map: pint): int; cdecl; external swresample_dll;
+function swr_set_channel_mapping(s: pSwrContext; const channel_map: pint): int; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Generate a channel mixing matrix.
   *
@@ -380,7 +380,7 @@ function swr_set_channel_mapping(s: pSwrContext; const channel_map: pint): int; 
 // void *log_ctx);
 function swr_build_matrix(in_layout: uint64_t; out_layout: uint64_t; center_mix_level: double; surround_mix_level: double;
   lfe_mix_level: double; rematrix_maxval: double; rematrix_volume: double; var matrix: double; stride: int;
-  matrix_encoding: AVMatrixEncoding; log_ctx: Pointer): int; cdecl; external swresample_dll;
+  matrix_encoding: AVMatrixEncoding; log_ctx: Pointer): int; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Set a customized remix matrix.
   *
@@ -391,7 +391,7 @@ function swr_build_matrix(in_layout: uint64_t; out_layout: uint64_t; center_mix_
   * @return  >= 0 on success, or AVERROR error code in case of failure.
 *)
 // int swr_set_matrix(struct SwrContext *s, const double *matrix, int stride);
-function swr_set_matrix(s: pSwrContext; const matrix: pdouble; stride: int): int; cdecl; external swresample_dll;
+function swr_set_matrix(s: pSwrContext; const matrix: pdouble; stride: int): int; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @}
   *
@@ -411,7 +411,7 @@ function swr_set_matrix(s: pSwrContext; const matrix: pdouble; stride: int): int
   * @return >= 0 on success, or a negative AVERROR code on failure
 *)
 // int swr_drop_output(struct SwrContext *s, int count);
-function swr_drop_output(s: pSwrContext; count: int): int; cdecl; external swresample_dll;
+function swr_drop_output(s: pSwrContext; count: int): int; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Injects the specified number of silence samples.
   *
@@ -424,7 +424,7 @@ function swr_drop_output(s: pSwrContext; count: int): int; cdecl; external swres
   * @return >= 0 on success, or a negative AVERROR code on failure
 *)
 // int swr_inject_silence(struct SwrContext *s, int count);
-function swr_inject_silence(s: pSwrContext; count: int): int; cdecl; external swresample_dll;
+function swr_inject_silence(s: pSwrContext; count: int): int; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Gets the delay the next input sample will experience relative to the next output sample.
   *
@@ -450,7 +450,7 @@ function swr_inject_silence(s: pSwrContext; count: int): int; cdecl; external sw
   * @returns     the delay in 1 / @c base units.
 *)
 // int64_t swr_get_delay(struct SwrContext *s, int64_t base);
-function swr_get_delay(s: pSwrContext; base: int64_t): int64_t; cdecl; external swresample_dll;
+function swr_get_delay(s: pSwrContext; base: int64_t): int64_t; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Find an upper bound on the number of samples that the next swr_convert
   * call will output, if called with in_samples of input samples. This
@@ -468,7 +468,7 @@ function swr_get_delay(s: pSwrContext; base: int64_t): int64_t; cdecl; external 
   *          will output or a negative value to indicate an error
 *)
 // int swr_get_out_samples(struct SwrContext *s, int in_samples);
-function swr_get_out_samples(s: pSwrContext; in_samples: int): int; cdecl; external swresample_dll;
+function swr_get_out_samples(s: pSwrContext; in_samples: int): int; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @}
   *
@@ -485,21 +485,21 @@ function swr_get_out_samples(s: pSwrContext; in_samples: int): int; cdecl; exter
   * @returns     the unsigned int-typed version
 *)
 // unsigned swresample_version(void);
-function swresample_version(): unsigned; cdecl; external swresample_dll;
+function swresample_version(): unsigned; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Return the swr build-time configuration.
   *
   * @returns     the build-time @c ./configure flags
 *)
 // const char *swresample_configuration(void);
-function swresample_configuration(): pAnsiChar; cdecl; external swresample_dll;
+function swresample_configuration(): pAnsiChar; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Return the swr license.
   *
   * @returns     the license of libswresample, determined at build-time
 *)
 // const char *swresample_license(void);
-function swresample_license(): pAnsiChar; cdecl; external swresample_dll;
+function swresample_license(): pAnsiChar; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @}
   *
@@ -542,7 +542,7 @@ function swresample_license(): pAnsiChar; cdecl; external swresample_dll;
   *                        configuration.
 *)
 // int swr_convert_frame(SwrContext *swr, AVFrame *output, const AVFrame *input);
-function swr_convert_frame(swr: pSwrContext; output: pAVFrame; const input: pAVFrame): int; cdecl; external swresample_dll;
+function swr_convert_frame(swr: pSwrContext; output: pAVFrame; const input: pAVFrame): int; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Configure or reconfigure the SwrContext using the information
   * provided by the AVFrames.
@@ -558,7 +558,7 @@ function swr_convert_frame(swr: pSwrContext; output: pAVFrame; const input: pAVF
   * @return                0 on success, AVERROR on failure.
 *)
 // int swr_config_frame(SwrContext *swr, const AVFrame *out, const AVFrame *in);
-function swr_config_frame(swr: pSwrContext; const _out: pAVFrame; const _in: pAVFrame): int; cdecl; external swresample_dll;
+function swr_config_frame(swr: pSwrContext; const _out: pAVFrame; const _in: pAVFrame): int; cdecl; external swresample_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 implementation
 

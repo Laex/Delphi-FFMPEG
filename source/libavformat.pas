@@ -1,4 +1,4 @@
-unit libavformat;
+﻿unit libavformat;
 
 {$IFDEF FPC}
 {$MODE Delphi}
@@ -734,7 +734,7 @@ type
     * @return Name of the protocol or NULL.
   *)
   // const char *avio_find_protocol_name(const char *url);
-function avio_find_protocol_name(const url: PAnsiChar): PAnsiChar; cdecl; external avformat_dll;
+function avio_find_protocol_name(const url: PAnsiChar): PAnsiChar; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return AVIO_FLAG_* access flags corresponding to the access permissions
@@ -749,7 +749,7 @@ function avio_find_protocol_name(const url: PAnsiChar): PAnsiChar; cdecl; extern
   * checked resource.
 *)
 // int avio_check(const char *url, int flags);
-function avio_check(const url: PAnsiChar; flags: int): int; cdecl; external avformat_dll;
+function avio_check(const url: PAnsiChar; flags: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Open directory for reading.
   *
@@ -761,7 +761,7 @@ function avio_check(const url: PAnsiChar; flags: int): int; cdecl; external avfo
   * @return >=0 on success or negative on error.
 *)
 // int avio_open_dir(AVIODirContext **s, const char *url, AVDictionary **options);
-function avio_open_dir(var s: pAVIODirContext; const url: PAnsiChar; options: ppAVDictionary): int; cdecl; external avformat_dll;
+function avio_open_dir(var s: pAVIODirContext; const url: PAnsiChar; options: ppAVDictionary): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Get next directory entry.
   *
@@ -774,7 +774,7 @@ function avio_open_dir(var s: pAVIODirContext; const url: PAnsiChar; options: pp
   *             error.
 *)
 // int avio_read_dir(AVIODirContext *s, AVIODirEntry **next);
-function avio_read_dir(s: pAVIODirContext; var next: pAVIODirEntry): int; cdecl; external avformat_dll;
+function avio_read_dir(s: pAVIODirContext; var next: pAVIODirEntry): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Close directory.
   *
@@ -785,14 +785,14 @@ function avio_read_dir(s: pAVIODirContext; var next: pAVIODirEntry): int; cdecl;
   * @return >=0 on success or negative on error.
 *)
 // int avio_close_dir(AVIODirContext **s);
-function avio_close_dir(var s: pAVIODirContext): int; cdecl; external avformat_dll;
+function avio_close_dir(var s: pAVIODirContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Free entry allocated by avio_read_dir().
   *
   * @param entry entry to be freed.
 *)
 // void avio_free_directory_entry(AVIODirEntry **entry);
-procedure avio_free_directory_entry(var entry: pAVIODirEntry); cdecl; external avformat_dll;
+procedure avio_free_directory_entry(var entry: pAVIODirEntry); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Allocate and initialize an AVIOContext for buffered I/O. It must be later
   * freed with avio_context_free().
@@ -835,7 +835,7 @@ type
   Tavio_alloc_context_seek = function(opaque: pointer; offset: int64_t; whence: int): int64_t; cdecl;
 
 function avio_alloc_context(buffer: punsigned_char; buffer_size: int; write_flag: int; opaque: pointer; read_packet: Tavio_alloc_context_read_packet;
-  write_packet: Tavio_alloc_context_write_packet; seek: Tavio_alloc_context_seek): pAVIOContext; cdecl; external avformat_dll;
+  write_packet: Tavio_alloc_context_write_packet; seek: Tavio_alloc_context_seek): pAVIOContext; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Free the supplied IO context and everything associated with it.
   *
@@ -843,43 +843,43 @@ function avio_alloc_context(buffer: punsigned_char; buffer_size: int; write_flag
   * into s.
 *)
 // void avio_context_free(AVIOContext **s);
-procedure avio_context_free(var s: pAVIOContext); cdecl; external avformat_dll;
+procedure avio_context_free(var s: pAVIOContext); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // void avio_w8(AVIOContext *s, int b);
-procedure avio_w8(s: pAVIOContext; b: int); cdecl; external avformat_dll;
+procedure avio_w8(s: pAVIOContext; b: int); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // void avio_write(AVIOContext *s, const unsigned char *buf, int size);
-procedure avio_write(s: pAVIOContext; const buf: punsigned_char; size: int); cdecl; external avformat_dll;
+procedure avio_write(s: pAVIOContext; const buf: punsigned_char; size: int); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // void avio_wl64(AVIOContext *s, uint64_t val);
-procedure avio_wl64(s: pAVIOContext; val: uint64_t); cdecl; external avformat_dll;
+procedure avio_wl64(s: pAVIOContext; val: uint64_t); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // void avio_wb64(AVIOContext *s, uint64_t val);
-procedure avio_wb64(s: pAVIOContext; val: uint64_t); cdecl; external avformat_dll;
+procedure avio_wb64(s: pAVIOContext; val: uint64_t); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // void avio_wl32(AVIOContext *s, unsigned int val);
-procedure avio_wl32(s: pAVIOContext; val: unsigned_int); cdecl; external avformat_dll;
+procedure avio_wl32(s: pAVIOContext; val: unsigned_int); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // void avio_wb32(AVIOContext *s, unsigned int val);
-procedure avio_wb32(s: pAVIOContext; val: unsigned_int); cdecl; external avformat_dll;
+procedure avio_wb32(s: pAVIOContext; val: unsigned_int); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // void avio_wl24(AVIOContext *s, unsigned int val);
-procedure avio_wl24(s: pAVIOContext; val: unsigned_int); cdecl; external avformat_dll;
+procedure avio_wl24(s: pAVIOContext; val: unsigned_int); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // void avio_wb24(AVIOContext *s, unsigned int val);
-procedure avio_wb24(s: pAVIOContext; val: unsigned_int); cdecl; external avformat_dll;
+procedure avio_wb24(s: pAVIOContext; val: unsigned_int); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // void avio_wl16(AVIOContext *s, unsigned int val);
-procedure avio_wl16(s: pAVIOContext; val: unsigned_int); cdecl; external avformat_dll;
+procedure avio_wl16(s: pAVIOContext; val: unsigned_int); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // void avio_wb16(AVIOContext *s, unsigned int val);
-procedure avio_wb16(s: pAVIOContext; val: unsigned_int); cdecl; external avformat_dll;
+procedure avio_wb16(s: pAVIOContext; val: unsigned_int); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Write a NULL-terminated string.
   * @return number of bytes written.
 *)
 // int avio_put_str(AVIOContext *s, const char *str);
-function avio_put_str(s: pAVIOContext; const str: PAnsiChar): int; cdecl; external avformat_dll;
+function avio_put_str(s: pAVIOContext; const str: PAnsiChar): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Convert an UTF-8 string to UTF-16LE and write it.
   * @param s the AVIOContext
@@ -888,7 +888,7 @@ function avio_put_str(s: pAVIOContext; const str: PAnsiChar): int; cdecl; extern
   * @return number of bytes written.
 *)
 // int avio_put_str16le(AVIOContext *s, const char *str);
-function avio_put_str16le(s: pAVIOContext; const str: PAnsiChar): int; cdecl; external avformat_dll;
+function avio_put_str16le(s: pAVIOContext; const str: PAnsiChar): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Convert an UTF-8 string to UTF-16BE and write it.
   * @param s the AVIOContext
@@ -897,7 +897,7 @@ function avio_put_str16le(s: pAVIOContext; const str: PAnsiChar): int; cdecl; ex
   * @return number of bytes written.
 *)
 // int avio_put_str16be(AVIOContext *s, const char *str);
-function avio_put_str16be(s: pAVIOContext; const str: PAnsiChar): int; cdecl; external avformat_dll;
+function avio_put_str16be(s: pAVIOContext; const str: PAnsiChar): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Mark the written bytestream as a specific type.
   *
@@ -909,7 +909,7 @@ function avio_put_str16be(s: pAVIOContext; const str: PAnsiChar): int; cdecl; ex
   * @param type the kind of data written starting at the current pos
 *)
 // void avio_write_marker(AVIOContext *s, int64_t time, enum AVIODataMarkerType type);
-procedure avio_write_marker(s: pAVIOContext; time: int64_t; _type: AVIODataMarkerType); cdecl; external avformat_dll;
+procedure avio_write_marker(s: pAVIOContext; time: int64_t; _type: AVIODataMarkerType); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
   (* *
@@ -932,13 +932,13 @@ const
     * @return new position or AVERROR.
   *)
   // int64_t avio_seek(AVIOContext *s, int64_t offset, int whence);
-function avio_seek(s: pAVIOContext; offset: int64_t; whence: int): int64_t; cdecl; external avformat_dll;
+function avio_seek(s: pAVIOContext; offset: int64_t; whence: int): int64_t; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Skip given number of bytes forward
   * @return new position or AVERROR.
 *)
 // int64_t avio_skip(AVIOContext *s, int64_t offset);
-function avio_skip(s: pAVIOContext; offset: int64_t): int64_t; cdecl; external avformat_dll;
+function avio_skip(s: pAVIOContext; offset: int64_t): int64_t; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * ftell() equivalent for AVIOContext.
   * @return position or AVERROR.
@@ -954,13 +954,13 @@ function avio_tell(s: pAVIOContext): int64_t; inline;
   * @return filesize or AVERROR
 *)
 // int64_t avio_size(AVIOContext *s);
-function avio_size(s: pAVIOContext): int64_t; cdecl; external avformat_dll;
+function avio_size(s: pAVIOContext): int64_t; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Similar to feof() but also returns nonzero on read errors.
   * @return non zero if and only if at end of file or a read error happened when reading.
 *)
 // int avio_feof(AVIOContext *s);
-function avio_feof(s: pAVIOContext): int; cdecl; external avformat_dll;
+function avio_feof(s: pAVIOContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Writes a formatted string to the context.
@@ -975,7 +975,7 @@ function avio_feof(s: pAVIOContext): int; cdecl; external avformat_dll;
   * avio_print.
 *)
 // void avio_print_string_array(AVIOContext *s, const char *strings[]);
-//procedure avio_print_string_array(s: pAVIOContext; const strings: pAnsiCharArray); cdecl; external avformat_dll; //4.2.2
+//procedure avio_print_string_array(s: pAVIOContext; const strings: pAnsiCharArray); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF}; //4.2.2
 
 (*
   * Write strings (const char* ) to the context.
@@ -998,13 +998,13 @@ function avio_feof(s: pAVIOContext): int; cdecl; external avformat_dll;
   * read new data, and does not perform any seeks.
 *)
 // void avio_flush(AVIOContext *s);
-procedure avio_flush(s: pAVIOContext); cdecl; external avformat_dll;
+procedure avio_flush(s: pAVIOContext); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Read size bytes from AVIOContext into buf.
   * @return number of bytes read or AVERROR
 *)
 // int avio_read(AVIOContext *s, unsigned char *buf, int size);
-function avio_read(s: pAVIOContext; buf: punsigned_char; size: int): int; cdecl; external avformat_dll;
+function avio_read(s: pAVIOContext; buf: punsigned_char; size: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Read size bytes from AVIOContext into buf. Unlike avio_read(), this is allowed
   * to read fewer bytes than requested. The missing bytes can be read in the next
@@ -1013,7 +1013,7 @@ function avio_read(s: pAVIOContext; buf: punsigned_char; size: int): int; cdecl;
   * @return number of bytes read or AVERROR
 *)
 // int avio_read_partial(AVIOContext *s, unsigned char *buf, int size);
-function avio_read_partial(s: pAVIOContext; buf: punsigned_char; size: int): int; cdecl; external avformat_dll;
+function avio_read_partial(s: pAVIOContext; buf: punsigned_char; size: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @name Functions for reading from AVIOContext
   * @{
@@ -1022,30 +1022,30 @@ function avio_read_partial(s: pAVIOContext; buf: punsigned_char; size: int): int
   *       necessary
 *)
 // int avio_r8  (AVIOContext *s);
-function avio_r8(s: pAVIOContext): int; cdecl; external avformat_dll;
+function avio_r8(s: pAVIOContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // unsigned int avio_rl16(AVIOContext *s);
-function avio_rl16(s: pAVIOContext): unsigned_int; cdecl; external avformat_dll;
+function avio_rl16(s: pAVIOContext): unsigned_int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // unsigned int avio_rl24(AVIOContext *s);
-function avio_rl24(s: pAVIOContext): unsigned_int; cdecl; external avformat_dll;
+function avio_rl24(s: pAVIOContext): unsigned_int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // unsigned int avio_rl32(AVIOContext *s);
-function avio_rl32(s: pAVIOContext): unsigned_int; cdecl; external avformat_dll;
+function avio_rl32(s: pAVIOContext): unsigned_int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // uint64_t avio_rl64(AVIOContext *s);
-function avio_rl64(s: pAVIOContext): uint64_t; cdecl; external avformat_dll;
+function avio_rl64(s: pAVIOContext): uint64_t; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // unsigned int avio_rb16(AVIOContext *s);
-function avio_rb16(s: pAVIOContext): unsigned_int; cdecl; external avformat_dll;
+function avio_rb16(s: pAVIOContext): unsigned_int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // unsigned int avio_rb24(AVIOContext *s);
-function avio_rb24(s: pAVIOContext): unsigned_int; cdecl; external avformat_dll;
+function avio_rb24(s: pAVIOContext): unsigned_int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // unsigned int avio_rb32(AVIOContext *s);
-function avio_rb32(s: pAVIOContext): unsigned_int; cdecl; external avformat_dll;
+function avio_rb32(s: pAVIOContext): unsigned_int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // uint64_t avio_rb64(AVIOContext *s);
-function avio_rb64(s: pAVIOContext): uint64_t; cdecl; external avformat_dll;
+function avio_rb64(s: pAVIOContext): uint64_t; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @}
 *)
@@ -1063,7 +1063,7 @@ function avio_rb64(s: pAVIOContext): uint64_t; cdecl; external avformat_dll;
   * bytes actually read.
 *)
 // int avio_get_str(AVIOContext *pb, int maxlen, char *buf, int buflen);
-function avio_get_str(pb: pAVIOContext; maxlen: int; buf: PAnsiChar; buflen: int): int; cdecl; external avformat_dll;
+function avio_get_str(pb: pAVIOContext; maxlen: int; buf: PAnsiChar; buflen: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Read a UTF-16 string from pb and convert it to UTF-8.
   * The reading will terminate when either a null or invalid character was
@@ -1071,10 +1071,10 @@ function avio_get_str(pb: pAVIOContext; maxlen: int; buf: PAnsiChar; buflen: int
   * @return number of bytes read (is always <= maxlen)
 *)
 // int avio_get_str16le(AVIOContext *pb, int maxlen, char *buf, int buflen);
-function avio_get_str16le(pb: pAVIOContext; maxlen: int; buf: PAnsiChar; buflen: int): int; cdecl; external avformat_dll;
+function avio_get_str16le(pb: pAVIOContext; maxlen: int; buf: PAnsiChar; buflen: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // int avio_get_str16be(AVIOContext *pb, int maxlen, char *buf, int buflen);
-function avio_get_str16be(pb: pAVIOContext; maxlen: int; buf: PAnsiChar; buflen: int): int; cdecl; external avformat_dll;
+function avio_get_str16be(pb: pAVIOContext; maxlen: int; buf: PAnsiChar; buflen: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
   (* *
@@ -1124,7 +1124,7 @@ const
     * AVERROR code in case of failure
   *)
   // int avio_open(AVIOContext **s, const char *url, int flags);
-function avio_open(var s: pAVIOContext; const url: PAnsiChar; flags: int): int; cdecl; external avformat_dll;
+function avio_open(var s: pAVIOContext; const url: PAnsiChar; flags: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Create and initialize a AVIOContext for accessing the
   * resource indicated by url.
@@ -1145,7 +1145,7 @@ function avio_open(var s: pAVIOContext; const url: PAnsiChar; flags: int): int; 
 *)
 // int avio_open2(AVIOContext **s, const char *url, int flags, const AVIOInterruptCB *int_cb, AVDictionary **options);
 function avio_open2(var s: pAVIOContext; const url: PAnsiChar; flags: int; const int_cb: pAVIOInterruptCB; var options: pAVDictionary): int; cdecl;
-  external avformat_dll;
+  external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Close the resource accessed by the AVIOContext s and free it.
   * This function can only be used if s was opened by avio_open().
@@ -1157,7 +1157,7 @@ function avio_open2(var s: pAVIOContext; const url: PAnsiChar; flags: int; const
   * @see avio_closep
 *)
 // int avio_close(AVIOContext *s);
-function avio_close(s: pAVIOContext): int; cdecl; external avformat_dll;
+function avio_close(s: pAVIOContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Close the resource accessed by the AVIOContext *s, free it
   * and set the pointer pointing to it to NULL.
@@ -1170,7 +1170,7 @@ function avio_close(s: pAVIOContext): int; cdecl; external avformat_dll;
   * @see avio_close
 *)
 // int avio_closep(AVIOContext **s);
-function avio_closep(var s: pAVIOContext): int; cdecl; external avformat_dll;
+function avio_closep(var s: pAVIOContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Open a write only memory stream.
   *
@@ -1178,7 +1178,7 @@ function avio_closep(var s: pAVIOContext): int; cdecl; external avformat_dll;
   * @return zero if no error.
 *)
 // int avio_open_dyn_buf(AVIOContext **s);
-function avio_open_dyn_buf(var s: pAVIOContext): int; cdecl; external avformat_dll;
+function avio_open_dyn_buf(var s: pAVIOContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Return the written size and a pointer to the buffer.
   * The AVIOContext stream is left intact.
@@ -1190,7 +1190,7 @@ function avio_open_dyn_buf(var s: pAVIOContext): int; cdecl; external avformat_d
   * @return the length of the byte buffer
 *)
 // int avio_get_dyn_buf(AVIOContext *s, uint8_t **pbuffer);
-function avio_get_dyn_buf(s: pAVIOContext; var pbuffer: puint8_t): int; cdecl; external avformat_dll;
+function avio_get_dyn_buf(s: pAVIOContext; var pbuffer: puint8_t): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Return the written size and a pointer to the buffer. The buffer
   * must be freed with av_free().
@@ -1201,7 +1201,7 @@ function avio_get_dyn_buf(s: pAVIOContext; var pbuffer: puint8_t): int; cdecl; e
   * @return the length of the byte buffer
 *)
 // int avio_close_dyn_buf(AVIOContext *s, uint8_t **pbuffer);
-function avio_close_dyn_buf(s: pAVIOContext; var pbuffer: puint8_t): int; cdecl; external avformat_dll;
+function avio_close_dyn_buf(s: pAVIOContext; var pbuffer: puint8_t): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Iterate through names of available protocols.
   *
@@ -1214,7 +1214,7 @@ function avio_close_dyn_buf(s: pAVIOContext; var pbuffer: puint8_t): int; cdecl;
   * @return A static string containing the name of current protocol or NULL
 *)
 // const char *avio_enum_protocols(void **opaque, int output);
-function avio_enum_protocols(var opaque: pointer; output: int): PAnsiChar; cdecl; external avformat_dll;
+function avio_enum_protocols(var opaque: pointer; output: int): PAnsiChar; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Pause and resume playing - only meaningful if using a network streaming
   * protocol (e.g. MMS).
@@ -1223,7 +1223,7 @@ function avio_enum_protocols(var opaque: pointer; output: int): PAnsiChar; cdecl
   * @param pause 1 for pause, 0 for resume
 *)
 // int avio_pause(AVIOContext *h, int pause);
-function avio_pause(h: pAVIOContext; pause: int): int; cdecl; external avformat_dll;
+function avio_pause(h: pAVIOContext; pause: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Seek to a given timestamp relative to some component stream.
   * Only meaningful if using a network streaming protocol (e.g. MMS.).
@@ -1244,7 +1244,7 @@ function avio_pause(h: pAVIOContext; pause: int): int; cdecl; external avformat_
   * @see AVInputFormat::read_seek
 *)
 // int64_t avio_seek_time(AVIOContext *h, int stream_index, int64_t timestamp, int flags);
-function avio_seek_time(h: pAVIOContext; stream_index: int; timestamp: int64_t; flags: int): int64_t; cdecl; external avformat_dll;
+function avio_seek_time(h: pAVIOContext; stream_index: int; timestamp: int64_t; flags: int): int64_t; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Read contents of h into print buffer, up to max_size bytes, or up to EOF.
@@ -1253,7 +1253,7 @@ function avio_seek_time(h: pAVIOContext; stream_index: int; timestamp: int64_t; 
   * code otherwise
 *)
 // int avio_read_to_bprint(AVIOContext *h, struct AVBPrint *pb, size_t max_size);
-function avio_read_to_bprint(h: pAVIOContext; pb: pAVBPrint; max_size: size_t): int; cdecl; external avformat_dll;
+function avio_read_to_bprint(h: pAVIOContext; pb: pAVBPrint; max_size: size_t): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Accept and allocate a client context on a server context.
   * @param  s the server context
@@ -1262,7 +1262,7 @@ function avio_read_to_bprint(h: pAVIOContext; pb: pAVBPrint; max_size: size_t): 
   *           to an AVERROR on failure
 *)
 // int avio_accept(AVIOContext *s, AVIOContext **c);
-function avio_accept(s: pAVIOContext; var c: pAVIOContext): int; cdecl; external avformat_dll;
+function avio_accept(s: pAVIOContext; var c: pAVIOContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Perform one step of the protocol handshake to accept a new client.
   * This function must be called on a client returned by avio_accept() before
@@ -1283,7 +1283,7 @@ function avio_accept(s: pAVIOContext; var c: pAVIOContext): int; cdecl; external
   *           < 0 for an AVERROR code
 *)
 // int avio_handshake(AVIOContext *c);
-function avio_handshake(c: pAVIOContext): int; cdecl; external avformat_dll;
+function avio_handshake(c: pAVIOContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 
 const
@@ -2139,7 +2139,7 @@ type
     * @return >0 (read size) if OK, AVERROR_xxx otherwise
   *)
   // int av_get_packet(AVIOContext *s, AVPacket *pkt, int size);
-function av_get_packet(s: pAVIOContext; pkt: pAVPacket; size: int): int; cdecl; external avformat_dll;
+function av_get_packet(s: pAVIOContext; pkt: pAVPacket; size: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Read data and append it to the current content of the AVPacket.
   * If pkt->size is 0 this is identical to av_get_packet.
@@ -2155,7 +2155,7 @@ function av_get_packet(s: pAVIOContext; pkt: pAVPacket; size: int): int; cdecl; 
   *         will not be lost even if an error occurs.
 *)
 // int av_append_packet(AVIOContext *s, AVPacket *pkt, int size);
-function av_append_packet(s: pAVIOContext; pkt: pAVPacket; size: int): int; cdecl; external avformat_dll;
+function av_append_packet(s: pAVIOContext; pkt: pAVPacket; size: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *********************************************** *)
 
 {$IFDEF FF_API_FORMAT_GET_SET}
@@ -2165,30 +2165,30 @@ function av_append_packet(s: pAVIOContext; pkt: pAVPacket; size: int): int; cdec
 *)
 // attribute_deprecated
 // AVRational av_stream_get_r_frame_rate(const AVStream *s);
-function av_stream_get_r_frame_rate(const s: pAVStream): AVRational; cdecl; external avformat_dll;
+function av_stream_get_r_frame_rate(const s: pAVStream): AVRational; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated
 // void av_stream_set_r_frame_rate(AVStream *s, AVRational r);
-procedure av_stream_set_r_frame_rate(s: pAVStream; r: AVRational); cdecl; external avformat_dll;
+procedure av_stream_set_r_frame_rate(s: pAVStream; r: AVRational); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$IFDEF FF_API_LAVF_FFSERVER}
 // attribute_deprecated
 // char* av_stream_get_recommended_encoder_configuration(const AVStream *s);
-function av_stream_get_recommended_encoder_configuration(const s: pAVStream): PAnsiChar; cdecl; external avformat_dll;
+function av_stream_get_recommended_encoder_configuration(const s: pAVStream): PAnsiChar; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated
 // void  av_stream_set_recommended_encoder_configuration(AVStream *s, char *configuration);
-procedure av_stream_set_recommended_encoder_configuration(s: pAVStream; configuration: PAnsiChar); cdecl; external avformat_dll;
+procedure av_stream_set_recommended_encoder_configuration(s: pAVStream; configuration: PAnsiChar); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDIF}
 {$ENDIF}
 // struct AVCodecParserContext *av_stream_get_parser(const AVStream *s);
-function av_stream_get_parser(const s: pAVStream): pAVCodecParserContext; cdecl; external avformat_dll;
+function av_stream_get_parser(const s: pAVStream): pAVCodecParserContext; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Returns the pts of the last muxed packet + its duration
   *
   * the retuned value is undefined when used with a demuxer.
 *)
 // int64_t av_stream_get_end_pts(const AVStream *st);
-function av_stream_get_end_pts(const st: pAVStream): int64_t; cdecl; external avformat_dll;
+function av_stream_get_end_pts(const st: pAVStream): int64_t; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 {$IFDEF FF_API_FORMAT_GET_SET}
 (* *
@@ -2197,69 +2197,69 @@ function av_stream_get_end_pts(const st: pAVStream): int64_t; cdecl; external av
 *)
 // attribute_deprecated
 // int av_format_get_probe_score(const AVFormatContext *s);
-function av_format_get_probe_score(const s: pAVFormatContext): int; cdecl; external avformat_dll;
+function av_format_get_probe_score(const s: pAVFormatContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated
 // AVCodec * av_format_get_video_codec(const AVFormatContext *s);
-function av_format_get_video_codec(const s: pAVFormatContext): pAVCodec; cdecl; external avformat_dll;
+function av_format_get_video_codec(const s: pAVFormatContext): pAVCodec; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated
 // void av_format_set_video_codec(AVFormatContext *s, AVCodec *c);
-procedure av_format_set_video_codec(s: pAVFormatContext; c: pAVCodec); cdecl; external avformat_dll;
+procedure av_format_set_video_codec(s: pAVFormatContext; c: pAVCodec); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated
 // AVCodec * av_format_get_audio_codec(const AVFormatContext *s);
-function av_format_get_audio_codec(const s: pAVFormatContext): pAVCodec; cdecl; external avformat_dll;
+function av_format_get_audio_codec(const s: pAVFormatContext): pAVCodec; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated
 // void av_format_set_audio_codec(AVFormatContext *s, AVCodec *c);
-procedure av_format_set_audio_codec(s: pAVFormatContext; c: pAVCodec); cdecl; external avformat_dll;
+procedure av_format_set_audio_codec(s: pAVFormatContext; c: pAVCodec); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated
 // AVCodec *av_format_get_subtitle_codec(const AVFormatContext *s);
-function av_format_get_subtitle_codec(const s: pAVFormatContext): pAVCodec; cdecl; external avformat_dll;
+function av_format_get_subtitle_codec(const s: pAVFormatContext): pAVCodec; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated
 // void av_format_set_subtitle_codec(AVFormatContext *s, AVCodec *c);
-procedure av_format_set_subtitle_codec(s: pAVFormatContext; c: pAVCodec); cdecl; external avformat_dll;
+procedure av_format_set_subtitle_codec(s: pAVFormatContext; c: pAVCodec); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated
 // AVCodec *av_format_get_data_codec(const AVFormatContext *s);
-function av_format_get_data_codec(const s: pAVFormatContext): pAVCodec; cdecl; external avformat_dll;
+function av_format_get_data_codec(const s: pAVFormatContext): pAVCodec; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated
 // void av_format_set_data_codec(AVFormatContext *s, AVCodec *c);
-procedure av_format_set_data_codec(s: pAVFormatContext; c: pAVCodec); cdecl; external avformat_dll;
+procedure av_format_set_data_codec(s: pAVFormatContext; c: pAVCodec); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated
 // int av_format_get_metadata_header_padding(const AVFormatContext *s);
-function av_format_get_metadata_header_padding(const s: pAVFormatContext): int; cdecl; external avformat_dll;
+function av_format_get_metadata_header_padding(const s: pAVFormatContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated
 // void av_format_set_metadata_header_padding(AVFormatContext *s, int c);
-procedure av_format_set_metadata_header_padding(s: pAVFormatContext; c: int); cdecl; external avformat_dll;
+procedure av_format_set_metadata_header_padding(s: pAVFormatContext; c: int); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated
 // void *av_format_get_opaque(const AVFormatContext *s);
-function av_format_get_opaque(const s: pAVFormatContext): pointer; cdecl; external avformat_dll;
+function av_format_get_opaque(const s: pAVFormatContext): pointer; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated
 // void av_format_set_opaque(AVFormatContext *s, void *opaque);
-procedure av_format_set_opaque(s: pAVFormatContext; opaque: pointer); cdecl; external avformat_dll;
+procedure av_format_set_opaque(s: pAVFormatContext; opaque: pointer); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated
 // av_format_control_message av_format_get_control_message_cb(const AVFormatContext *s);
-function av_format_get_control_message_cb(const s: pAVFormatContext): Tav_format_control_message; cdecl; external avformat_dll;
+function av_format_get_control_message_cb(const s: pAVFormatContext): Tav_format_control_message; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated
 // void av_format_set_control_message_cb(AVFormatContext *s, av_format_control_message callback);
-procedure av_format_set_control_message_cb(s: pAVFormatContext; callback: Tav_format_control_message); cdecl; external avformat_dll;
+procedure av_format_set_control_message_cb(s: pAVFormatContext; callback: Tav_format_control_message); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$IFDEF FF_API_OLD_OPEN_CALLBACKS}
 // attribute_deprecated AVOpenCallback av_format_get_open_cb(const AVFormatContext *s);
-function av_format_get_open_cb(const s: pAVFormatContext): TAVOpenCallback; cdecl; external avformat_dll;
+function av_format_get_open_cb(const s: pAVFormatContext): TAVOpenCallback; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated void av_format_set_open_cb(AVFormatContext *s, AVOpenCallback callback);
-procedure av_format_set_open_cb(s: pAVFormatContext; callback: TAVOpenCallback); cdecl; external avformat_dll;
+procedure av_format_set_open_cb(s: pAVFormatContext; callback: TAVOpenCallback); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDIF}
 {$ENDIF}
 (* *
@@ -2267,7 +2267,7 @@ procedure av_format_set_open_cb(s: pAVFormatContext; callback: TAVOpenCallback);
   * of each stream as well as after any subsequent seek.
 *)
 // void av_format_inject_global_side_data(AVFormatContext *s);
-procedure av_format_inject_global_side_data(s: pAVFormatContext); cdecl; external avformat_dll;
+procedure av_format_inject_global_side_data(s: pAVFormatContext); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Returns the method used to set ctx->duration.
@@ -2275,7 +2275,7 @@ procedure av_format_inject_global_side_data(s: pAVFormatContext); cdecl; externa
   * @return AVFMT_DURATION_FROM_PTS, AVFMT_DURATION_FROM_STREAM, or AVFMT_DURATION_FROM_BITRATE.
 *)
 // enum AVDurationEstimationMethod av_fmt_ctx_get_duration_estimation_method(const AVFormatContext* ctx);
-function av_fmt_ctx_get_duration_estimation_method(const ctx: pAVFormatContext): AVDurationEstimationMethod; cdecl; external avformat_dll;
+function av_fmt_ctx_get_duration_estimation_method(const ctx: pAVFormatContext): AVDurationEstimationMethod; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * @defgroup lavf_core Core functions
@@ -2290,19 +2290,19 @@ function av_fmt_ctx_get_duration_estimation_method(const ctx: pAVFormatContext):
   * Return the LIBAVFORMAT_VERSION_INT constant.
 *)
 // unsigned avformat_version(void);
-function avformat_version(): unsigned; cdecl; external avformat_dll;
+function avformat_version(): unsigned; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return the libavformat build-time configuration.
 *)
 // const char *avformat_configuration(void);
-function avformat_configuration(): PAnsiChar; cdecl; external avformat_dll;
+function avformat_configuration(): PAnsiChar; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return the libavformat license.
 *)
 // const char *avformat_license(void);
-function avformat_license(): PAnsiChar; cdecl; external avformat_dll;
+function avformat_license(): PAnsiChar; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 {$IFDEF FF_API_NEXT}
 (* *
@@ -2314,12 +2314,12 @@ function avformat_license(): PAnsiChar; cdecl; external avformat_dll;
   * @see av_register_output_format()
 *)
 // attribute_deprecated void av_register_all(void);
-procedure av_register_all(); cdecl; external avformat_dll;
+procedure av_register_all(); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated void av_register_input_format(AVInputFormat *format);
-procedure av_register_input_format(format: pAVInputFormat); cdecl; external avformat_dll;
+procedure av_register_input_format(format: pAVInputFormat); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // attribute_deprecated void av_register_output_format(AVOutputFormat *format);
-procedure av_register_output_format(format: pAVOutputFormat); cdecl; external avformat_dll;
+procedure av_register_output_format(format: pAVOutputFormat); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDIF}
 (* *
   * Do global initialization of network libraries. This is optional,
@@ -2336,14 +2336,14 @@ procedure av_register_output_format(format: pAVOutputFormat); cdecl; external av
   * anymore.
 *)
 // int avformat_network_init(void);
-function avformat_network_init(): int; cdecl; external avformat_dll;
+function avformat_network_init(): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Undo the initialization done by avformat_network_init. Call it only
   * once for each time you called avformat_network_init.
 *)
 // int avformat_network_deinit(void);
-function avformat_network_deinit(): int; cdecl; external avformat_dll;
+function avformat_network_deinit(): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 {$IFDEF FF_API_NEXT}
 (* *
@@ -2353,7 +2353,7 @@ function avformat_network_deinit(): int; cdecl; external avformat_dll;
 *)
 // attribute_deprecated
 // AVInputFormat  *av_iformat_next(const AVInputFormat  *f);
-function av_iformat_next(const f: pAVInputFormat): pAVInputFormat; cdecl; external avformat_dll;
+function av_iformat_next(const f: pAVInputFormat): pAVInputFormat; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * If f is NULL, returns the first registered output format,
@@ -2362,7 +2362,7 @@ function av_iformat_next(const f: pAVInputFormat): pAVInputFormat; cdecl; extern
 *)
 // attribute_deprecated
 // AVOutputFormat *av_oformat_next(const AVOutputFormat *f);
-function av_oformat_next(const f: pAVOutputFormat): pAVOutputFormat; cdecl; external avformat_dll;
+function av_oformat_next(const f: pAVOutputFormat): pAVOutputFormat; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDIF}
 (* *
   * Iterate over all registered muxers.
@@ -2374,7 +2374,7 @@ function av_oformat_next(const f: pAVOutputFormat): pAVOutputFormat; cdecl; exte
   *         finished
 *)
 // const AVOutputFormat *av_muxer_iterate(void **opaque);
-function av_muxer_iterate(var opaque: pointer): pAVOutputFormat; cdecl; external avformat_dll;
+function av_muxer_iterate(var opaque: pointer): pAVOutputFormat; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Iterate over all registered demuxers.
@@ -2386,7 +2386,7 @@ function av_muxer_iterate(var opaque: pointer): pAVOutputFormat; cdecl; external
   *         finished
 *)
 // const AVInputFormat *av_demuxer_iterate(void **opaque);
-function av_demuxer_iterate(var opaque: pointer): pAVInputFormat; cdecl; external avformat_dll;
+function av_demuxer_iterate(var opaque: pointer): pAVInputFormat; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Allocate an AVFormatContext.
@@ -2394,14 +2394,14 @@ function av_demuxer_iterate(var opaque: pointer): pAVInputFormat; cdecl; externa
   * allocated by the framework within it.
 *)
 // AVFormatContext *avformat_alloc_context(void);
-function avformat_alloc_context(): pAVFormatContext; cdecl; external avformat_dll;
+function avformat_alloc_context(): pAVFormatContext; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Free an AVFormatContext and all its streams.
   * @param s context to free
 *)
 // void avformat_free_context(AVFormatContext *s);
-procedure avformat_free_context(s: pAVFormatContext); cdecl; external avformat_dll;
+procedure avformat_free_context(s: pAVFormatContext); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Get the AVClass for AVFormatContext. It can be used in combination with
@@ -2410,7 +2410,7 @@ procedure avformat_free_context(s: pAVFormatContext); cdecl; external avformat_d
   * @see av_opt_find().
 *)
 // const AVClass *avformat_get_class(void);
-function avformat_get_class(): pAVClass; cdecl; external avformat_dll;
+function avformat_get_class(): pAVClass; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Add a new stream to a media file.
@@ -2432,7 +2432,7 @@ function avformat_get_class(): pAVClass; cdecl; external avformat_dll;
   * @return newly created stream or NULL on error.
 *)
 // AVStream *avformat_new_stream(AVFormatContext *s, const AVCodec *c);
-function avformat_new_stream(s: pAVFormatContext; const c: pAVCodec): pAVStream; cdecl; external avformat_dll;
+function avformat_new_stream(s: pAVFormatContext; const c: pAVCodec): pAVStream; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Wrap an existing array as stream side data.
@@ -2448,7 +2448,7 @@ function avformat_new_stream(s: pAVFormatContext; const c: pAVCodec): pAVStream;
 *)
 // int av_stream_add_side_data(AVStream *st, enum AVPacketSideDataType type,
 // uint8_t *data, size_t size);
-function av_stream_add_side_data(st: pAVStream; _type: AVPacketSideDataType; data: puint8_t; size: size_t): int; cdecl; external avformat_dll;
+function av_stream_add_side_data(st: pAVStream; _type: AVPacketSideDataType; data: puint8_t; size: size_t): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Allocate new information from stream.
@@ -2460,7 +2460,7 @@ function av_stream_add_side_data(st: pAVStream; _type: AVPacketSideDataType; dat
 *)
 // uint8_t *av_stream_new_side_data(AVStream *stream,
 // enum AVPacketSideDataType type, int size);
-function av_stream_new_side_data(stream: pAVStream; _type: AVPacketSideDataType; size: int): puint8_t; cdecl; external avformat_dll;
+function av_stream_new_side_data(stream: pAVStream; _type: AVPacketSideDataType; size: int): puint8_t; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Get side information from stream.
   *
@@ -2471,10 +2471,10 @@ function av_stream_new_side_data(stream: pAVStream; _type: AVPacketSideDataType;
 *)
 // uint8_t *av_stream_get_side_data(const AVStream *stream,
 // enum AVPacketSideDataType type, int *size);
-function av_stream_get_side_data(const stream: pAVStream; _type: AVPacketSideDataType; var size: int): puint8_t; cdecl; external avformat_dll;
+function av_stream_get_side_data(const stream: pAVStream; _type: AVPacketSideDataType; var size: int): puint8_t; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // AVProgram *av_new_program(AVFormatContext *s, int id);
-function av_new_program(s: pAVFormatContext; id: int): pAVProgram; cdecl; external avformat_dll;
+function av_new_program(s: pAVFormatContext; id: int): pAVProgram; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Allocate an AVFormatContext for an output format.
@@ -2495,7 +2495,7 @@ function av_new_program(s: pAVFormatContext; id: int): pAVProgram; cdecl; extern
 // int avformat_alloc_output_context2(AVFormatContext **ctx, AVOutputFormat *oformat,
 // const char *format_name, const char *filename);
 function avformat_alloc_output_context2(var ctx: pAVFormatContext; oformat: pAVOutputFormat; const format_name: PAnsiChar; const filename: PAnsiChar): int;
-  cdecl; external avformat_dll;
+  cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * @addtogroup lavf_decoding
@@ -2506,7 +2506,7 @@ function avformat_alloc_output_context2(var ctx: pAVFormatContext; oformat: pAVO
   * Find AVInputFormat based on the short name of the input format.
 *)
 // AVInputFormat *av_find_input_format(const char *short_name);
-function av_find_input_format(const short_name: PAnsiChar): pAVInputFormat; cdecl; external avformat_dll;
+function av_find_input_format(const short_name: PAnsiChar): pAVInputFormat; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Guess the file format.
@@ -2516,7 +2516,7 @@ function av_find_input_format(const short_name: PAnsiChar): pAVInputFormat; cdec
   *                  demuxers with or without AVFMT_NOFILE are probed.
 *)
 // AVInputFormat *av_probe_input_format(AVProbeData *pd, int is_opened);
-function av_probe_input_format(pd: pAVProbeData; is_opened: int): pAVInputFormat; cdecl; external avformat_dll;
+function av_probe_input_format(pd: pAVProbeData; is_opened: int): pAVInputFormat; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Guess the file format.
@@ -2531,7 +2531,7 @@ function av_probe_input_format(pd: pAVProbeData; is_opened: int): pAVInputFormat
   *                  to retry with a larger probe buffer.
 *)
 // AVInputFormat *av_probe_input_format2(AVProbeData *pd, int is_opened, int *score_max);
-function av_probe_input_format2(pd: pAVProbeData; is_opened: int; var score_max: int): pAVInputFormat; cdecl; external avformat_dll;
+function av_probe_input_format2(pd: pAVProbeData; is_opened: int; var score_max: int): pAVInputFormat; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Guess the file format.
@@ -2541,7 +2541,7 @@ function av_probe_input_format2(pd: pAVProbeData; is_opened: int; var score_max:
   * @param score_ret The score of the best detection.
 *)
 // AVInputFormat *av_probe_input_format3(AVProbeData *pd, int is_opened, int *score_ret);
-function av_probe_input_format3(pd: pAVProbeData; is_opened: int; var score_ret: int): pAVInputFormat; cdecl; external avformat_dll;
+function av_probe_input_format3(pd: pAVProbeData; is_opened: int; var score_ret: int): pAVInputFormat; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Probe a bytestream to determine the input format. Each time a probe returns
@@ -2563,7 +2563,7 @@ function av_probe_input_format3(pd: pAVProbeData; is_opened: int; var score_ret:
 // const char *url, void *logctx,
 // unsigned int offset, unsigned int max_probe_size);
 function av_probe_input_buffer2(pb: pAVIOContext; var fmt: pAVInputFormat; const url: PAnsiChar; logctx: pointer; offset: unsigned_int;
-  max_probe_size: unsigned_int): int; cdecl; external avformat_dll;
+  max_probe_size: unsigned_int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Like av_probe_input_buffer2() but returns 0 on success
@@ -2572,7 +2572,7 @@ function av_probe_input_buffer2(pb: pAVIOContext; var fmt: pAVInputFormat; const
 // const char *url, void *logctx,
 // unsigned int offset, unsigned int max_probe_size);
 function av_probe_input_buffer(pb: pAVIOContext; var fmt: pAVInputFormat; const url: PAnsiChar; logctx: pointer; offset: unsigned_int;
-  max_probe_size: unsigned_int): int; cdecl; external avformat_dll;
+  max_probe_size: unsigned_int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Open an input stream and read the header. The codecs are not opened.
@@ -2594,12 +2594,12 @@ function av_probe_input_buffer(pb: pAVIOContext; var fmt: pAVInputFormat; const 
   * @note If you want to use custom IO, preallocate the format context and set its pb field.
 *)
 // int avformat_open_input(AVFormatContext **ps, const char *url, AVInputFormat *fmt, AVDictionary **options);
-function avformat_open_input(var ps: pAVFormatContext; const url: PAnsiChar; fmt: pAVInputFormat; options: ppAVDictionary): int; cdecl; overload; external avformat_dll;
-function avformat_open_input(var ps: pAVFormatContext; const url: PAnsiChar; fmt: pAVInputFormat; var options: pAVDictionary): int; cdecl; overload; external avformat_dll;
+function avformat_open_input(var ps: pAVFormatContext; const url: PAnsiChar; fmt: pAVInputFormat; options: ppAVDictionary): int; cdecl; overload; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
+function avformat_open_input(var ps: pAVFormatContext; const url: PAnsiChar; fmt: pAVInputFormat; var options: pAVDictionary): int; cdecl; overload; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // attribute_deprecated
 // int av_demuxer_open(AVFormatContext *ic);
-function av_demuxer_open(ic: pAVFormatContext): int; cdecl; external avformat_dll;
+function av_demuxer_open(ic: pAVFormatContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Read packets of a media file to get stream information. This
@@ -2623,8 +2623,8 @@ function av_demuxer_open(ic: pAVFormatContext): int; cdecl; external avformat_dl
   *       we do not waste time getting stuff the user does not need.
 *)
 // int avformat_find_stream_info(AVFormatContext *ic, AVDictionary **options);
-function avformat_find_stream_info(ic: pAVFormatContext; options: ppAVDictionary): int; cdecl; overload; external avformat_dll;
-function avformat_find_stream_info(ic: pAVFormatContext; Var options: pAVDictionary): int; cdecl; overload; external avformat_dll;
+function avformat_find_stream_info(ic: pAVFormatContext; options: ppAVDictionary): int; cdecl; overload; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
+function avformat_find_stream_info(ic: pAVFormatContext; Var options: pAVDictionary): int; cdecl; overload; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Find the programs which belong to a given stream.
@@ -2637,10 +2637,10 @@ function avformat_find_stream_info(ic: pAVFormatContext; Var options: pAVDiction
   *         the last program is not among the programs of ic.
 *)
 // AVProgram *av_find_program_from_stream(AVFormatContext *ic, AVProgram *last, int s);
-function av_find_program_from_stream(ic: pAVFormatContext; last: pAVProgram; s: int): pAVProgram; cdecl; external avformat_dll;
+function av_find_program_from_stream(ic: pAVFormatContext; last: pAVProgram; s: int): pAVProgram; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // void av_program_add_stream_index(AVFormatContext *ac, int progid, unsigned int idx);
-procedure av_program_add_stream_index(ac: pAVFormatContext; progid: int; idx: unsigned_int); cdecl; external avformat_dll;
+procedure av_program_add_stream_index(ac: pAVFormatContext; progid: int; idx: unsigned_int); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Find the "best" stream in the file.
@@ -2673,7 +2673,7 @@ procedure av_program_add_stream_index(ac: pAVFormatContext; progid: int; idx: un
 // AVCodec **decoder_ret,
 // int flags);
 function av_find_best_stream(ic: pAVFormatContext; _type: AVMediaType; wanted_stream_nb: int; related_stream: int; var decoder_ret: pAVCodec; flags: int): int;
-  cdecl; external avformat_dll;
+  cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return the next frame of a stream.
@@ -2700,8 +2700,8 @@ function av_find_best_stream(ic: pAVFormatContext; _type: AVMediaType; wanted_st
   * @return 0 if OK, < 0 on error or end of file
 *)
 // int av_read_frame(AVFormatContext *s, AVPacket *pkt);
-function av_read_frame(s: pAVFormatContext; pkt: pAVPacket): int; cdecl; overload; external avformat_dll;
-function av_read_frame(s: pAVFormatContext; var pkt: AVPacket): int; cdecl; overload; external avformat_dll;
+function av_read_frame(s: pAVFormatContext; pkt: pAVPacket): int; cdecl; overload; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
+function av_read_frame(s: pAVFormatContext; var pkt: AVPacket): int; cdecl; overload; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Seek to the keyframe at timestamp.
@@ -2717,7 +2717,7 @@ function av_read_frame(s: pAVFormatContext; var pkt: AVPacket): int; cdecl; over
   * @return >= 0 on success
 *)
 // int av_seek_frame(AVFormatContext *s, int stream_index, int64_t timestamp, int flags);
-function av_seek_frame(s: pAVFormatContext; stream_index: int; timestamp: int64_t; flags: int): int; cdecl; external avformat_dll;
+function av_seek_frame(s: pAVFormatContext; stream_index: int; timestamp: int64_t; flags: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Seek to timestamp ts.
@@ -2749,7 +2749,7 @@ function av_seek_frame(s: pAVFormatContext; stream_index: int; timestamp: int64_
 *)
 // int avformat_seek_file(AVFormatContext *s, int stream_index, int64_t min_ts, int64_t ts, int64_t max_ts, int flags);
 function avformat_seek_file(s: pAVFormatContext; stream_index: int; min_ts: int64_t; ts: int64_t; max_ts: int64_t; flags: int): int; cdecl;
-  external avformat_dll;
+  external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Discard all internally buffered data. This can be useful when dealing with
@@ -2768,14 +2768,14 @@ function avformat_seek_file(s: pAVFormatContext; stream_index: int; min_ts: int6
   * @return >=0 on success, error code otherwise
 *)
 // int avformat_flush(AVFormatContext *s);
-function avformat_flush(s: pAVFormatContext): int; cdecl; external avformat_dll;
+function avformat_flush(s: pAVFormatContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Start playing a network-based stream (e.g. RTSP stream) at the
   * current position.
 *)
 // int av_read_play(AVFormatContext *s);
-function av_read_play(s: pAVFormatContext): int; cdecl; external avformat_dll;
+function av_read_play(s: pAVFormatContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Pause a network-based stream (e.g. RTSP stream).
@@ -2783,14 +2783,14 @@ function av_read_play(s: pAVFormatContext): int; cdecl; external avformat_dll;
   * Use av_read_play() to resume it.
 *)
 // int av_read_pause(AVFormatContext *s);
-function av_read_pause(s: pAVFormatContext): int; cdecl; external avformat_dll;
+function av_read_pause(s: pAVFormatContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Close an opened input AVFormatContext. Free it and all its contents
   * and set *s to NULL.
 *)
 // void avformat_close_input(AVFormatContext **s);
-procedure avformat_close_input(var s: pAVFormatContext); cdecl; external avformat_dll;
+procedure avformat_close_input(var s: pAVFormatContext); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * @}
@@ -2828,7 +2828,7 @@ const
   *)
   // av_warn_unused_result
   // int avformat_write_header(AVFormatContext *s, AVDictionary **options);
-function avformat_write_header(s: pAVFormatContext; options: ppAVDictionary): int; cdecl; external avformat_dll;
+function avformat_write_header(s: pAVFormatContext; options: ppAVDictionary): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Allocate the stream private data and initialize the codec, but do not write the header.
@@ -2851,7 +2851,7 @@ function avformat_write_header(s: pAVFormatContext; options: ppAVDictionary): in
 *)
 // av_warn_unused_result
 // int avformat_init_output(AVFormatContext *s, AVDictionary **options);
-function avformat_init_output(s: pAVFormatContext; var options: pAVDictionary): int; cdecl; external avformat_dll;
+function avformat_init_output(s: pAVFormatContext; var options: pAVDictionary): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Write a packet to an output media file.
@@ -2891,7 +2891,7 @@ function avformat_init_output(s: pAVFormatContext; var options: pAVDictionary): 
   * @see av_interleaved_write_frame()
 *)
 // int av_write_frame(AVFormatContext *s, AVPacket *pkt);
-function av_write_frame(s: pAVFormatContext; pkt: pAVPacket): int; cdecl; external avformat_dll;
+function av_write_frame(s: pAVFormatContext; pkt: pAVPacket): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Write a packet to an output media file ensuring correct interleaving.
   *
@@ -2936,7 +2936,7 @@ function av_write_frame(s: pAVFormatContext; pkt: pAVPacket): int; cdecl; extern
   * @see av_write_frame(), AVFormatContext.max_interleave_delta
 *)
 // int av_interleaved_write_frame(AVFormatContext *s, AVPacket *pkt);
-function av_interleaved_write_frame(s: pAVFormatContext; pkt: pAVPacket): int; cdecl; external avformat_dll;
+function av_interleaved_write_frame(s: pAVFormatContext; pkt: pAVPacket): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Write an uncoded frame to an output media file.
   *
@@ -2946,7 +2946,7 @@ function av_interleaved_write_frame(s: pAVFormatContext; pkt: pAVPacket): int; c
   * See av_interleaved_write_frame() for details.
 *)
 // int av_write_uncoded_frame(AVFormatContext *s, int stream_index, AVFrame *frame);
-function av_write_uncoded_frame(s: pAVFormatContext; stream_index: int; frame: pAVFrame): int; cdecl; external avformat_dll;
+function av_write_uncoded_frame(s: pAVFormatContext; stream_index: int; frame: pAVFrame): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Write an uncoded frame to an output media file.
   *
@@ -2964,7 +2964,7 @@ function av_write_uncoded_frame(s: pAVFormatContext; stream_index: int; frame: p
   * @return  >=0 for success, a negative code on error
 *)
 // int av_interleaved_write_uncoded_frame(AVFormatContext *s, int stream_index, AVFrame *frame);
-function av_interleaved_write_uncoded_frame(s: pAVFormatContext; stream_index: int; frame: pAVFrame): int; cdecl; external avformat_dll;
+function av_interleaved_write_uncoded_frame(s: pAVFormatContext; stream_index: int; frame: pAVFrame): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Test whether a muxer supports uncoded frame.
   *
@@ -2972,7 +2972,7 @@ function av_interleaved_write_uncoded_frame(s: pAVFormatContext; stream_index: i
   *          <0 if not
 *)
 // int av_write_uncoded_frame_query(AVFormatContext *s, int stream_index);
-function av_write_uncoded_frame_query(s: pAVFormatContext; stream_index: int): int; cdecl; external avformat_dll;
+function av_write_uncoded_frame_query(s: pAVFormatContext; stream_index: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Write the stream trailer to an output media file and free the
   * file private data.
@@ -2983,7 +2983,7 @@ function av_write_uncoded_frame_query(s: pAVFormatContext; stream_index: int): i
   * @return 0 if OK, AVERROR_xxx on error
 *)
 // int av_write_trailer(AVFormatContext *s);
-function av_write_trailer(s: pAVFormatContext): int; cdecl; external avformat_dll;
+function av_write_trailer(s: pAVFormatContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Return the output format in the list of registered output formats
   * which best matches the provided parameters, or return NULL if
@@ -2999,7 +2999,7 @@ function av_write_trailer(s: pAVFormatContext): int; cdecl; external avformat_dl
 // AVOutputFormat *av_guess_format(const char *short_name,
 // const char *filename,
 // const char *mime_type);
-function av_guess_format(const short_name: PAnsiChar; const filename: PAnsiChar; const mime_type: PAnsiChar): pAVOutputFormat; cdecl; external avformat_dll;
+function av_guess_format(const short_name: PAnsiChar; const filename: PAnsiChar; const mime_type: PAnsiChar): pAVOutputFormat; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Guess the codec ID based upon muxer and filename.
 *)
@@ -3007,7 +3007,7 @@ function av_guess_format(const short_name: PAnsiChar; const filename: PAnsiChar;
 // const char *filename, const char *mime_type,
 // enum AVMediaType type);
 function av_guess_codec(fmt: pAVOutputFormat; const short_name: PAnsiChar; const filename: PAnsiChar; const mime_type: PAnsiChar; _type: AVMediaType)
-  : AVCodecID; cdecl; external avformat_dll;
+  : AVCodecID; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Get timing information for the data currently output.
   * The exact meaning of "currently output" depends on the format.
@@ -3025,7 +3025,7 @@ function av_guess_codec(fmt: pAVOutputFormat; const short_name: PAnsiChar; const
 *)
 // int av_get_output_timestamp(struct AVFormatContext *s, int stream,
 // int64_t *dts, int64_t *wall);
-function av_get_output_timestamp(s: pAVFormatContext; stream: int; var dts: int64_t; var wall: int64_t): int; cdecl; external avformat_dll;
+function av_get_output_timestamp(s: pAVFormatContext; stream: int; var dts: int64_t; var wall: int64_t): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @}
 *)
@@ -3049,7 +3049,7 @@ function av_get_output_timestamp(s: pAVFormatContext; stream: int; var dts: int6
   * @see av_hex_dump_log, av_pkt_dump2, av_pkt_dump_log2
 *)
 // void av_hex_dump(FILE *f, const uint8_t *buf, int size);
-procedure av_hex_dump(f: pFILE; const buf: puint8_t; size: int); cdecl; external avformat_dll;
+procedure av_hex_dump(f: pFILE; const buf: puint8_t; size: int); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Send a nice hexadecimal dump of a buffer to the log.
   *
@@ -3063,7 +3063,7 @@ procedure av_hex_dump(f: pFILE; const buf: puint8_t; size: int); cdecl; external
   * @see av_hex_dump, av_pkt_dump2, av_pkt_dump_log2
 *)
 // void av_hex_dump_log(void *avcl, int level, const uint8_t *buf, int size);
-procedure av_hex_dump_log(avcl: pointer; level: int; const buf: puint8_t; size: int); cdecl; external avformat_dll;
+procedure av_hex_dump_log(avcl: pointer; level: int; const buf: puint8_t; size: int); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Send a nice dump of a packet to the specified file stream.
   *
@@ -3073,7 +3073,7 @@ procedure av_hex_dump_log(avcl: pointer; level: int; const buf: puint8_t; size: 
   * @param st AVStream that the packet belongs to
 *)
 // void av_pkt_dump2(FILE *f, const AVPacket *pkt, int dump_payload, const AVStream *st);
-procedure av_pkt_dump2(f: pFILE; const pkt: pAVPacket; dump_payload: int; const st: pAVStream); cdecl; external avformat_dll;
+procedure av_pkt_dump2(f: pFILE; const pkt: pAVPacket; dump_payload: int; const st: pAVStream); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Send a nice dump of a packet to the log.
   *
@@ -3087,7 +3087,7 @@ procedure av_pkt_dump2(f: pFILE; const pkt: pAVPacket; dump_payload: int; const 
 *)
 // void av_pkt_dump_log2(void *avcl, int level, const AVPacket *pkt, int dump_payload,
 // const AVStream *st);
-procedure av_pkt_dump_log2(avcl: pointer; level: int; const pkt: pAVPacket; dump_payload: int; const st: pAVStream); cdecl; external avformat_dll;
+procedure av_pkt_dump_log2(avcl: pointer; level: int; const pkt: pAVPacket; dump_payload: int; const st: pAVStream); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Get the AVCodecID for the given codec tag tag.
   * If no codec id is found returns AV_CODEC_ID_NONE.
@@ -3097,7 +3097,7 @@ procedure av_pkt_dump_log2(avcl: pointer; level: int; const pkt: pAVPacket; dump
   * @param tag  codec tag to match to a codec ID
 *)
 // enum AVCodecID av_codec_get_id(const struct AVCodecTag * const *tags, unsigned int tag);
-function av_codec_get_id(const tags: ppAVCodecTag; tag: unsigned_int): AVCodecID; cdecl; external avformat_dll;
+function av_codec_get_id(const tags: ppAVCodecTag; tag: unsigned_int): AVCodecID; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Get the codec tag for the given codec id id.
   * If no codec tag is found returns 0.
@@ -3107,7 +3107,7 @@ function av_codec_get_id(const tags: ppAVCodecTag; tag: unsigned_int): AVCodecID
   * @param id   codec ID to match to a codec tag
 *)
 // unsigned int av_codec_get_tag(const struct AVCodecTag * const *tags, enum AVCodecID id);
-function av_codec_get_tag(const tags: ppAVCodecTag; id: AVCodecID): unsigned_int; cdecl; external avformat_dll;
+function av_codec_get_tag(const tags: ppAVCodecTag; id: AVCodecID): unsigned_int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Get the codec tag for the given codec id.
   *
@@ -3119,10 +3119,10 @@ function av_codec_get_tag(const tags: ppAVCodecTag; id: AVCodecID): unsigned_int
 *)
 // int av_codec_get_tag2(const struct AVCodecTag * const *tags, enum AVCodecID id,
 // unsigned int *tag);
-function av_codec_get_tag2(const tags: ppAVCodecTag; id: AVCodecID; tag: punsigned_int): int; cdecl; external avformat_dll;
+function av_codec_get_tag2(const tags: ppAVCodecTag; id: AVCodecID; tag: punsigned_int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // int av_find_default_stream_index(AVFormatContext *s);
-function av_find_default_stream_index(s: pAVFormatContext): int; cdecl; external avformat_dll;
+function av_find_default_stream_index(s: pAVFormatContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Get the index for a specific timestamp.
   *
@@ -3135,7 +3135,7 @@ function av_find_default_stream_index(s: pAVFormatContext): int; cdecl; external
   * @return < 0 if no such timestamp could be found
 *)
 // int av_index_search_timestamp(AVStream *st, int64_t timestamp, int flags);
-function av_index_search_timestamp(st: pAVStream; timestamp: int64_t; flags: int): int; cdecl; external avformat_dll;
+function av_index_search_timestamp(st: pAVStream; timestamp: int64_t; flags: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Add an index entry into a sorted list. Update the entry if the list
   * already contains it.
@@ -3144,7 +3144,7 @@ function av_index_search_timestamp(st: pAVStream; timestamp: int64_t; flags: int
 *)
 // int av_add_index_entry(AVStream *st, int64_t pos, int64_t timestamp,
 // int size, int distance, int flags);
-function av_add_index_entry(st: pAVStream; pos: int64_t; timestamp: int64_t; size: int; distance: int; flags: int): int; cdecl; external avformat_dll;
+function av_add_index_entry(st: pAVStream; pos: int64_t; timestamp: int64_t; size: int; distance: int; flags: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Split a URL string into components.
   *
@@ -3171,7 +3171,7 @@ function av_add_index_entry(st: pAVStream; pos: int64_t; timestamp: int64_t; siz
 // char *path,          int path_size,
 // const char *url);
 procedure av_url_split(proto: PAnsiChar; proto_size: int; authorization: PAnsiChar; authorization_size: int; hostname: PAnsiChar; hostname_size: int;
-  var port_ptr: int; path: PAnsiChar; path_size: int; const url: PAnsiChar); cdecl; external avformat_dll;
+  var port_ptr: int; path: PAnsiChar; path_size: int; const url: PAnsiChar); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Print detailed information about the input or output format, such as
   * duration, bitrate, streams, container, programs, metadata, side data,
@@ -3186,7 +3186,7 @@ procedure av_url_split(proto: PAnsiChar; proto_size: int; authorization: PAnsiCh
 // int index,
 // const char *url,
 // int is_output);
-procedure av_dump_format(ic: pAVFormatContext; index: int; const url: PAnsiChar; is_output: int); cdecl; external avformat_dll;
+procedure av_dump_format(ic: pAVFormatContext; index: int; const url: PAnsiChar; is_output: int); cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
   AV_FRAME_FILENAME_FLAGS_MULTIPLE = 1; // < Allow multiple %d
@@ -3206,11 +3206,11 @@ const
   *)
   // int av_get_frame_filename2(char *buf, int buf_size,
   // const char *path, int number, int flags);
-function av_get_frame_filename2(buf: PAnsiChar; buf_size: int; const path: PAnsiChar; number: int; flags: int): int; cdecl; external avformat_dll;
+function av_get_frame_filename2(buf: PAnsiChar; buf_size: int; const path: PAnsiChar; number: int; flags: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // int av_get_frame_filename(char *buf, int buf_size,
 // const char *path, int number);
-function av_get_frame_filename(buf: PAnsiChar; buf_size: int; const path: PAnsiChar; number: int): int; cdecl; external avformat_dll;
+function av_get_frame_filename(buf: PAnsiChar; buf_size: int; const path: PAnsiChar; number: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Check whether filename actually is a numbered sequence generator.
   *
@@ -3218,7 +3218,7 @@ function av_get_frame_filename(buf: PAnsiChar; buf_size: int; const path: PAnsiC
   * @return 1 if a valid numbered sequence string, 0 otherwise
 *)
 // int av_filename_number_test(const char *filename);
-function av_filename_number_test(const filename: PAnsiChar): int; cdecl; external avformat_dll;
+function av_filename_number_test(const filename: PAnsiChar): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Generate an SDP for an RTP session.
   *
@@ -3237,7 +3237,7 @@ function av_filename_number_test(const filename: PAnsiChar): int; cdecl; externa
   * @return 0 if OK, AVERROR_xxx on error
 *)
 // int av_sdp_create(AVFormatContext *ac[], int n_files, char *buf, int size);
-function av_sdp_create(ac: ppAVFormatContext; n_files: int; buf: PAnsiChar; size: int): int; cdecl; external avformat_dll;
+function av_sdp_create(ac: ppAVFormatContext; n_files: int; buf: PAnsiChar; size: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Return a positive value if the given filename has one of the given
   * extensions, 0 otherwise.
@@ -3246,7 +3246,7 @@ function av_sdp_create(ac: ppAVFormatContext; n_files: int; buf: PAnsiChar; size
   * @param extensions a comma-separated list of filename extensions
 *)
 // int av_match_ext(const char *filename, const char *extensions);
-function av_match_ext(const filename: PAnsiChar; const extensions: PAnsiChar): int; cdecl; external avformat_dll;
+function av_match_ext(const filename: PAnsiChar; const extensions: PAnsiChar): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Test if the given container can store a codec.
   *
@@ -3259,7 +3259,7 @@ function av_match_ext(const filename: PAnsiChar; const extensions: PAnsiChar): i
 *)
 // int avformat_query_codec(const AVOutputFormat *ofmt, enum AVCodecID codec_id,
 // int std_compliance);
-function avformat_query_codec(const ofmt: pAVOutputFormat; codec_id: AVCodecID; std_compliance: int): int; cdecl; external avformat_dll;
+function avformat_query_codec(const ofmt: pAVOutputFormat; codec_id: AVCodecID; std_compliance: int): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @defgroup riff_fourcc RIFF FourCCs
   * @{
@@ -3276,22 +3276,22 @@ function avformat_query_codec(const ofmt: pAVOutputFormat; codec_id: AVCodecID; 
   * @return the table mapping RIFF FourCCs for video to libavcodec AVCodecID.
 *)
 // const struct AVCodecTag *avformat_get_riff_video_tags(void);
-function avformat_get_riff_video_tags(): pAVCodecTag; cdecl; external avformat_dll;
+function avformat_get_riff_video_tags(): pAVCodecTag; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return the table mapping RIFF FourCCs for audio to AVCodecID.
 *)
 // const struct AVCodecTag *avformat_get_riff_audio_tags(void);
-function avformat_get_riff_audio_tags(): pAVCodecTag; cdecl; external avformat_dll;
+function avformat_get_riff_audio_tags(): pAVCodecTag; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return the table mapping MOV FourCCs for video to libavcodec AVCodecID.
 *)
 // const struct AVCodecTag *avformat_get_mov_video_tags(void);
-function avformat_get_mov_video_tags(): pAVCodecTag; cdecl; external avformat_dll;
+function avformat_get_mov_video_tags(): pAVCodecTag; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return the table mapping MOV FourCCs for audio to AVCodecID.
 *)
 // const struct AVCodecTag *avformat_get_mov_audio_tags(void);
-function avformat_get_mov_audio_tags(): pAVCodecTag; cdecl; external avformat_dll;
+function avformat_get_mov_audio_tags(): pAVCodecTag; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @}
 *)
@@ -3314,7 +3314,7 @@ function avformat_get_mov_audio_tags(): pAVCodecTag; cdecl; external avformat_dl
   * @return the guessed (valid) sample_aspect_ratio, 0/1 if no idea
 *)
 // AVRational av_guess_sample_aspect_ratio(AVFormatContext *format, AVStream *stream, AVFrame *frame);
-function av_guess_sample_aspect_ratio(format: pAVFormatContext; stream: pAVStream; frame: pAVFrame): AVRational; cdecl; external avformat_dll;
+function av_guess_sample_aspect_ratio(format: pAVFormatContext; stream: pAVStream; frame: pAVFrame): AVRational; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Guess the frame rate, based on both the container and codec information.
   *
@@ -3324,7 +3324,7 @@ function av_guess_sample_aspect_ratio(format: pAVFormatContext; stream: pAVStrea
   * @return the guessed (valid) frame rate, 0/1 if no idea
 *)
 // AVRational av_guess_frame_rate(AVFormatContext *ctx, AVStream *stream, AVFrame *frame);
-function av_guess_frame_rate(ctx: pAVFormatContext; stream: pAVStream; frame: pAVFrame): AVRational; cdecl; external avformat_dll;
+function av_guess_frame_rate(ctx: pAVFormatContext; stream: pAVStream; frame: pAVFrame): AVRational; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Check if the stream st contained in s is matched by the stream specifier
   * spec.
@@ -3340,10 +3340,10 @@ function av_guess_frame_rate(ctx: pAVFormatContext; stream: pAVStream; frame: pA
 *)
 // int avformat_match_stream_specifier(AVFormatContext *s, AVStream *st,
 // const char *spec);
-function avformat_match_stream_specifier(s: pAVFormatContext; st: pAVStream; const spec: PAnsiChar): int; cdecl; external avformat_dll;
+function avformat_match_stream_specifier(s: pAVFormatContext; st: pAVStream; const spec: PAnsiChar): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // int avformat_queue_attached_pictures(AVFormatContext *s);
-function avformat_queue_attached_pictures(s: pAVFormatContext): int; cdecl; external avformat_dll;
+function avformat_queue_attached_pictures(s: pAVFormatContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$IFDEF FF_API_OLD_BSF}
 (* *
   * Apply a list of bitstream filters to a packet.
@@ -3359,7 +3359,7 @@ function avformat_queue_attached_pictures(s: pAVFormatContext): int; cdecl; exte
 // attribute_deprecated
 // int av_apply_bitstream_filters(AVCodecContext *codec, AVPacket *pkt,
 // AVBitStreamFilterContext *bsfc);
-function av_apply_bitstream_filters(codec: pAVCodecContext; pkt: pAVPacket; bsfc: pAVBitStreamFilterContext): int; cdecl; external avformat_dll;
+function av_apply_bitstream_filters(codec: pAVCodecContext; pkt: pAVPacket; bsfc: pAVBitStreamFilterContext): int; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDIF}
 
 type
@@ -3386,14 +3386,14 @@ type
   // AVStream *ost, const AVStream *ist,
   // enum AVTimebaseSource copy_tb);
 function avformat_transfer_internal_stream_timing_info(const ofmt: pAVOutputFormat; ost: pAVStream; const ist: pAVStream; copy_tb: AVTimebaseSource): int;
-  cdecl; external avformat_dll;
+  cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Get the internal codec timebase from a stream.
   *
   * @param st  input stream to extract the timebase from
 *)
 // AVRational av_stream_get_codec_timebase(const AVStream *st);
-function av_stream_get_codec_timebase(const st: AVStream): AVRational; cdecl; external avformat_dll;
+function av_stream_get_codec_timebase(const st: AVStream): AVRational; cdecl; external avformat_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 
 implementation

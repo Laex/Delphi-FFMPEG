@@ -1,4 +1,4 @@
-unit libswscale;
+﻿unit libswscale;
 
 {$IFDEF FPC}
 {$MODE Delphi}
@@ -19,19 +19,19 @@ Uses
   * Return the LIBSWSCALE_VERSION_INT constant.
 *)
 // unsigned swscale_version(void);
-function swscale_version(): unsigned; cdecl; external swscale_dll;
+function swscale_version(): unsigned; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Return the libswscale build-time configuration.
 *)
 // const char *swscale_configuration(void);
-function swscale_configuration(): pAnsiChar; cdecl; external swscale_dll;
+function swscale_configuration(): pAnsiChar; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Return the libswscale license.
 *)
 // const char *swscale_license(void);
-function swscale_license(): pAnsiChar; cdecl; external swscale_dll;
+function swscale_license(): pAnsiChar; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
   (* values for the flags, the stuff on the command line is different *)
@@ -83,7 +83,7 @@ const
     * SWS_CS_DEFAULT is used.
   *)
   // const int *sws_getCoefficients(int colorspace);
-function sws_getCoefficients(colorspace: int): pInt; cdecl; external swscale_dll;
+function sws_getCoefficients(colorspace: int): pInt; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // when used for filters they must have an odd number of elements
 // coeffs cannot be shared between vectors
@@ -127,14 +127,14 @@ type
     * otherwise.
   *)
   // int sws_isSupportedInput(enum AVPixelFormat pix_fmt);
-function sws_isSupportedInput(pix_fmt: AVPixelFormat): int; cdecl; external swscale_dll;
+function sws_isSupportedInput(pix_fmt: AVPixelFormat): int; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Return a positive value if pix_fmt is a supported output format, 0
   * otherwise.
 *)
 // int sws_isSupportedOutput(enum AVPixelFormat pix_fmt);
-function sws_isSupportedOutput(pix_fmt: AVPixelFormat): int; cdecl; external swscale_dll;
+function sws_isSupportedOutput(pix_fmt: AVPixelFormat): int; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * @param[in]  pix_fmt the pixel format
@@ -142,7 +142,7 @@ function sws_isSupportedOutput(pix_fmt: AVPixelFormat): int; cdecl; external sws
   * supported, 0 otherwise.
 *)
 // int sws_isSupportedEndiannessConversion(enum AVPixelFormat pix_fmt);
-function sws_isSupportedEndiannessConversion(pix_fmt: AVPixelFormat): int; cdecl; external swscale_dll;
+function sws_isSupportedEndiannessConversion(pix_fmt: AVPixelFormat): int; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Allocate an empty SwsContext. This must be filled and passed to
@@ -150,7 +150,7 @@ function sws_isSupportedEndiannessConversion(pix_fmt: AVPixelFormat): int; cdecl
   * sws_setColorspaceDetails().
 *)
 // struct SwsContext *sws_alloc_context(void);
-function sws_alloc_context(): pSwsContext; cdecl; external swscale_dll;
+function sws_alloc_context(): pSwsContext; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Initialize the swscaler context sws_context.
@@ -160,14 +160,14 @@ function sws_alloc_context(): pSwsContext; cdecl; external swscale_dll;
 *)
 // av_warn_unused_result
 // int sws_init_context(struct SwsContext *sws_context, SwsFilter *srcFilter, SwsFilter *dstFilter);
-function sws_init_context(sws_context: pSwsContext; srcFilter: pSwsFilter; dstFilter: pSwsFilter): int; cdecl; external swscale_dll;
+function sws_init_context(sws_context: pSwsContext; srcFilter: pSwsFilter; dstFilter: pSwsFilter): int; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Free the swscaler context swsContext.
   * If swsContext is NULL, then does nothing.
 *)
 // void sws_freeContext(struct SwsContext *swsContext);
-procedure sws_freeContext(SwsContext: pSwsContext); cdecl; external swscale_dll;
+procedure sws_freeContext(SwsContext: pSwsContext); cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Allocate and return an SwsContext. You need it to perform
@@ -182,7 +182,7 @@ procedure sws_freeContext(SwsContext: pSwsContext); cdecl; external swscale_dll;
   * @param flags specify which algorithm and options to use for rescaling
   * @param param extra parameters to tune the used scaler
   *              For SWS_BICUBIC param[0] and [1] tune the shape of the basis
-  *              function, param[0] tunes f(1) and param[1] f´(1)
+  *              function, param[0] tunes f(1) and param[1] fВґ(1)
   *              For SWS_GAUSS param[0] tunes the exponent and thus cutoff
   *              frequency
   *              For SWS_LANCZOS param[0] tunes the width of the window function
@@ -196,7 +196,7 @@ procedure sws_freeContext(SwsContext: pSwsContext); cdecl; external swscale_dll;
 // SwsFilter *dstFilter, const double *param);
 
 function sws_getContext(srcW: int; srcH: int; srcFormat: AVPixelFormat; dstW: int; dstH: int; dstFormat: AVPixelFormat; flags: int; srcFilter: pSwsFilter;
-  dstFilter: pSwsFilter; const param: pdouble): pSwsContext; cdecl; external swscale_dll;
+  dstFilter: pSwsFilter; const param: pdouble): pSwsContext; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Scale the image slice in srcSlice and put the resulting scaled
@@ -229,7 +229,7 @@ function sws_getContext(srcW: int; srcH: int; srcFormat: AVPixelFormat; dstW: in
 // const int srcStride[], int srcSliceY, int srcSliceH,
 // uint8_t *const dst[], const int dstStride[]);
 function sws_scale(c: pSwsContext; const srcSlice: psws_array_uint8_t; const srcStride: psws_array_int; srcSliceY: int; srcSliceH: int; dst: psws_array_uint8_t;
-  const dstStride: psws_array_int): int; cdecl; overload; external swscale_dll;
+  const dstStride: psws_array_int): int; cdecl; overload; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * @param dstRange flag indicating the while-black range of the output (1=jpeg / 0=mpeg)
@@ -245,7 +245,7 @@ function sws_scale(c: pSwsContext; const srcSlice: psws_array_uint8_t; const src
 // int srcRange, const int table[4], int dstRange,
 // int brightness, int contrast, int saturation);
 function sws_setColorspaceDetails(c: pSwsContext; const inv_table: psws_array4_int; srcRange: int; const table: psws_array4_int; dstRange: int; brightness: int;
-  contrast: int; saturation: int): int; cdecl; external swscale_dll;
+  contrast: int; saturation: int): int; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * @return -1 if not supported
@@ -254,63 +254,63 @@ function sws_setColorspaceDetails(c: pSwsContext; const inv_table: psws_array4_i
 // int *srcRange, int **table, int *dstRange,
 // int *brightness, int *contrast, int *saturation);
 function sws_getColorspaceDetails(c: pSwsContext; var inv_table: pInt; var srcRange: int; var table: pInt; var dstRange: int; var brightness: int;
-  var contrast: int; var saturation: int): int; cdecl; external swscale_dll;
+  var contrast: int; var saturation: int): int; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Allocate and return an uninitialized vector with length coefficients.
 *)
 // SwsVector *sws_allocVec(int length);
-function sws_allocVec(length: int): pSwsVector; cdecl; external swscale_dll;
+function sws_allocVec(length: int): pSwsVector; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Return a normalized Gaussian curve used to filter stuff
   * quality = 3 is high quality, lower is lower quality.
 *)
 // SwsVector *sws_getGaussianVec(double variance, double quality);
-function sws_getGaussianVec(variance: double; quality: double): pSwsVector; cdecl; external swscale_dll;
+function sws_getGaussianVec(variance: double; quality: double): pSwsVector; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Scale all the coefficients of a by the scalar value.
 *)
 // void sws_scaleVec(SwsVector *a, double scalar);
-procedure sws_scaleVec(a: pSwsVector; scalar: double); cdecl; external swscale_dll;
+procedure sws_scaleVec(a: pSwsVector; scalar: double); cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Scale all the coefficients of a so that their sum equals height.
 *)
 // void sws_normalizeVec(SwsVector *a, double height);
-procedure sws_normalizeVec(a: pSwsVector; height: double); cdecl; external swscale_dll;
+procedure sws_normalizeVec(a: pSwsVector; height: double); cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 {$IFDEF FF_API_SWS_VECTOR}
 // attribute_deprecated SwsVector *sws_getConstVec(double c, int length);
-function sws_getConstVec(c: double; length: int): pSwsVector; cdecl; external swscale_dll;
+function sws_getConstVec(c: double; length: int): pSwsVector; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // attribute_deprecated SwsVector *sws_getIdentityVec(void);
-function sws_getIdentityVec(): pSwsVector; cdecl; external swscale_dll;
+function sws_getIdentityVec(): pSwsVector; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // attribute_deprecated void sws_convVec(SwsVector *a, SwsVector *b);
-procedure sws_convVec(a: pSwsVector; b: pSwsVector); cdecl; external swscale_dll;
+procedure sws_convVec(a: pSwsVector; b: pSwsVector); cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // attribute_deprecated void sws_addVec(SwsVector *a, SwsVector *b);
-procedure sws_addVec(a: pSwsVector; b: pSwsVector); cdecl; external swscale_dll;
+procedure sws_addVec(a: pSwsVector; b: pSwsVector); cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // attribute_deprecated void sws_subVec(SwsVector *a, SwsVector *b);
-procedure sws_subVec(a: pSwsVector; b: pSwsVector); cdecl; external swscale_dll;
+procedure sws_subVec(a: pSwsVector; b: pSwsVector); cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // attribute_deprecated void sws_shiftVec(SwsVector *a, int shift);
-procedure sws_shiftVec(a: pSwsVector; shift: int); cdecl; external swscale_dll;
+procedure sws_shiftVec(a: pSwsVector; shift: int); cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // attribute_deprecated SwsVector *sws_cloneVec(SwsVector *a);
-function sws_cloneVec(a: pSwsVector): pSwsVector; cdecl; external swscale_dll;
+function sws_cloneVec(a: pSwsVector): pSwsVector; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // attribute_deprecated void sws_printVec2(SwsVector *a, AVClass *log_ctx, int log_level);
-procedure sws_printVec2(a: pSwsVector; log_ctx: pAVClass; log_level: int); cdecl; external swscale_dll;
+procedure sws_printVec2(a: pSwsVector; log_ctx: pAVClass; log_level: int); cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDIF}
 // void sws_freeVec(SwsVector *a);
-procedure sws_freeVec(a: pSwsVector); cdecl; external swscale_dll;
+procedure sws_freeVec(a: pSwsVector); cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // SwsFilter *sws_getDefaultFilter(float lumaGBlur, float chromaGBlur,
 // float lumaSharpen, float chromaSharpen,
 // float chromaHShift, float chromaVShift,
 // int verbose);
 function sws_getDefaultFilter(lumaGBlur: float; chromaGBlur: float; lumaSharpen: float; chromaSharpen: float; chromaHShift: float; chromaVShift: float;
-  verbose: int): pSwsFilter; cdecl; external swscale_dll;
+  verbose: int): pSwsFilter; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // void sws_freeFilter(SwsFilter *filter);
-procedure sws_freeFilter(filter: pSwsFilter); cdecl; external swscale_dll;
+procedure sws_freeFilter(filter: pSwsFilter); cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Check if context can be reused, otherwise reallocate a new one.
@@ -330,7 +330,7 @@ procedure sws_freeFilter(filter: pSwsFilter); cdecl; external swscale_dll;
 // int flags, SwsFilter *srcFilter,
 // SwsFilter *dstFilter, const double *param);
 function sws_getCachedContext(context: pSwsContext; srcW: int; srcH: int; srcFormat: AVPixelFormat; dstW: int; dstH: int; dstFormat: AVPixelFormat; flags: int;
-  srcFilter: pSwsFilter; dstFilter: pSwsFilter; const param: pdouble): pSwsContext; cdecl; external swscale_dll;
+  srcFilter: pSwsFilter; dstFilter: pSwsFilter; const param: pdouble): pSwsContext; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Convert an 8-bit paletted frame into a frame with a color depth of 32 bits.
@@ -343,7 +343,7 @@ function sws_getCachedContext(context: pSwsContext; srcW: int; srcH: int; srcFor
   * @param palette    array with [256] entries, which must match color arrangement (RGB or BGR) of src
 *)
 // void sws_convertPalette8ToPacked32(const uint8_t *src, uint8_t *dst, int num_pixels, const uint8_t *palette);
-procedure sws_convertPalette8ToPacked32(const src: puint8_t; var dst: uint8_t; num_pixels: int; const palette: puint8_t); cdecl; external swscale_dll;
+procedure sws_convertPalette8ToPacked32(const src: puint8_t; var dst: uint8_t; num_pixels: int; const palette: puint8_t); cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Convert an 8-bit paletted frame into a frame with a color depth of 24 bits.
@@ -356,7 +356,7 @@ procedure sws_convertPalette8ToPacked32(const src: puint8_t; var dst: uint8_t; n
   * @param palette    array with [256] entries, which must match color arrangement (RGB or BGR) of src
 *)
 // void sws_convertPalette8ToPacked24(const uint8_t *src, uint8_t *dst, int num_pixels, const uint8_t *palette);
-procedure sws_convertPalette8ToPacked24(const src: puint8_t; var dst: uint8_t; num_pixels: int; const palette: puint8_t); cdecl; external swscale_dll;
+procedure sws_convertPalette8ToPacked24(const src: puint8_t; var dst: uint8_t; num_pixels: int; const palette: puint8_t); cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Get the AVClass for swsContext. It can be used in combination with
@@ -365,10 +365,10 @@ procedure sws_convertPalette8ToPacked24(const src: puint8_t; var dst: uint8_t; n
   * @see av_opt_find().
 *)
 // const AVClass *sws_get_class(void);
-function sws_get_class(): pAVClass; cdecl; external swscale_dll;
+function sws_get_class(): pAVClass; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // int sws_scale_frame(struct SwsContext *c, struct AVFrame *dst, const struct AVFrame *src);
-function sws_scale_frame(c: pSwsContext; dst: pAVFrame; const src: pAVFrame): int; cdecl; external swscale_dll;
+function sws_scale_frame(c: pSwsContext; dst: pAVFrame; const src: pAVFrame): int; cdecl; external swscale_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 implementation
 

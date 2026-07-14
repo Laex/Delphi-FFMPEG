@@ -117,6 +117,8 @@ const
   {$DEFINE FF_API_ALSA_CHANNELS}
 {$IFEND}
 
+{$I ffmpeg_platform.inc}
+
 const
 {$IFDEF MSWINDOWS}
   swscale_dll    = 'swscale-' + LIBSWSCALE_VERSION_MAJOR_STR + '.dll';
@@ -127,9 +129,8 @@ const
   postproc_dll   = 'postproc-' + LIBPOSTPROC_VERSION_MAJOR_STR + '.dll';
   swresample_dll = 'swresample-' + LIBSWRESAMPLE_VERSION_MAJOR_STR + '.dll';
   avfilter_dll   = 'avfilter-' + LIBAVFILTER_VERSION_MAJOR_STR + '.dll';
-{$ENDIF}
-
-{$IFDEF LINUX}
+{$ELSE}
+  {$IFDEF LINUX}
   swscale_dll    = 'libswscale.so.' + LIBSWSCALE_VERSION_MAJOR_STR;
   avutil_dll     = 'libavutil.so.' + LIBAVUTIL_VERSION_MAJOR_STR;
   avcodec_dll    = 'libavcodec.so.' + LIBAVCODEC_VERSION_MAJOR_STR;
@@ -138,9 +139,8 @@ const
   postproc_dll   = 'libpostproc.so.' + LIBPOSTPROC_VERSION_MAJOR_STR;
   swresample_dll = 'libswresample.so.' + LIBSWRESAMPLE_VERSION_MAJOR_STR;
   avfilter_dll   = 'libavfilter.so.' + LIBAVFILTER_VERSION_MAJOR_STR;
-{$ENDIF}
-
-{$IFDEF ANDROID}
+  {$ELSE}
+    {$IFDEF ANDROID}
   swscale_dll    = 'libswscale.so';
   avutil_dll     = 'libavutil.so';
   avcodec_dll    = 'libavcodec.so';
@@ -149,4 +149,9 @@ const
   postproc_dll   = 'libpostproc.so';
   swresample_dll = 'libswresample.so';
   avfilter_dll   = 'libavfilter.so';
+    {$ELSE}
+      {$MESSAGE ERROR 'Delphi-FFMPEG: unsupported target (need MSWINDOWS/WINDOWS, LINUX, or ANDROID)'}
+    {$ENDIF}
+  {$ENDIF}
 {$ENDIF}
+

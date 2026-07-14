@@ -1,4 +1,4 @@
-unit libpostproc;
+﻿unit libpostproc;
 
 {$IFDEF FPC}
 {$MODE Delphi}
@@ -15,18 +15,18 @@ Uses
   * Return the LIBPOSTPROC_VERSION_INT constant.
 *)
 // unsigned postproc_version(void);
-function postproc_version(): unsigned; cdecl; external postproc_dll;
+function postproc_version(): unsigned; cdecl; external postproc_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return the libpostproc build-time configuration.
 *)
 // const char *postproc_configuration(void);
-function postproc_configuration(): pAnsiChar; cdecl; external postproc_dll;
+function postproc_configuration(): pAnsiChar; cdecl; external postproc_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Return the libpostproc license.
 *)
 // const char *postproc_license(void);
-function postproc_license(): pAnsiChar; cdecl; external postproc_dll;
+function postproc_license(): pAnsiChar; cdecl; external postproc_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
   PP_QUALITY_MAX = 6;
@@ -67,7 +67,7 @@ type
 
 procedure pp_postprocess(const src: Tpp_src_puint8_t; const srcStride: Tpp_srcStride_int; dst: Tpp_dst_puint8_t;
   const dstStride: Tpp_dstStride_int; horizontalSize: int; verticalSize: int; const QP_store: pint8_t; QP_stride: int; mode: ppp_mode;
-  ppContext: ppp_context; pict_type: int); cdecl; external postproc_dll;
+  ppContext: ppp_context; pict_type: int); cdecl; external postproc_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Return a pp_mode or NULL if an error occurred.
   *
@@ -75,16 +75,16 @@ procedure pp_postprocess(const src: Tpp_src_puint8_t; const srcStride: Tpp_srcSt
   * @param quality a number from 0 to PP_QUALITY_MAX
 *)
 // pp_mode *pp_get_mode_by_name_and_quality(const char *name, int quality);
-function pp_get_mode_by_name_and_quality(const name: pAnsiChar; quality: int): ppp_mode; cdecl; external postproc_dll;
+function pp_get_mode_by_name_and_quality(const name: pAnsiChar; quality: int): ppp_mode; cdecl; external postproc_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // void pp_free_mode(pp_mode *mode);
-procedure pp_free_mode(mode: ppp_mode); cdecl; external postproc_dll;
+procedure pp_free_mode(mode: ppp_mode); cdecl; external postproc_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // pp_context *pp_get_context(int width, int height, int flags);
-function pp_get_context(width: int; height: int; flags: int): ppp_context; cdecl; external postproc_dll;
+function pp_get_context(width: int; height: int; flags: int): ppp_context; cdecl; external postproc_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // void pp_free_context(pp_context *ppContext);
-procedure pp_free_context(ppContext: ppp_context); cdecl; external postproc_dll;
+procedure pp_free_context(ppContext: ppp_context); cdecl; external postproc_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
   PP_CPU_CAPS_MMX = $80000000;

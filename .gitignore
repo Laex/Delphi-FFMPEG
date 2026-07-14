@@ -10,6 +10,8 @@ buildall
 *.identcache
 *.projdata
 *.tvsconfig
+*.dproj.local
+*.groupproj.local
 *.dsk
 *.~*
 *.stat
@@ -42,19 +44,38 @@ buildall
 
 #
 *.avi
+*.yuv
+*.mkv
 *.py
+!tools/*.py
 
-# bin/ — scripts in bin/scripts/ are tracked; runtime and artifacts are not
+# bin/ - scripts in bin/scripts/ are tracked; runtime and artifacts are not
 bin/win32/*
 bin/win64/*
-bin/out/test/*
-bin/out/verify/*
+bin/linux64/*
+bin/test_out/
+bin/verify_out/
+bin/out/*
 bin/temp_extract*/
 bin/ffmpeg*.zip
+bin/ffmpeg*.tar.xz
+!bin/linux64/.gitkeep
 !bin/win32/.gitkeep
 !bin/win64/.gitkeep
+!bin/out/test/
+!bin/out/verify/
+bin/out/test/*
+bin/out/verify/*
 !bin/out/test/.gitkeep
 !bin/out/verify/.gitkeep
 
 # misc
 result/*.*
+
+# Delphi packages (build outputs)
+packages/**/Win32/
+packages/**/Win64/
+packages/**/lib/
+packages/**/*.vrc
+examples/fpcup*.ini
+examples/settings.ini

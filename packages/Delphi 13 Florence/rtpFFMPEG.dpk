@@ -1,0 +1,52 @@
+package rtpFFMPEG;
+
+{ $R *.res}
+{$R *.otares}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'Delphi-FFMPEG: FFmpeg 8.x Pascal bindings'}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  rtl;
+
+contains
+  ffmpeg_types in '..\..\source\ffmpeg_types.pas',
+  libavutil in '..\..\source\libavutil.pas',
+  libavcodec in '..\..\source\libavcodec.pas',
+  libavformat in '..\..\source\libavformat.pas',
+  libavdevice in '..\..\source\libavdevice.pas',
+  libavfilter in '..\..\source\libavfilter.pas',
+  libswscale in '..\..\source\libswscale.pas',
+  libswresample in '..\..\source\libswresample.pas',
+  libpostproc in '..\..\source\libpostproc.pas',
+  uFFmpegPath in '..\..\source\uFFmpegPath.pas',
+  uFFDesignTime in '..\..\source\uFFDesignTime.pas',
+  uFFLoader in '..\..\source\uFFLoader.pas',
+  uFFLogger in '..\..\source\uFFLogger.pas',
+  uFFmpegCodecUtils in '..\..\source\uFFmpegCodecUtils.pas';
+
+end.

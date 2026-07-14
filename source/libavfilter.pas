@@ -1,4 +1,4 @@
-unit libavfilter;
+﻿unit libavfilter;
 
 {$IFDEF FPC}
 {$MODE Delphi}
@@ -15,18 +15,18 @@ Uses
   * Return the LIBAVFILTER_VERSION_INT constant.
 *)
 // unsigned avfilter_version(void);
-function avfilter_version(): unsigned; cdecl; external avfilter_dll;
+function avfilter_version(): unsigned; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return the libavfilter build-time configuration.
 *)
 // const char *avfilter_configuration(void);
-function avfilter_configuration(): pAnsiChar; cdecl; external avfilter_dll;
+function avfilter_configuration(): pAnsiChar; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Return the libavfilter license.
 *)
 // const char *avfilter_license(void);
-function avfilter_license(): pAnsiChar; cdecl; external avfilter_dll;
+function avfilter_license(): pAnsiChar; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
   (* *
@@ -724,12 +724,12 @@ type
     * @return       zero on success
   *)
   // int avfilter_link(AVFilterContext *src, unsigned srcpad, AVFilterContext *dst, unsigned dstpad);
-function avfilter_link(src: pAVFilterContext; srcpad: unsigned; dst: pAVFilterContext; dstpad: unsigned): int; cdecl; external avfilter_dll;
+function avfilter_link(src: pAVFilterContext; srcpad: unsigned; dst: pAVFilterContext; dstpad: unsigned): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Free the link in *link, and set its pointer to NULL.
 *)
 // void avfilter_link_free(AVFilterLink **link);
-procedure avfilter_link_free(var link: pAVFilterLink); cdecl; external avfilter_dll;
+procedure avfilter_link_free(var link: pAVFilterLink); cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 {$IFDEF FF_API_FILTER_GET_SET}
 (* *
@@ -738,7 +738,7 @@ procedure avfilter_link_free(var link: pAVFilterLink); cdecl; external avfilter_
 *)
 // attribute_deprecated
 // int avfilter_link_get_channels(AVFilterLink *link);
-function avfilter_link_get_channels(link: pAVFilterLink): int; deprecated 'Use av_buffersink_get_channels()'; cdecl; external avfilter_dll;
+function avfilter_link_get_channels(link: pAVFilterLink): int; deprecated 'Use av_buffersink_get_channels()'; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDIF}
 (* *
   * Set the closed field of a link.
@@ -748,7 +748,7 @@ function avfilter_link_get_channels(link: pAVFilterLink): int; deprecated 'Use a
 // attribute_deprecated
 // void avfilter_link_set_closed(AVFilterLink *link, int closed);
 procedure avfilter_link_set_closed(link: pAVFilterLink; closed: int);
-  deprecated 'applications are not supposed to mess with links, they should close the sinks.'; cdecl; external avfilter_dll;
+  deprecated 'applications are not supposed to mess with links, they should close the sinks.'; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Negotiate the media format, dimensions, etc of all inputs to a filter.
   *
@@ -756,7 +756,7 @@ procedure avfilter_link_set_closed(link: pAVFilterLink; closed: int);
   * @return       zero on successful negotiation
 *)
 // int avfilter_config_links(AVFilterContext *filter);
-function avfilter_config_links(filter: pAVFilterContext): int; cdecl; external avfilter_dll;
+function avfilter_config_links(filter: pAVFilterContext): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
   AVFILTER_CMD_FLAG_ONE = 1;
@@ -769,7 +769,7 @@ const
   *)
   // int avfilter_process_command(AVFilterContext *filter, const char *cmd, const char *arg, char *res, int res_len, int flags);
 function avfilter_process_command(filter: pAVFilterContext; const cmd: pAnsiChar; const arg: pAnsiChar; res: pAnsiChar; res_len: int; flags: int): int; cdecl;
-  external avfilter_dll;
+  external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Iterate over all registered filters.
   *
@@ -780,13 +780,13 @@ function avfilter_process_command(filter: pAVFilterContext; const cmd: pAnsiChar
   *         finished
 *)
 // const AVFilter *av_filter_iterate(void **opaque);
-function av_filter_iterate(var opaque: pointer): pAVFilter; cdecl; external avfilter_dll;
+function av_filter_iterate(var opaque: pointer): pAVFilter; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 {$IFDEF FF_API_NEXT}
 (* * Initialize the filter system. Register all builtin filters. *)
 // attribute_deprecated
 // void avfilter_register_all(void);
-procedure avfilter_register_all(); deprecated; cdecl; external avfilter_dll;
+procedure avfilter_register_all(); deprecated; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Register a filter. This is only needed if you plan to use
   * avfilter_get_by_name later to lookup the AVFilter structure by name. A
@@ -799,7 +799,7 @@ procedure avfilter_register_all(); deprecated; cdecl; external avfilter_dll;
 *)
 // attribute_deprecated
 // int avfilter_register(AVFilter *filter);
-function avfilter_register(filter: pAVFilter): int; deprecated; cdecl; external avfilter_dll;
+function avfilter_register(filter: pAVFilter): int; deprecated; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Iterate over all registered filters.
   * @return If prev is non-NULL, next registered filter after prev or NULL if
@@ -807,7 +807,7 @@ function avfilter_register(filter: pAVFilter): int; deprecated; cdecl; external 
 *)
 // attribute_deprecated
 // const AVFilter *avfilter_next(const AVFilter *prev);
-function avfilter_next(const prev: pAVFilter): pAVFilter; deprecated; cdecl; external avfilter_dll;
+function avfilter_next(const prev: pAVFilter): pAVFilter; deprecated; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDIF}
 (* *
   * Get a filter definition matching the given name.
@@ -817,7 +817,7 @@ function avfilter_next(const prev: pAVFilter): pAVFilter; deprecated; cdecl; ext
   *             NULL if none found.
 *)
 // const AVFilter *avfilter_get_by_name(const char *name);
-function avfilter_get_by_name(const name: pAnsiChar): pAVFilter; cdecl; external avfilter_dll;
+function avfilter_get_by_name(const name: pAnsiChar): pAVFilter; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Initialize a filter with the supplied parameters.
   *
@@ -829,7 +829,7 @@ function avfilter_get_by_name(const name: pAnsiChar): pAVFilter; cdecl; external
   * @return 0 on success, a negative AVERROR on failure
 *)
 // int avfilter_init_str(AVFilterContext *ctx, const char *args);
-function avfilter_init_str(ctx: pAVFilterContext; const args: pAnsiChar): int; cdecl; external avfilter_dll;
+function avfilter_init_str(ctx: pAVFilterContext; const args: pAnsiChar): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Initialize a filter with the supplied dictionary of options.
   *
@@ -851,7 +851,7 @@ function avfilter_init_str(ctx: pAVFilterContext; const args: pAnsiChar): int; c
   * continue as usual.
 *)
 // int avfilter_init_dict(AVFilterContext *ctx, AVDictionary **options);
-function avfilter_init_dict(ctx: pAVFilterContext; var options: pAVDictionary): int; cdecl; external avfilter_dll;
+function avfilter_init_dict(ctx: pAVFilterContext; var options: pAVDictionary): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Free a filter context. This will also remove the filter from its
   * filtergraph's list of filters.
@@ -859,7 +859,7 @@ function avfilter_init_dict(ctx: pAVFilterContext; var options: pAVDictionary): 
   * @param filter the filter to free
 *)
 // void avfilter_free(AVFilterContext *filter);
-procedure avfilter_free(filter: pAVFilterContext); cdecl; external avfilter_dll;
+procedure avfilter_free(filter: pAVFilterContext); cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Insert a filter in the middle of an existing link.
   *
@@ -872,14 +872,14 @@ procedure avfilter_free(filter: pAVFilterContext); cdecl; external avfilter_dll;
 // int avfilter_insert_filter(AVFilterLink *link, AVFilterContext *filt,
 // unsigned filt_srcpad_idx, unsigned filt_dstpad_idx);
 function avfilter_insert_filter(link: pAVFilterLink; filt: pAVFilterContext; filt_srcpad_idx: unsigned; filt_dstpad_idx: unsigned): int; cdecl;
-  external avfilter_dll;
+  external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return AVClass for AVFilterContext.
   *
   * @see av_opt_find().
 *)
 // const AVClass *avfilter_get_class(void);
-function avfilter_get_class(): pAVClass; cdecl; external avfilter_dll;
+function avfilter_get_class(): pAVClass; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Allocate a filter graph.
@@ -887,7 +887,7 @@ function avfilter_get_class(): pAVClass; cdecl; external avfilter_dll;
   * @return the allocated filter graph on success or NULL.
 *)
 // AVFilterGraph *avfilter_graph_alloc(void);
-function avfilter_graph_alloc(): pAVFilterGraph; cdecl; external avfilter_dll;
+function avfilter_graph_alloc(): pAVFilterGraph; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Create a new filter instance in a filter graph.
   *
@@ -905,7 +905,7 @@ function avfilter_graph_alloc(): pAVFilterGraph; cdecl; external avfilter_dll;
 // AVFilterContext *avfilter_graph_alloc_filter(AVFilterGraph *graph,
 // const AVFilter *filter,
 // const char *name);
-function avfilter_graph_alloc_filter(graph: pAVFilterGraph; const filter: pAVFilter; const name: pAnsiChar): pAVFilterContext; cdecl; external avfilter_dll;
+function avfilter_graph_alloc_filter(graph: pAVFilterGraph; const filter: pAVFilter; const name: pAnsiChar): pAVFilterContext; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Get a filter instance identified by instance name from graph.
   *
@@ -915,7 +915,7 @@ function avfilter_graph_alloc_filter(graph: pAVFilterGraph; const filter: pAVFil
   * cannot be found.
 *)
 // AVFilterContext *avfilter_graph_get_filter(AVFilterGraph *graph, const char *name);
-function avfilter_graph_get_filter(graph: pAVFilterGraph; const name: pAnsiChar): pAVFilterContext; cdecl; external avfilter_dll;
+function avfilter_graph_get_filter(graph: pAVFilterGraph; const name: pAnsiChar): pAVFilterContext; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Create and add a filter instance into an existing graph.
   * The filter instance is created from the filter filt and inited
@@ -933,7 +933,7 @@ function avfilter_graph_get_filter(graph: pAVFilterGraph; const name: pAnsiChar)
 // const char *name, const char *args, void *opaque,
 // AVFilterGraph *graph_ctx);
 function avfilter_graph_create_filter(var filt_ctx: pAVFilterContext; const filt: pAVFilter; const name: pAnsiChar; const args: pAnsiChar; opaque: pointer;
-  graph_ctx: pAVFilterGraph): int; cdecl; external avfilter_dll;
+  graph_ctx: pAVFilterGraph): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Enable or disable automatic format conversion inside the graph.
   *
@@ -943,7 +943,7 @@ function avfilter_graph_create_filter(var filt_ctx: pAVFilterContext; const filt
   * @param flags  any of the AVFILTER_AUTO_CONVERT_* constants
 *)
 // void avfilter_graph_set_auto_convert(AVFilterGraph *graph, unsigned flags);
-procedure avfilter_graph_set_auto_convert(graph: pAVFilterGraph; flags: unsigned); cdecl; external avfilter_dll;
+procedure avfilter_graph_set_auto_convert(graph: pAVFilterGraph; flags: unsigned); cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
 
@@ -958,13 +958,13 @@ const
     * @return >= 0 in case of success, a negative AVERROR code otherwise
   *)
   // int avfilter_graph_config(AVFilterGraph *graphctx, void *log_ctx);
-function avfilter_graph_config(graphctx: pAVFilterGraph; log_ctx: pointer): int; cdecl; external avfilter_dll;
+function avfilter_graph_config(graphctx: pAVFilterGraph; log_ctx: pointer): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Free a graph, destroy its links, and set *graph to NULL.
   * If *graph is NULL, do nothing.
 *)
 // void avfilter_graph_free(AVFilterGraph **graph);
-procedure avfilter_graph_free(var graph: pAVFilterGraph); cdecl; external avfilter_dll;
+procedure avfilter_graph_free(var graph: pAVFilterGraph); cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 type
   (* *
@@ -998,13 +998,13 @@ type
     * @return allocated AVFilterInOut on success, NULL on failure.
   *)
   // AVFilterInOut *avfilter_inout_alloc(void);
-function avfilter_inout_alloc(): pAVFilterInOut; cdecl; external avfilter_dll;
+function avfilter_inout_alloc(): pAVFilterInOut; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Free the supplied list of AVFilterInOut and set *inout to NULL.
   * If *inout is NULL, do nothing.
 *)
 // void avfilter_inout_free(AVFilterInOut **inout);
-procedure avfilter_inout_free(var inout: pAVFilterInOut); cdecl; external avfilter_dll;
+procedure avfilter_inout_free(var inout: pAVFilterInOut); cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Add a graph described by a string to a graph.
   *
@@ -1027,7 +1027,7 @@ procedure avfilter_inout_free(var inout: pAVFilterInOut); cdecl; external avfilt
 // AVFilterInOut *inputs, AVFilterInOut *outputs,
 // void *log_ctx);
 function avfilter_graph_parse(graph: pAVFilterGraph; const filters: pAnsiChar; inputs: pAVFilterInOut; outputs: pAVFilterInOut; log_ctx: pointer): int; cdecl;
-  external avfilter_dll;
+  external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Add a graph described by a string to a graph.
   *
@@ -1049,7 +1049,7 @@ function avfilter_graph_parse(graph: pAVFilterGraph; const filters: pAnsiChar; i
 // AVFilterInOut **inputs, AVFilterInOut **outputs,
 // void *log_ctx);
 function avfilter_graph_parse_ptr(graph: pAVFilterGraph; const filters: pAnsiChar; var inputs: pAVFilterInOut; var outputs: pAVFilterInOut; log_ctx: pointer)
-  : int; cdecl; external avfilter_dll;
+  : int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Add a graph described by a string to a graph.
   *
@@ -1076,7 +1076,7 @@ function avfilter_graph_parse_ptr(graph: pAVFilterGraph; const filters: pAnsiCha
 // AVFilterInOut **inputs,
 // AVFilterInOut **outputs);
 function avfilter_graph_parse2(graph: pAVFilterGraph; const filters: pAnsiChar; var inputs: pAVFilterInOut; var outputs: pAVFilterInOut): int; cdecl;
-  external avfilter_dll;
+  external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Send a command to one or more filter instances.
   *
@@ -1094,7 +1094,7 @@ function avfilter_graph_parse2(graph: pAVFilterGraph; const filters: pAnsiChar; 
 *)
 // int avfilter_graph_send_command(AVFilterGraph *graph, const char *target, const char *cmd, const char *arg, char *res, int res_len, int flags);
 function avfilter_graph_send_command(graph: pAVFilterGraph; const target: pAnsiChar; const cmd: pAnsiChar; const arg: pAnsiChar; res: pAnsiChar; res_len: int;
-  flags: int): int; cdecl; external avfilter_dll;
+  flags: int): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Queue a command for one or more filter instances.
   *
@@ -1112,7 +1112,7 @@ function avfilter_graph_send_command(graph: pAVFilterGraph; const target: pAnsiC
 *)
 // int avfilter_graph_queue_command(AVFilterGraph *graph, const char *target, const char *cmd, const char *arg, int flags, double ts);
 function avfilter_graph_queue_command(graph: pAVFilterGraph; const target: pAnsiChar; const cmd: pAnsiChar; const arg: pAnsiChar; flags: int; ts: double): int;
-  cdecl; external avfilter_dll;
+  cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Dump a graph into a human-readable string representation.
   *
@@ -1122,7 +1122,7 @@ function avfilter_graph_queue_command(graph: pAVFilterGraph; const target: pAnsi
   *          the string must be freed using av_free
 *)
 // char *avfilter_graph_dump(AVFilterGraph *graph, const char *options);
-function avfilter_graph_dump(graph: pAVFilterGraph; const options: pAnsiChar): pAnsiChar; cdecl; external avfilter_dll;
+function avfilter_graph_dump(graph: pAVFilterGraph; const options: pAnsiChar): pAnsiChar; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Request a frame on the oldest sink link.
   *
@@ -1142,7 +1142,7 @@ function avfilter_graph_dump(graph: pAVFilterGraph; const options: pAnsiChar): p
   *          or AVERROR_EOF if all links returned AVERROR_EOF
 *)
 // int avfilter_graph_request_oldest(AVFilterGraph *graph);
-function avfilter_graph_request_oldest(graph: pAVFilterGraph): int; cdecl; external avfilter_dll;
+function avfilter_graph_request_oldest(graph: pAVFilterGraph): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'buffersink.h'}
 (* *
@@ -1156,7 +1156,7 @@ function avfilter_graph_request_oldest(graph: pAVFilterGraph): int; cdecl; exter
   * @return  >= 0 in for success, a negative AVERROR code for failure.
 *)
 // int av_buffersink_get_frame_flags(AVFilterContext *ctx, AVFrame *frame, int flags);
-function av_buffersink_get_frame_flags(ctx: pAVFilterContext; frame: pAVFrame; flags: int): int; cdecl; external avfilter_dll;
+function av_buffersink_get_frame_flags(ctx: pAVFilterContext; frame: pAVFrame; flags: int): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
   (* *
@@ -1190,7 +1190,7 @@ type
     * Must be freed with av_free().
   *)
   // AVBufferSinkParams *av_buffersink_params_alloc(void);
-function av_buffersink_params_alloc(): pAVBufferSinkParams; cdecl; external avfilter_dll;
+function av_buffersink_params_alloc(): pAVBufferSinkParams; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 type
   (* *
@@ -1217,7 +1217,7 @@ type
     * Must be freed with av_free().
   *)
   // AVABufferSinkParams *av_abuffersink_params_alloc(void);
-function av_abuffersink_params_alloc(): pAVABufferSinkParams; cdecl; external avfilter_dll;
+function av_abuffersink_params_alloc(): pAVABufferSinkParams; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Set the frame size for an audio buffer sink.
   *
@@ -1226,7 +1226,7 @@ function av_abuffersink_params_alloc(): pAVABufferSinkParams; cdecl; external av
   * not enough. The last buffer at EOF will be padded with 0.
 *)
 // void av_buffersink_set_frame_size(AVFilterContext *ctx, unsigned frame_size);
-procedure av_buffersink_set_frame_size(ctx: pAVFilterContext; frame_size: unsigned); cdecl; external avfilter_dll;
+procedure av_buffersink_set_frame_size(ctx: pAVFilterContext; frame_size: unsigned); cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @defgroup lavfi_buffersink_accessors Buffer sink accessors
   * Get the properties of the stream
@@ -1234,36 +1234,36 @@ procedure av_buffersink_set_frame_size(ctx: pAVFilterContext; frame_size: unsign
 *)
 
 // enum AVMediaType av_buffersink_get_type                (const AVFilterContext *ctx);
-function av_buffersink_get_type(const ctx: pAVFilterContext): AVMediaType; cdecl; external avfilter_dll;
+function av_buffersink_get_type(const ctx: pAVFilterContext): AVMediaType; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // AVRational       av_buffersink_get_time_base           (const AVFilterContext *ctx);
-function av_buffersink_get_time_base(const ctx: pAVFilterContext): AVRational; cdecl; external avfilter_dll;
+function av_buffersink_get_time_base(const ctx: pAVFilterContext): AVRational; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // int av_buffersink_get_format              (const AVFilterContext *ctx);
-function av_buffersink_get_format(const ctx: pAVFilterContext): int; cdecl; external avfilter_dll;
+function av_buffersink_get_format(const ctx: pAVFilterContext): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // AVRational       av_buffersink_get_frame_rate          (const AVFilterContext *ctx);
-function av_buffersink_get_frame_rate(const ctx: pAVFilterContext): AVRational; cdecl; external avfilter_dll;
+function av_buffersink_get_frame_rate(const ctx: pAVFilterContext): AVRational; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // int              av_buffersink_get_w                   (const AVFilterContext *ctx);
-function av_buffersink_get_w(const ctx: pAVFilterContext): int; cdecl; external avfilter_dll;
+function av_buffersink_get_w(const ctx: pAVFilterContext): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // int              av_buffersink_get_h                   (const AVFilterContext *ctx);
-function av_buffersink_get_h(const ctx: pAVFilterContext): int; cdecl; external avfilter_dll;
+function av_buffersink_get_h(const ctx: pAVFilterContext): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // AVRational       av_buffersink_get_sample_aspect_ratio (const AVFilterContext *ctx);
-function av_buffersink_get_sample_aspect_ratio(const ctx: pAVFilterContext): AVRational; cdecl; external avfilter_dll;
+function av_buffersink_get_sample_aspect_ratio(const ctx: pAVFilterContext): AVRational; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // int              av_buffersink_get_channels            (const AVFilterContext *ctx);
-function av_buffersink_get_channels(const ctx: pAVFilterContext): int; cdecl; external avfilter_dll;
+function av_buffersink_get_channels(const ctx: pAVFilterContext): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // uint64_t         av_buffersink_get_channel_layout      (const AVFilterContext *ctx);
-function av_buffersink_get_channel_layout(const ctx: pAVFilterContext): uint64_t; cdecl; external avfilter_dll;
+function av_buffersink_get_channel_layout(const ctx: pAVFilterContext): uint64_t; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // int              av_buffersink_get_sample_rate         (const AVFilterContext *ctx);
-function av_buffersink_get_sample_rate(const ctx: pAVFilterContext): int; cdecl; external avfilter_dll;
+function av_buffersink_get_sample_rate(const ctx: pAVFilterContext): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // AVBufferRef *    av_buffersink_get_hw_frames_ctx       (const AVFilterContext *ctx);
-function av_buffersink_get_hw_frames_ctx(const ctx: pAVFilterContext): pAVBufferRef; cdecl; external avfilter_dll;
+function av_buffersink_get_hw_frames_ctx(const ctx: pAVFilterContext): pAVBufferRef; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* * @} *)
 
 (* *
@@ -1281,7 +1281,7 @@ function av_buffersink_get_hw_frames_ctx(const ctx: pAVFilterContext): pAVBuffer
   *         - A different negative AVERROR code in other failure cases.
 *)
 // int av_buffersink_get_frame(AVFilterContext *ctx, AVFrame *frame);
-function av_buffersink_get_frame(ctx: pAVFilterContext; frame: pAVFrame): int; cdecl; external avfilter_dll;
+function av_buffersink_get_frame(ctx: pAVFilterContext; frame: pAVFrame): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Same as av_buffersink_get_frame(), but with the ability to specify the number
   * of samples read. This function is less efficient than
@@ -1300,7 +1300,7 @@ function av_buffersink_get_frame(ctx: pAVFilterContext; frame: pAVFrame): int; c
   * the other with a single sink, not both.
 *)
 // int av_buffersink_get_samples(AVFilterContext *ctx, AVFrame *frame, int nb_samples);
-function av_buffersink_get_samples(ctx: pAVFilterContext; frame: pAVFrame; nb_samples: int): int; cdecl; external avfilter_dll;
+function av_buffersink_get_samples(ctx: pAVFilterContext; frame: pAVFrame; nb_samples: int): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'buffersrc.h'}
 
@@ -1331,7 +1331,7 @@ const
     * The number is reset when a frame is added.
   *)
   // unsigned av_buffersrc_get_nb_failed_requests(AVFilterContext *buffer_src);
-function av_buffersrc_get_nb_failed_requests(buffer_src: pAVFilterContext): unsigned; cdecl; external avfilter_dll;
+function av_buffersrc_get_nb_failed_requests(buffer_src: pAVFilterContext): unsigned; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 type
   (* *
@@ -1394,7 +1394,7 @@ type
     * caller with av_free().
   *)
   // AVBufferSrcParameters *av_buffersrc_parameters_alloc(void);
-function av_buffersrc_parameters_alloc(): pAVBufferSrcParameters; cdecl; external avfilter_dll;
+function av_buffersrc_parameters_alloc(): pAVBufferSrcParameters; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Initialize the buffersrc or abuffersrc filter with the provided parameters.
   * This function may be called multiple times, the later calls override the
@@ -1409,7 +1409,7 @@ function av_buffersrc_parameters_alloc(): pAVBufferSrcParameters; cdecl; externa
   * @return 0 on success, a negative AVERROR code on failure.
 *)
 // int av_buffersrc_parameters_set(AVFilterContext *ctx, AVBufferSrcParameters *param);
-function av_buffersrc_parameters_set(ctx: pAVFilterContext; param: pAVBufferSrcParameters): int; cdecl; external avfilter_dll;
+function av_buffersrc_parameters_set(ctx: pAVFilterContext; param: pAVBufferSrcParameters): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Add a frame to the buffer source.
   *
@@ -1425,7 +1425,7 @@ function av_buffersrc_parameters_set(ctx: pAVFilterContext; param: pAVBufferSrcP
 *)
 // av_warn_unused_result
 // int av_buffersrc_write_frame(AVFilterContext *ctx, const AVFrame *frame);
-function av_buffersrc_write_frame(ctx: pAVFilterContext; const frame: pAVFrame): int; cdecl; external avfilter_dll;
+function av_buffersrc_write_frame(ctx: pAVFilterContext; const frame: pAVFrame): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Add a frame to the buffer source.
   *
@@ -1446,7 +1446,7 @@ function av_buffersrc_write_frame(ctx: pAVFilterContext; const frame: pAVFrame):
 *)
 // av_warn_unused_result
 // int av_buffersrc_add_frame(AVFilterContext *ctx, AVFrame *frame);
-function av_buffersrc_add_frame(ctx: pAVFilterContext; frame: pAVFrame): int; cdecl; external avfilter_dll;
+function av_buffersrc_add_frame(ctx: pAVFilterContext; frame: pAVFrame): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Add a frame to the buffer source.
   *
@@ -1465,7 +1465,7 @@ function av_buffersrc_add_frame(ctx: pAVFilterContext; frame: pAVFrame): int; cd
 // av_warn_unused_result
 // int av_buffersrc_add_frame_flags(AVFilterContext *buffer_src,
 // AVFrame *frame, int flags);
-function av_buffersrc_add_frame_flags(buffer_src: pAVFilterContext; frame: pAVFrame; flags: int): int; cdecl; external avfilter_dll;
+function av_buffersrc_add_frame_flags(buffer_src: pAVFilterContext; frame: pAVFrame; flags: int): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Close the buffer source after EOF.
   *
@@ -1474,7 +1474,7 @@ function av_buffersrc_add_frame_flags(buffer_src: pAVFilterContext; frame: pAVFr
   * of the last frame.
 *)
 // int av_buffersrc_close(AVFilterContext *ctx, int64_t pts, unsigned flags);
-function av_buffersrc_close(ctx: pAVFilterContext; pts: int64_t; flags: unsigned): int; cdecl; external avfilter_dll;
+function av_buffersrc_close(ctx: pAVFilterContext; pts: int64_t; flags: unsigned): int; cdecl; external avfilter_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 
 implementation

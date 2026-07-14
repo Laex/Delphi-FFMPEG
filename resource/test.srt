@@ -1,0 +1,7 @@
+﻿1
+00:00:01,000 --> 00:00:04,000
+Hello FFmpeg subtitles
+
+2
+00:00:04,500 --> 00:00:07,500
+Delphi-FFMPEG component test

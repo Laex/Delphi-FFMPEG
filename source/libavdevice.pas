@@ -1,4 +1,4 @@
-unit libavdevice;
+﻿unit libavdevice;
 
 {$IFDEF FPC}
 {$MODE Delphi}
@@ -32,25 +32,25 @@ Uses
   * Return the LIBAVDEVICE_VERSION_INT constant.
 *)
 // unsigned avdevice_version(void);
-function avdevice_version(): unsigned; cdecl; external avdevice_dll;
+function avdevice_version(): unsigned; cdecl; external avdevice_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return the libavdevice build-time configuration.
 *)
 // const char *avdevice_configuration(void);
-function avdevice_configuration(): pAnsiChar; cdecl; external avdevice_dll;
+function avdevice_configuration(): pAnsiChar; cdecl; external avdevice_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return the libavdevice license.
 *)
 // const char *avdevice_license(void);
-function avdevice_license(): pAnsiChar; cdecl; external avdevice_dll;
+function avdevice_license(): pAnsiChar; cdecl; external avdevice_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Initialize libavdevice and register all the input and output devices.
 *)
 // void avdevice_register_all(void);
-procedure avdevice_register_all(); cdecl; external avdevice_dll;
+procedure avdevice_register_all(); cdecl; external avdevice_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 type
   pAVDeviceRect = ^AVDeviceRect;
@@ -259,7 +259,7 @@ const
   // enum AVAppToDevMessageType type,
   // void *data, size_t data_size);
 function avdevice_app_to_dev_control_message(s: pAVFormatContext; _type: AVAppToDevMessageType; data: Pointer; data_size: size_t): int;
-  cdecl; external avdevice_dll;
+  cdecl; external avdevice_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Send control message from device to application.
   *
@@ -274,7 +274,7 @@ function avdevice_app_to_dev_control_message(s: pAVFormatContext; _type: AVAppTo
 // enum AVDevToAppMessageType type,
 // void *data, size_t data_size);
 function avdevice_dev_to_app_control_message(s: pAVFormatContext; _type: AVDevToAppMessageType; data: Pointer; data_size: size_t): int;
-  cdecl; external avdevice_dll;
+  cdecl; external avdevice_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Following API allows user to probe device capabilities (supported codecs,
@@ -395,7 +395,7 @@ type
   // int avdevice_capabilities_create(AVDeviceCapabilitiesQuery **caps, AVFormatContext *s,
   // AVDictionary **device_options);
 function avdevice_capabilities_create(var caps: pAVDeviceCapabilitiesQuery; s: pAVFormatContext; var device_options: pAVDictionary): int;
-  cdecl; external avdevice_dll;
+  cdecl; external avdevice_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Free resources created by avdevice_capabilities_create()
   *
@@ -403,7 +403,7 @@ function avdevice_capabilities_create(var caps: pAVDeviceCapabilitiesQuery; s: p
   * @param s    Context of the device.
 *)
 // void avdevice_capabilities_free(AVDeviceCapabilitiesQuery **caps, AVFormatContext *s);
-procedure avdevice_capabilities_free(var caps: pAVDeviceCapabilitiesQuery; s: pAVFormatContext); cdecl; external avdevice_dll;
+procedure avdevice_capabilities_free(var caps: pAVDeviceCapabilitiesQuery; s: pAVFormatContext); cdecl; external avdevice_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 type
   (* *
@@ -442,14 +442,14 @@ type
     * @return count of autodetected devices, negative on error.
   *)
   // int avdevice_list_devices(struct AVFormatContext *s, AVDeviceInfoList **device_list);
-function avdevice_list_devices(s: pAVFormatContext; var device_list: pAVDeviceInfoList): int; cdecl; external avdevice_dll;
+function avdevice_list_devices(s: pAVFormatContext; var device_list: pAVDeviceInfoList): int; cdecl; external avdevice_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Convenient function to free result of avdevice_list_devices().
   *
   * @param devices device list to be freed.
 *)
 // void avdevice_free_list_devices(AVDeviceInfoList **device_list);
-procedure avdevice_free_list_devices(var device_list: pAVDeviceInfoList); cdecl; external avdevice_dll;
+procedure avdevice_free_list_devices(var device_list: pAVDeviceInfoList); cdecl; external avdevice_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * List devices.
   *
@@ -470,12 +470,12 @@ procedure avdevice_free_list_devices(var device_list: pAVDeviceInfoList); cdecl;
 // int avdevice_list_input_sources(struct AVInputFormat *device, const char *device_name,
 // AVDictionary *device_options, AVDeviceInfoList **device_list);
 function avdevice_list_input_sources(device: pAVInputFormat; const device_name: pAnsiChar; device_options: pAVDictionary;
-  var device_list: pAVDeviceInfoList): int; cdecl; external avdevice_dll;
+  var device_list: pAVDeviceInfoList): int; cdecl; external avdevice_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // int avdevice_list_output_sinks(struct AVOutputFormat *device, const char *device_name,
 // AVDictionary *device_options, AVDeviceInfoList **device_list);
 function avdevice_list_output_sinks(device: pAVOutputFormat; const device_name: pAnsiChar; device_options: pAVDictionary;
-  var device_list: pAVDeviceInfoList): int; cdecl; external avdevice_dll;
+  var device_list: pAVDeviceInfoList): int; cdecl; external avdevice_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 implementation
 

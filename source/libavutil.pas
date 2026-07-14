@@ -1,4 +1,4 @@
-unit libavutil;
+﻿unit libavutil;
 
 {$IFDEF FPC}
 {$MODE Delphi}
@@ -80,12 +80,12 @@ function FFMAX(a, b: int): int; inline;
 // #ifndef av_log2
 // av_const int av_log2(unsigned v);
 // #endif
-function av_log2(v: unsigned): int; cdecl; external avutil_dll;
+function av_log2(v: unsigned): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // #ifndef av_log2_16bit
 // av_const int av_log2_16bit(unsigned v);
 // #endif
-function av_log2_16bit(v: unsigned): int; cdecl; external avutil_dll;
+function av_log2_16bit(v: unsigned): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Clip a signed integer value into the amin-amax range.
@@ -473,18 +473,18 @@ type
     opaque: Pointer;
   end;
 
-procedure av_channel_layout_default(var ch_layout: AVChannelLayout; nb_channels: int); cdecl; external avutil_dll;
-function av_channel_layout_from_mask(var ch_layout: AVChannelLayout; mask: uint64_t): int; cdecl; external avutil_dll;
-function av_channel_layout_from_string(var ch_layout: AVChannelLayout; const str: PAnsiChar): int; cdecl; external avutil_dll;
-function av_channel_layout_custom_init(var ch_layout: AVChannelLayout; nb_channels: int): int; cdecl; external avutil_dll;
-procedure av_channel_layout_uninit(var ch_layout: AVChannelLayout); cdecl; external avutil_dll;
-function av_channel_layout_copy(var dst: AVChannelLayout; const src: pAVChannelLayout): int; cdecl; external avutil_dll;
-function av_channel_layout_compare(const chl: pAVChannelLayout; const chl1: pAVChannelLayout): int; cdecl; external avutil_dll;
-function av_channel_layout_describe(const channel_layout: pAVChannelLayout; buf: PAnsiChar; buf_size: size_t): int; cdecl; external avutil_dll;
-function av_channel_layout_describe_bprint(const channel_layout: pAVChannelLayout; bp: pAVBPrint): int; cdecl; external avutil_dll;
-function av_channel_name(buf: PAnsiChar; buf_size: size_t; channel: AVChannel): int; cdecl; external avutil_dll;
-function av_channel_description(buf: PAnsiChar; buf_size: size_t; channel: AVChannel): int; cdecl; external avutil_dll;
-function av_channel_from_string(const name: PAnsiChar): AVChannel; cdecl; external avutil_dll;
+procedure av_channel_layout_default(var ch_layout: AVChannelLayout; nb_channels: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
+function av_channel_layout_from_mask(var ch_layout: AVChannelLayout; mask: uint64_t): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
+function av_channel_layout_from_string(var ch_layout: AVChannelLayout; const str: PAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
+function av_channel_layout_custom_init(var ch_layout: AVChannelLayout; nb_channels: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
+procedure av_channel_layout_uninit(var ch_layout: AVChannelLayout); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
+function av_channel_layout_copy(var dst: AVChannelLayout; const src: pAVChannelLayout): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
+function av_channel_layout_compare(const chl: pAVChannelLayout; const chl1: pAVChannelLayout): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
+function av_channel_layout_describe(const channel_layout: pAVChannelLayout; buf: PAnsiChar; buf_size: size_t): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
+function av_channel_layout_describe_bprint(const channel_layout: pAVChannelLayout; bp: pAVBPrint): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
+function av_channel_name(buf: PAnsiChar; buf_size: size_t; channel: AVChannel): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
+function av_channel_description(buf: PAnsiChar; buf_size: size_t; channel: AVChannel): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
+function av_channel_from_string(const name: PAnsiChar): AVChannel; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 
 {$REGION 'dict.h'}
@@ -534,7 +534,7 @@ Type
   *)
   // AVDictionaryEntry *av_dict_get(const AVDictionary *m, const char *key,
   // const AVDictionaryEntry *prev, int flags);
-function av_dict_get(const m: pAVDictionary; const key: PAnsiChar; const prev: pAVDictionaryEntry; flags: int): pAVDictionaryEntry; cdecl; external avutil_dll;
+function av_dict_get(const m: pAVDictionary; const key: PAnsiChar; const prev: pAVDictionaryEntry; flags: int): pAVDictionaryEntry; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Get number of entries in dictionary.
@@ -543,7 +543,7 @@ function av_dict_get(const m: pAVDictionary; const key: PAnsiChar; const prev: p
   * @return  number of entries in dictionary
 *)
 // int av_dict_count(const AVDictionary *m);
-function av_dict_count(const m: pAVDictionary): int; cdecl; external avutil_dll;
+function av_dict_count(const m: pAVDictionary): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Set the given entry in *pm, overwriting an existing entry.
@@ -562,7 +562,7 @@ function av_dict_count(const m: pAVDictionary): int; cdecl; external avutil_dll;
   * @return >= 0 on success otherwise an error code <0
 *)
 // int av_dict_set(AVDictionary **pm, const char *key, const char *value, int flags);
-function av_dict_set(Var pm: pAVDictionary; const key: PAnsiChar; const value: PAnsiChar; flags: int): int; cdecl; external avutil_dll;
+function av_dict_set(Var pm: pAVDictionary; const key: PAnsiChar; const value: PAnsiChar; flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Convenience wrapper for av_dict_set that converts the value to a string
@@ -571,7 +571,7 @@ function av_dict_set(Var pm: pAVDictionary; const key: PAnsiChar; const value: P
   * Note: If AV_DICT_DONT_STRDUP_KEY is set, key will be freed on error.
 *)
 // int av_dict_set_int(AVDictionary **pm, const char *key, int64_t value, int flags);
-function av_dict_set_int(var pm: pAVDictionary; const key: PAnsiChar; value: int64_t; flags: int): int; cdecl; external avutil_dll;
+function av_dict_set_int(var pm: pAVDictionary; const key: PAnsiChar; value: int64_t; flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Parse the key/value pairs list and add the parsed entries to a dictionary.
@@ -593,7 +593,7 @@ function av_dict_set_int(var pm: pAVDictionary; const key: PAnsiChar; value: int
 // const char *key_val_sep, const char *pairs_sep,
 // int flags);
 function av_dict_parse_string(Var pm: pAVDictionary; const str: PAnsiChar; const key_val_sep: PAnsiChar; const pairs_sep: PAnsiChar; flags: int): int; cdecl;
-  external avutil_dll;
+  external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Copy entries from one AVDictionary struct into another.
@@ -606,14 +606,14 @@ function av_dict_parse_string(Var pm: pAVDictionary; const str: PAnsiChar; const
   *           by this function, callers should free the associated memory.
 *)
 // int av_dict_copy(AVDictionary **dst, const AVDictionary *src, int flags);
-function av_dict_copy(var dst: pAVDictionary; const src: pAVDictionary; flags: int): int; cdecl; external avutil_dll;
+function av_dict_copy(var dst: pAVDictionary; const src: pAVDictionary; flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Free all the memory allocated for an AVDictionary struct
   * and all keys and values.
 *)
 // void av_dict_free(AVDictionary **m);
-procedure av_dict_free(Var m: pAVDictionary); cdecl; external avutil_dll;
+procedure av_dict_free(Var m: pAVDictionary); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Get dictionary entries as a string.
@@ -633,7 +633,7 @@ procedure av_dict_free(Var m: pAVDictionary); cdecl; external avutil_dll;
 // int av_dict_get_string(const AVDictionary *m, char **buffer,
 // const char key_val_sep, const char pairs_sep);
 function av_dict_get_string(const m: pAVDictionary; Var buffer: PAnsiChar; const key_val_sep: AnsiChar; const pairs_sep: AnsiChar): int; cdecl;
-  external avutil_dll;
+  external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 {$ENDREGION}
 {$REGION 'buffer.h'}
@@ -678,14 +678,14 @@ type
     * @return an AVBufferRef of given size or NULL when out of memory
   *)
   // AVBufferRef *av_buffer_alloc(int size);
-function av_buffer_alloc(size: int): pAVBufferRef; cdecl; external avutil_dll;
+function av_buffer_alloc(size: int): pAVBufferRef; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Same as av_buffer_alloc(), except the returned buffer will be initialized
   * to zero.
 *)
 // AVBufferRef *av_buffer_allocz(int size);
-function av_buffer_allocz(size: int): pAVBufferRef; cdecl; external avutil_dll;
+function av_buffer_allocz(size: int): pAVBufferRef; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
   (* *
@@ -716,7 +716,7 @@ const
 type
   TFreeProc = procedure(opaque: Pointer; data: puint8_t); cdecl;
 
-function av_buffer_create(data: puint8_t; size: int; freeproc: TFreeProc; opaque: Pointer; flags: int): AVBufferRef; cdecl; external avutil_dll;
+function av_buffer_create(data: puint8_t; size: int; freeproc: TFreeProc; opaque: Pointer; flags: int): AVBufferRef; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Default free callback, which calls av_free() on the buffer data.
@@ -724,7 +724,7 @@ function av_buffer_create(data: puint8_t; size: int; freeproc: TFreeProc; opaque
   * directly.
 *)
 // void av_buffer_default_free(void *opaque, uint8_t *data);
-procedure av_buffer_default_free(opaque: Pointer; data: puint8_t); cdecl; external avutil_dll;
+procedure av_buffer_default_free(opaque: Pointer; data: puint8_t); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Create a new reference to an AVBuffer.
@@ -733,7 +733,7 @@ procedure av_buffer_default_free(opaque: Pointer; data: puint8_t); cdecl; extern
   * failure.
 *)
 // AVBufferRef *av_buffer_ref(AVBufferRef *buf);
-function av_buffer_ref(buf: pAVBufferRef): pAVBufferRef; cdecl; external avutil_dll;
+function av_buffer_ref(buf: pAVBufferRef): pAVBufferRef; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Free a given reference and automatically free the buffer if there are no more
   * references to it.
@@ -741,7 +741,7 @@ function av_buffer_ref(buf: pAVBufferRef): pAVBufferRef; cdecl; external avutil_
   * @param buf the reference to be freed. The pointer is set to NULL on return.
 *)
 // void av_buffer_unref(AVBufferRef **buf);
-procedure av_buffer_unref(var buf: pAVBufferRef); cdecl; external avutil_dll;
+procedure av_buffer_unref(var buf: pAVBufferRef); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * @return 1 if the caller may write to the data referred to by buf (which is
@@ -750,16 +750,16 @@ procedure av_buffer_unref(var buf: pAVBufferRef); cdecl; external avutil_dll;
   * A positive answer is valid until av_buffer_ref() is called on buf.
 *)
 // int av_buffer_is_writable(const AVBufferRef *buf);
-function av_buffer_is_writable(const buf: pAVBufferRef): int; cdecl; external avutil_dll;
+function av_buffer_is_writable(const buf: pAVBufferRef): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * @return the opaque parameter set by av_buffer_create.
 *)
 // void *av_buffer_get_opaque(const AVBufferRef *buf);
-function av_buffer_get_opaque(const buf: pAVBufferRef): Pointer; cdecl; external avutil_dll;
+function av_buffer_get_opaque(const buf: pAVBufferRef): Pointer; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // int av_buffer_get_ref_count(const AVBufferRef *buf);
-function av_buffer_get_ref_count(const buf: pAVBufferRef): int; cdecl; external avutil_dll;
+function av_buffer_get_ref_count(const buf: pAVBufferRef): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Create a writable reference from a given buffer reference, avoiding data copy
@@ -771,7 +771,7 @@ function av_buffer_get_ref_count(const buf: pAVBufferRef): int; cdecl; external 
   * @return 0 on success, a negative AVERROR on failure.
 *)
 // int av_buffer_make_writable(AVBufferRef **buf);
-function av_buffer_make_writable(var buf: pAVBufferRef): int; cdecl; external avutil_dll;
+function av_buffer_make_writable(var buf: pAVBufferRef): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Reallocate a given buffer.
@@ -789,7 +789,7 @@ function av_buffer_make_writable(var buf: pAVBufferRef): int; cdecl; external av
   * a new buffer is allocated and the data is copied.
 *)
 // int av_buffer_realloc(AVBufferRef **buf, int size);
-function av_buffer_realloc(var buf: pAVBufferRef; size: int): int; cdecl; external avutil_dll;
+function av_buffer_realloc(var buf: pAVBufferRef; size: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * @defgroup lavu_bufferpool AVBufferPool
@@ -844,7 +844,7 @@ type
 type
   Tbuffer_pool_init_proc = function(size: int): pAVBufferRef; cdecl;
 
-function av_buffer_pool_init(size: int; alloc: Tbuffer_pool_init_proc): pAVBufferPool; cdecl; external avutil_dll;
+function av_buffer_pool_init(size: int; alloc: Tbuffer_pool_init_proc): pAVBufferPool; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Allocate and initialize a buffer pool with a more complex allocator.
@@ -868,7 +868,7 @@ type
   // AVBufferRef* (*alloc)(void *opaque, int size),
   // void (*pool_free)(void *opaque));
 function av_buffer_pool_init2(size: int; opaque: Pointer; alloc: Tav_buffer_pool_init2_alloc_proc; pool_free: Tav_buffer_pool_init2_pool_free_proc)
-  : pAVBufferPool; cdecl; external avutil_dll;
+  : pAVBufferPool; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Mark the pool as being available for freeing. It will actually be freed only
@@ -879,7 +879,7 @@ function av_buffer_pool_init2(size: int; opaque: Pointer; alloc: Tav_buffer_pool
   * @param pool pointer to the pool to be freed. It will be set to NULL.
 *)
 // void av_buffer_pool_uninit(AVBufferPool **pool);
-procedure av_buffer_pool_uninit(var pool: pAVBufferPool); cdecl; external avutil_dll;
+procedure av_buffer_pool_uninit(var pool: pAVBufferPool); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Allocate a new AVBuffer, reusing an old buffer from the pool when available.
@@ -888,7 +888,7 @@ procedure av_buffer_pool_uninit(var pool: pAVBufferPool); cdecl; external avutil
   * @return a reference to the new buffer on success, NULL on error.
 *)
 // AVBufferRef *av_buffer_pool_get(AVBufferPool *pool);
-function av_buffer_pool_get(pool: pAVBufferPool): pAVBufferRef; cdecl; external avutil_dll;
+function av_buffer_pool_get(pool: pAVBufferPool): pAVBufferRef; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 {$ENDREGION}
 {$REGION 'rational.h'}
@@ -953,7 +953,7 @@ function av_q2d(a: AVRational): double; inline;
   * @return 1 if the operation is exact, 0 otherwise
 *)
 // int av_reduce(int *dst_num, int *dst_den, int64_t num, int64_t den, int64_t max);
-function av_reduce(Var dst_num: int; var dst_den: int; num: int64_t; den: int64_t; max: int64_t): int; cdecl; external avutil_dll;
+function av_reduce(Var dst_num: int; var dst_den: int; num: int64_t; den: int64_t; max: int64_t): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Multiply two rationals.
@@ -962,7 +962,7 @@ function av_reduce(Var dst_num: int; var dst_den: int; num: int64_t; den: int64_
   * @return b*c
 *)
 // AVRational av_mul_q(AVRational b, AVRational c) av_const;
-function av_mul_q(b, c: AVRational): AVRational; cdecl; external avutil_dll;
+function av_mul_q(b, c: AVRational): AVRational; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Divide one rational by another.
@@ -971,7 +971,7 @@ function av_mul_q(b, c: AVRational): AVRational; cdecl; external avutil_dll;
   * @return b/c
 *)
 // AVRational av_div_q(AVRational b, AVRational c) av_const;
-function av_div_q(b, c: AVRational): AVRational; cdecl; external avutil_dll;
+function av_div_q(b, c: AVRational): AVRational; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Add two rationals.
@@ -980,7 +980,7 @@ function av_div_q(b, c: AVRational): AVRational; cdecl; external avutil_dll;
   * @return b+c
 *)
 // AVRational av_add_q(AVRational b, AVRational c) av_const;
-function av_add_q(b, c: AVRational): AVRational; cdecl; external avutil_dll;
+function av_add_q(b, c: AVRational): AVRational; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Subtract one rational from another.
@@ -989,7 +989,7 @@ function av_add_q(b, c: AVRational): AVRational; cdecl; external avutil_dll;
   * @return b-c
 *)
 // AVRational av_sub_q(AVRational b, AVRational c) av_const;
-function av_sub_q(b, c: AVRational): AVRational; cdecl; external avutil_dll;
+function av_sub_q(b, c: AVRational): AVRational; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Invert a rational.
@@ -1011,7 +1011,7 @@ function av_inv_q(q: AVRational): AVRational; inline;
   * @see av_q2d()
 *)
 // AVRational av_d2q(double d, int max) av_const;
-function av_d2q(d: double; max: int): AVRational; cdecl; external avutil_dll;
+function av_d2q(d: double; max: int): AVRational; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Find which of the two rationals is closer to another rational.
@@ -1024,7 +1024,7 @@ function av_d2q(d: double; max: int): AVRational; cdecl; external avutil_dll;
   *         - 0 if they have the same distance
 *)
 // int av_nearer_q(AVRational q, AVRational q1, AVRational q2);
-function av_nearer_q(q: AVRational; q1: AVRational; q2: AVRational): int; cdecl; external avutil_dll;
+function av_nearer_q(q: AVRational; q1: AVRational; q2: AVRational): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Find the value in a list of rationals nearest a given reference rational.
@@ -1034,7 +1034,7 @@ function av_nearer_q(q: AVRational; q1: AVRational; q2: AVRational): int; cdecl;
   * @return Index of the nearest value found in the array
 *)
 // int av_find_nearest_q_idx(AVRational q, const AVRational* q_list);
-function av_find_nearest_q_idx(q: AVRational; const q_list: pAVRational): int; cdecl; external avutil_dll;
+function av_find_nearest_q_idx(q: AVRational; const q_list: pAVRational): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Convert an AVRational to a IEEE 32-bit `float` expressed in fixed-point
@@ -1046,7 +1046,7 @@ function av_find_nearest_q_idx(q: AVRational; const q_list: pAVRational): int; c
   * @note The returned value is platform-indepedant.
 *)
 // uint32_t av_q2intfloat(AVRational q);
-function av_q2intfloat(q: AVRational): uint32_t; cdecl; external avutil_dll;
+function av_q2intfloat(q: AVRational): uint32_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 {$ENDREGION}
 {$REGION 'avutil'}
@@ -2197,7 +2197,7 @@ type
   * @return a static string identifying the colorspace; can be NULL.
 *)
 // const char *av_get_colorspace_name(enum AVColorSpace val);
-function av_get_colorspace_name(val: AVColorSpace): PAnsiChar; cdecl; external avutil_dll;
+function av_get_colorspace_name(val: AVColorSpace): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Allocate an AVFrame and set its fields to default values.  The resulting
@@ -2210,7 +2210,7 @@ function av_get_colorspace_name(val: AVColorSpace): PAnsiChar; cdecl; external a
   * manually.
 *)
 // AVFrame *av_frame_alloc(void);
-function av_frame_alloc(): pAVFrame; cdecl; external avutil_dll;
+function av_frame_alloc(): pAVFrame; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Free the frame and any dynamically allocated objects in it,
@@ -2220,7 +2220,7 @@ function av_frame_alloc(): pAVFrame; cdecl; external avutil_dll;
   * @param frame frame to be freed. The pointer will be set to NULL.
 *)
 // void av_frame_free(AVFrame **frame);
-procedure av_frame_free(Var frame: pAVFrame); cdecl; external avutil_dll;
+procedure av_frame_free(Var frame: pAVFrame); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Set up a new reference to the data described by the source frame.
@@ -2238,7 +2238,7 @@ procedure av_frame_free(Var frame: pAVFrame); cdecl; external avutil_dll;
   * @return 0 on success, a negative AVERROR on error
 *)
 // int av_frame_ref(AVFrame *dst, const AVFrame *src);
-function av_frame_ref(dst: pAVFrame; const src: pAVFrame): int; cdecl; external avutil_dll;
+function av_frame_ref(dst: pAVFrame; const src: pAVFrame): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Create a new frame that references the same data as src.
@@ -2248,13 +2248,13 @@ function av_frame_ref(dst: pAVFrame; const src: pAVFrame): int; cdecl; external 
   * @return newly created AVFrame on success, NULL on error.
 *)
 // AVFrame *av_frame_clone(const AVFrame *src);
-function av_frame_clone(const src: pAVFrame): pAVFrame; cdecl; external avutil_dll;
+function av_frame_clone(const src: pAVFrame): pAVFrame; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Unreference all the buffers referenced by frame and reset the frame fields.
 *)
 // void av_frame_unref(AVFrame *frame);
-procedure av_frame_unref(frame: pAVFrame); cdecl; external avutil_dll;
+procedure av_frame_unref(frame: pAVFrame); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Move everything contained in src to dst and reset src.
@@ -2264,7 +2264,7 @@ procedure av_frame_unref(frame: pAVFrame); cdecl; external avutil_dll;
   *           before calling this function to ensure that no memory is leaked.
 *)
 // void av_frame_move_ref(AVFrame *dst, AVFrame *src);
-procedure av_frame_move_ref(dst: pAVFrame; src: pAVFrame); cdecl; external avutil_dll;
+procedure av_frame_move_ref(dst: pAVFrame; src: pAVFrame); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Allocate new buffer(s) for audio or video data.
@@ -2290,7 +2290,7 @@ procedure av_frame_move_ref(dst: pAVFrame; src: pAVFrame); cdecl; external avuti
   * @return 0 on success, a negative AVERROR on error.
 *)
 // int av_frame_get_buffer(AVFrame *frame, int align);
-function av_frame_get_buffer(frame: pAVFrame; align: int): int; cdecl; external avutil_dll;
+function av_frame_get_buffer(frame: pAVFrame; align: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Check if the frame data is writable.
@@ -2305,7 +2305,7 @@ function av_frame_get_buffer(frame: pAVFrame; align: int): int; cdecl; external 
   * @see av_frame_make_writable(), av_buffer_is_writable()
 *)
 // int av_frame_is_writable(AVFrame *frame);
-function av_frame_is_writable(frame: pAVFrame): int; cdecl; external avutil_dll;
+function av_frame_is_writable(frame: pAVFrame): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Ensure that the frame data is writable, avoiding data copy if possible.
@@ -2319,7 +2319,7 @@ function av_frame_is_writable(frame: pAVFrame): int; cdecl; external avutil_dll;
   * av_buffer_make_writable()
 *)
 // int av_frame_make_writable(AVFrame *frame);
-function av_frame_make_writable(frame: pAVFrame): int; cdecl; external avutil_dll;
+function av_frame_make_writable(frame: pAVFrame): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Copy the frame data from src to dst.
@@ -2333,7 +2333,7 @@ function av_frame_make_writable(frame: pAVFrame): int; cdecl; external avutil_dl
   * @return >= 0 on success, a negative AVERROR on error.
 *)
 // int av_frame_copy(AVFrame *dst, const AVFrame *src);
-function av_frame_copy(dst: pAVFrame; const src: pAVFrame): int; cdecl; external avutil_dll;
+function av_frame_copy(dst: pAVFrame; const src: pAVFrame): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Copy only "metadata" fields from src to dst.
@@ -2344,7 +2344,7 @@ function av_frame_copy(dst: pAVFrame; const src: pAVFrame): int; cdecl; external
   * Side data is also copied.
 *)
 // int av_frame_copy_props(AVFrame *dst, const AVFrame *src);
-function av_frame_copy_props(dst: pAVFrame; const src: pAVFrame): int; cdecl; external avutil_dll;
+function av_frame_copy_props(dst: pAVFrame; const src: pAVFrame): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Get the buffer reference a given data plane is stored in.
@@ -2355,7 +2355,7 @@ function av_frame_copy_props(dst: pAVFrame; const src: pAVFrame): int; cdecl; ex
   * frame is not valid.
 *)
 // AVBufferRef *av_frame_get_plane_buffer(AVFrame *frame, int plane);
-function av_frame_get_plane_buffer(frame: pAVFrame; plane: int): pAVBufferRef; cdecl; external avutil_dll;
+function av_frame_get_plane_buffer(frame: pAVFrame; plane: int): pAVBufferRef; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Add a new side data to a frame.
@@ -2369,7 +2369,7 @@ function av_frame_get_plane_buffer(frame: pAVFrame; plane: int): pAVBufferRef; c
 // AVFrameSideData *av_frame_new_side_data(AVFrame *frame,
 // enum AVFrameSideDataType type,
 // int size);
-function av_frame_new_side_data(frame: AVFrame; _type: AVFrameSideDataType; size: int): pAVFrameSideData; cdecl; external avutil_dll;
+function av_frame_new_side_data(frame: AVFrame; _type: AVFrameSideDataType; size: int): pAVFrameSideData; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Add a new side data to a frame from an existing AVBufferRef
@@ -2386,7 +2386,7 @@ function av_frame_new_side_data(frame: AVFrame; _type: AVFrameSideDataType; size
 // AVFrameSideData *av_frame_new_side_data_from_buf(AVFrame *frame,
 // enum AVFrameSideDataType type,
 // AVBufferRef *buf);
-function av_frame_new_side_data_from_buf(frame: pAVFrame; _type: AVFrameSideDataType; buf: pAVBufferRef): pAVFrameSideData; cdecl; external avutil_dll;
+function av_frame_new_side_data_from_buf(frame: pAVFrame; _type: AVFrameSideDataType; buf: pAVBufferRef): pAVFrameSideData; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * @return a pointer to the side data of a given type on success, NULL if there
@@ -2394,14 +2394,14 @@ function av_frame_new_side_data_from_buf(frame: pAVFrame; _type: AVFrameSideData
 *)
 // AVFrameSideData *av_frame_get_side_data(const AVFrame *frame,
 // enum AVFrameSideDataType type);
-function av_frame_get_side_data(const frame: pAVFrame; _type: AVFrameSideDataType): pAVFrameSideData; cdecl; external avutil_dll;
+function av_frame_get_side_data(const frame: pAVFrame; _type: AVFrameSideDataType): pAVFrameSideData; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * If side data of the supplied type exists in the frame, free it and remove it
   * from the frame.
 *)
 // void av_frame_remove_side_data(AVFrame *frame, enum AVFrameSideDataType type);
-procedure av_frame_remove_side_data(frame: pAVFrame; _type: AVFrameSideDataType); cdecl; external avutil_dll;
+procedure av_frame_remove_side_data(frame: pAVFrame; _type: AVFrameSideDataType); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
   (* *
@@ -2435,13 +2435,13 @@ const
     * were invalid, AVERROR(ERANGE) is returned, and nothing is changed.
   *)
   // int av_frame_apply_cropping(AVFrame *frame, int flags);
-function av_frame_apply_cropping(frame: pAVFrame; flags: int): int; cdecl; external avutil_dll;
+function av_frame_apply_cropping(frame: pAVFrame; flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * @return a string identifying the side data type
 *)
 // const char *av_frame_side_data_name(enum AVFrameSideDataType type);
-function av_frame_side_data_name(_type: AVFrameSideDataType): PAnsiChar; cdecl; external avutil_dll;
+function av_frame_side_data_name(_type: AVFrameSideDataType): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 {$ENDREGION}
 {$REGION 'framequeue.h'}
@@ -2927,14 +2927,14 @@ type
     * recognized.
   *)
   // const char *av_get_sample_fmt_name(enum AVSampleFormat sample_fmt);
-function av_get_sample_fmt_name(sample_fmt: AVSampleFormat): PAnsiChar; cdecl; external avutil_dll;
+function av_get_sample_fmt_name(sample_fmt: AVSampleFormat): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return a sample format corresponding to name, or AV_SAMPLE_FMT_NONE
   * on error.
 *)
 // enum AVSampleFormat av_get_sample_fmt(const char *name);
-function av_get_sample_fmt(const name: PAnsiChar): AVSampleFormat; cdecl; external avutil_dll;
+function av_get_sample_fmt(const name: PAnsiChar): AVSampleFormat; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return the planar<->packed alternative form of the given sample format, or
@@ -2943,7 +2943,7 @@ function av_get_sample_fmt(const name: PAnsiChar): AVSampleFormat; cdecl; extern
   * input.
 *)
 // enum AVSampleFormat av_get_alt_sample_fmt(enum AVSampleFormat sample_fmt, int planar);
-function av_get_alt_sample_fmt(sample_fmt: AVSampleFormat; planar: int): AVSampleFormat; cdecl; external avutil_dll;
+function av_get_alt_sample_fmt(sample_fmt: AVSampleFormat; planar: int): AVSampleFormat; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Get the packed alternative form of the given sample format.
@@ -2955,7 +2955,7 @@ function av_get_alt_sample_fmt(sample_fmt: AVSampleFormat; planar: int): AVSampl
   AV_SAMPLE_FMT_NONE on error.
 *)
 // enum AVSampleFormat av_get_packed_sample_fmt(enum AVSampleFormat sample_fmt);
-function av_get_packed_sample_fmt(sample_fmt: AVSampleFormat): AVSampleFormat; cdecl; external avutil_dll;
+function av_get_packed_sample_fmt(sample_fmt: AVSampleFormat): AVSampleFormat; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Get the planar alternative form of the given sample format.
@@ -2967,7 +2967,7 @@ function av_get_packed_sample_fmt(sample_fmt: AVSampleFormat): AVSampleFormat; c
   AV_SAMPLE_FMT_NONE on error.
 *)
 // enum AVSampleFormat av_get_planar_sample_fmt(enum AVSampleFormat sample_fmt);
-function av_get_planar_sample_fmt(sample_fmt: AVSampleFormat): AVSampleFormat; cdecl; external avutil_dll;
+function av_get_planar_sample_fmt(sample_fmt: AVSampleFormat): AVSampleFormat; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Generate a string corresponding to the sample format with
@@ -2982,7 +2982,7 @@ function av_get_planar_sample_fmt(sample_fmt: AVSampleFormat): AVSampleFormat; c
   * unknown or in case of other errors
 *)
 // char *av_get_sample_fmt_string(char *buf, int buf_size, enum AVSampleFormat sample_fmt);
-function av_get_sample_fmt_string(buf: PAnsiChar; buf_size: int; sample_fmt: AVSampleFormat): PAnsiChar; cdecl; external avutil_dll;
+function av_get_sample_fmt_string(buf: PAnsiChar; buf_size: int; sample_fmt: AVSampleFormat): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return number of bytes per sample.
@@ -2992,7 +2992,7 @@ function av_get_sample_fmt_string(buf: PAnsiChar; buf_size: int; sample_fmt: AVS
   * sample format
 *)
 // int av_get_bytes_per_sample(enum AVSampleFormat sample_fmt);
-function av_get_bytes_per_sample(sample_fmt: AVSampleFormat): int; cdecl; external avutil_dll;
+function av_get_bytes_per_sample(sample_fmt: AVSampleFormat): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Check if the sample format is planar.
@@ -3001,7 +3001,7 @@ function av_get_bytes_per_sample(sample_fmt: AVSampleFormat): int; cdecl; extern
   * @return 1 if the sample format is planar, 0 if it is interleaved
 *)
 // int av_sample_fmt_is_planar(enum AVSampleFormat sample_fmt);
-function av_sample_fmt_is_planar(sample_fmt: AVSampleFormat): int; cdecl; external avutil_dll;
+function av_sample_fmt_is_planar(sample_fmt: AVSampleFormat): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Get the required buffer size for the given audio parameters.
@@ -3016,9 +3016,9 @@ function av_sample_fmt_is_planar(sample_fmt: AVSampleFormat): int; cdecl; extern
 // int av_samples_get_buffer_size(int *linesize, int nb_channels, int nb_samples,
 // enum AVSampleFormat sample_fmt, int align);
 function av_samples_get_buffer_size(var linesize: int; nb_channels: int; nb_samples: int; sample_fmt: AVSampleFormat; align: int): int; cdecl; overload;
-  external avutil_dll;
+  external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 function av_samples_get_buffer_size(linesize: pint; nb_channels: int; nb_samples: int; sample_fmt: AVSampleFormat; align: int): int; cdecl; overload;
-  external avutil_dll;
+  external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @}
   *
@@ -3063,7 +3063,7 @@ function av_samples_get_buffer_size(linesize: pint; nb_channels: int; nb_samples
 // int nb_channels, int nb_samples,
 // enum AVSampleFormat sample_fmt, int align);
 function av_samples_fill_arrays(var audio_data: puint8_t; var linesize: int; const buf: puint8_t; nb_channels: int; nb_samples: int; sample_fmt: AVSampleFormat;
-  align: int): int; cdecl; external avutil_dll;
+  align: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Allocate a samples buffer for nb_samples samples, and fill data pointers and
@@ -3087,7 +3087,7 @@ function av_samples_fill_arrays(var audio_data: puint8_t; var linesize: int; con
 // int av_samples_alloc(uint8_t **audio_data, int *linesize, int nb_channels,
 // int nb_samples, enum AVSampleFormat sample_fmt, int align);
 function av_samples_alloc(var audio_data: puint8_t; linesize: pint; nb_channels: int; nb_samples: int; sample_fmt: AVSampleFormat; align: int): int; cdecl;
-  external avutil_dll;
+  external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Allocate a data pointers array, samples buffer for nb_samples
@@ -3101,7 +3101,7 @@ function av_samples_alloc(var audio_data: puint8_t; linesize: pint; nb_channels:
 // int av_samples_alloc_array_and_samples(uint8_t ***audio_data, int *linesize, int nb_channels,
 // int nb_samples, enum AVSampleFormat sample_fmt, int align);
 function av_samples_alloc_array_and_samples(Var audio_data: ppuint8_t; var linesize: int; nb_channels: int; nb_samples: int; sample_fmt: AVSampleFormat;
-  align: int): int; cdecl; external avutil_dll;
+  align: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Copy samples from src to dst.
@@ -3118,7 +3118,7 @@ function av_samples_alloc_array_and_samples(Var audio_data: ppuint8_t; var lines
 // int src_offset, int nb_samples, int nb_channels,
 // enum AVSampleFormat sample_fmt);
 function av_samples_copy(var dst: puint8_t; const src: ppuint8_t; dst_offset: int; src_offset: int; nb_samples: int; nb_channels: int;
-  sample_fmt: AVSampleFormat): int; cdecl; external avutil_dll;
+  sample_fmt: AVSampleFormat): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Fill an audio buffer with silence.
@@ -3132,7 +3132,7 @@ function av_samples_copy(var dst: puint8_t; const src: ppuint8_t; dst_offset: in
 // int av_samples_set_silence(uint8_t **audio_data, int offset, int nb_samples,
 // int nb_channels, enum AVSampleFormat sample_fmt);
 function av_samples_set_silence(var audio_data: puint8_t; offset: int; nb_samples: int; nb_channels: int; sample_fmt: AVSampleFormat): int; cdecl;
-  external avutil_dll;
+  external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 {$ENDREGION}
 {$REGION 'opt.h'}
@@ -3146,7 +3146,7 @@ function av_samples_set_silence(var audio_data: puint8_t; offset: int; nb_sample
   * @param av_log_obj log context to use for showing the options
 *)
 // int av_opt_show2(void *obj, void *av_log_obj, int req_flags, int rej_flags);
-function av_opt_show2(obj, av_log_obj: Pointer; req_flags, rej_flags: int): int; cdecl; external avutil_dll;
+function av_opt_show2(obj, av_log_obj: Pointer; req_flags, rej_flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Set the values of all AVOption fields to their default values.
@@ -3154,7 +3154,7 @@ function av_opt_show2(obj, av_log_obj: Pointer; req_flags, rej_flags: int): int;
   * @param s an AVOption-enabled struct (its first member must be a pointer to AVClass)
 *)
 // void av_opt_set_defaults(void *s);
-procedure av_opt_set_defaults(s: Pointer); cdecl; external avutil_dll;
+procedure av_opt_set_defaults(s: Pointer); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Set the values of all AVOption fields to their default values. Only these
@@ -3166,7 +3166,7 @@ procedure av_opt_set_defaults(s: Pointer); cdecl; external avutil_dll;
   * @param flags combination of AV_OPT_FLAG_*
 *)
 // void av_opt_set_defaults2(void *s, int mask, int flags);
-procedure av_opt_set_defaults2(s: Pointer; mask, flags: int); cdecl; external avutil_dll;
+procedure av_opt_set_defaults2(s: Pointer; mask, flags: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Parse the key/value pairs list in opts. For each key/value pair
@@ -3187,7 +3187,7 @@ procedure av_opt_set_defaults2(s: Pointer; mask, flags: int); cdecl; external av
 *)
 // int av_set_options_string(void *ctx, const char *opts,
 // const char *key_val_sep, const char *pairs_sep);
-function av_set_options_string(ctx: Pointer; const opts: PAnsiChar; const key_val_sep: PAnsiChar; const pairs_sep: PAnsiChar): int; cdecl; external avutil_dll;
+function av_set_options_string(ctx: Pointer; const opts: PAnsiChar; const key_val_sep: PAnsiChar; const pairs_sep: PAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Parse the key-value pairs list in opts. For each key=value pair found,
@@ -3220,12 +3220,12 @@ function av_set_options_string(ctx: Pointer; const opts: PAnsiChar; const key_va
 // const char *const *shorthand,
 // const char *key_val_sep, const char *pairs_sep);
 function av_opt_set_from_string(ctx: Pointer; const opts: PAnsiChar; const shorthand: ppAnsiChar; const key_val_sep: PAnsiChar; const pairs_sep: PAnsiChar)
-  : int; cdecl; external avutil_dll;
+  : int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Free all allocated objects in obj.
 *)
 // void av_opt_free(void *obj);
-procedure av_opt_free(obj: Pointer); cdecl; external avutil_dll;
+procedure av_opt_free(obj: Pointer); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Check whether a particular flag is set in a flags field.
@@ -3236,7 +3236,7 @@ procedure av_opt_free(obj: Pointer); cdecl; external avutil_dll;
   *         isn't of the right type, or the flags field doesn't exist.
 *)
 // int av_opt_flag_is_set(void *obj, const char *field_name, const char *flag_name);
-function av_opt_flag_is_set(obj: Pointer; const field_name: PAnsiChar; const flag_name: PAnsiChar): int; cdecl; external avutil_dll;
+function av_opt_flag_is_set(obj: Pointer; const field_name: PAnsiChar; const flag_name: PAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Set all the options from a given dictionary on an object.
@@ -3253,7 +3253,7 @@ function av_opt_flag_is_set(obj: Pointer; const field_name: PAnsiChar; const fla
   * @see av_dict_copy()
 *)
 // int av_opt_set_dict(void *obj, struct AVDictionary **options);
-function av_opt_set_dict(obj: Pointer; var options: pAVDictionary): int; cdecl; external avutil_dll;
+function av_opt_set_dict(obj: Pointer; var options: pAVDictionary): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Set all the options from a given dictionary on an object.
@@ -3271,7 +3271,7 @@ function av_opt_set_dict(obj: Pointer; var options: pAVDictionary): int; cdecl; 
   * @see av_dict_copy()
 *)
 // int av_opt_set_dict2(void *obj, struct AVDictionary **options, int search_flags);
-function av_opt_set_dict2(obj: Pointer; Var options: pAVDictionary; search_flags: int): int; cdecl; external avutil_dll;
+function av_opt_set_dict2(obj: Pointer; Var options: pAVDictionary; search_flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Extract a key-value pair from the beginning of a string.
@@ -3297,7 +3297,7 @@ function av_opt_set_dict2(obj: Pointer; Var options: pAVDictionary; search_flags
 // unsigned flags,
 // char **rkey, char **rval);
 function av_opt_get_key_value(const ropts: ppAnsiChar; const key_val_sep: PAnsiChar; const pairs_sep: PAnsiChar; flags: unsigned; rkey: ppAnsiChar;
-  rval: ppAnsiChar): int; cdecl; external avutil_dll;
+  rval: ppAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Accept to parse a value without a key; the key will then be returned
@@ -3321,7 +3321,7 @@ const
     * @return 0 on success, a negative number on failure.
   *)
   // int av_opt_eval_flags (void *obj, const AVOption *o, const char *val, int        *flags_out);
-function av_opt_eval_flags(obj: Pointer; const o: pAVOption; const val: PAnsiChar; var flags_out: int): int; cdecl; external avutil_dll;
+function av_opt_eval_flags(obj: Pointer; const o: pAVOption; const val: PAnsiChar; var flags_out: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // int av_opt_eval_int   (void *obj, const AVOption *o, const char *val, int        *int_out);
 // int av_opt_eval_int64 (void *obj, const AVOption *o, const char *val, int64_t    *int64_out);
@@ -3379,7 +3379,7 @@ const
   *)
   // const AVOption *av_opt_find(void *obj, const char *name, const char *unit,
   // int opt_flags, int search_flags);
-function av_opt_find(obj: Pointer; const name: PAnsiChar; const _unit: PAnsiChar; opt_flags: int; search_flags: int): pAVOption; cdecl; external avutil_dll;
+function av_opt_find(obj: Pointer; const name: PAnsiChar; const _unit: PAnsiChar; opt_flags: int; search_flags: int): pAVOption; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Look for an option in an object. Consider only options which
@@ -3405,7 +3405,7 @@ function av_opt_find(obj: Pointer; const name: PAnsiChar; const _unit: PAnsiChar
 // const AVOption *av_opt_find2(void *obj, const char *name, const char *unit,
 // int opt_flags, int search_flags, void **target_obj);
 function av_opt_find2(obj: Pointer; const name: PAnsiChar; const _unit: PAnsiChar; opt_flags: int; search_flags: int; Var target_obj: Pointer): pAVOption;
-  cdecl; external avutil_dll;
+  cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Iterate over all AVOptions belonging to obj.
@@ -3417,7 +3417,7 @@ function av_opt_find2(obj: Pointer; const name: PAnsiChar; const _unit: PAnsiCha
   * @return next AVOption or NULL
 *)
 // const AVOption *av_opt_next(const void *obj, const AVOption *prev);
-function av_opt_next(const obj: Pointer; const prev: pAVOption): pAVOption; cdecl; external avutil_dll;
+function av_opt_next(const obj: Pointer; const prev: pAVOption): pAVOption; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Iterate over AVOptions-enabled children of obj.
@@ -3426,7 +3426,7 @@ function av_opt_next(const obj: Pointer; const prev: pAVOption): pAVOption; cdec
   * @return next AVOptions-enabled child or NULL
 *)
 // void *av_opt_child_next(void *obj, void *prev);
-function av_opt_child_next(obj: Pointer; prev: Pointer): Pointer; cdecl; external avutil_dll;
+function av_opt_child_next(obj: Pointer; prev: Pointer): Pointer; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Iterate over potential AVOptions-enabled children of parent.
@@ -3435,7 +3435,7 @@ function av_opt_child_next(obj: Pointer; prev: Pointer): Pointer; cdecl; externa
   * @return AVClass corresponding to next potential child or NULL
 *)
 // const AVClass *av_opt_child_class_next(const AVClass *parent, const AVClass *prev);
-function av_opt_child_class_next(const parent: pAVClass; const prev: pAVClass): pAVClass; cdecl; external avutil_dll;
+function av_opt_child_class_next(const parent: pAVClass; const prev: pAVClass): pAVClass; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * @defgroup opt_set_funcs Option setting functions
@@ -3465,31 +3465,31 @@ function av_opt_child_class_next(const parent: pAVClass; const prev: pAVClass): 
 *)
 
 // int av_opt_set         (void *obj, const char *name, const char *val, int search_flags);
-function av_opt_set(obj: Pointer; const name: PAnsiChar; const val: PAnsiChar; search_flags: int): int; cdecl; external avutil_dll;
+function av_opt_set(obj: Pointer; const name: PAnsiChar; const val: PAnsiChar; search_flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // int av_opt_set_int     (void *obj, const char *name, int64_t     val, int search_flags);
-function av_opt_set_int(obj: Pointer; const name: PAnsiChar; val: int64_t; search_flags: int): int; cdecl; external avutil_dll;
+function av_opt_set_int(obj: Pointer; const name: PAnsiChar; val: int64_t; search_flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // int av_opt_set_double  (void *obj, const char *name, double      val, int search_flags);
-function av_opt_set_double(obj: Pointer; const name: PAnsiChar; val: double; search_flags: int): int; cdecl; external avutil_dll;
+function av_opt_set_double(obj: Pointer; const name: PAnsiChar; val: double; search_flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // int av_opt_set_q       (void *obj, const char *name, AVRational  val, int search_flags);
-function av_opt_set_q(obj: Pointer; const name: PAnsiChar; val: AVRational; search_flags: int): int; cdecl; external avutil_dll;
+function av_opt_set_q(obj: Pointer; const name: PAnsiChar; val: AVRational; search_flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // int av_opt_set_bin     (void *obj, const char *name, const uint8_t *val, int size, int search_flags);
-function av_opt_set_bin(obj: Pointer; const name: PAnsiChar; const val: puint8_t; size: int; search_flags: int): int; cdecl; external avutil_dll;
+function av_opt_set_bin(obj: Pointer; const name: PAnsiChar; const val: puint8_t; size: int; search_flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // int av_opt_set_image_size(void *obj, const char *name, int w, int h, int search_flags);
-function av_opt_set_image_size(obj: Pointer; const name: PAnsiChar; w, h, search_flags: int): int; cdecl; external avutil_dll;
+function av_opt_set_image_size(obj: Pointer; const name: PAnsiChar; w, h, search_flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // int av_opt_set_pixel_fmt (void *obj, const char *name, enum AVPixelFormat fmt, int search_flags);
-function av_opt_set_pixel_fmt(obj: Pointer; const name: PAnsiChar; fmt: AVPixelFormat; search_flags: int): int; cdecl; external avutil_dll;
+function av_opt_set_pixel_fmt(obj: Pointer; const name: PAnsiChar; fmt: AVPixelFormat; search_flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // int av_opt_set_sample_fmt(void *obj, const char *name, enum AVSampleFormat fmt, int search_flags);
-function av_opt_set_sample_fmt(obj: Pointer; const name: PAnsiChar; fmt: AVSampleFormat; search_flags: int): int; cdecl; external avutil_dll;
+function av_opt_set_sample_fmt(obj: Pointer; const name: PAnsiChar; fmt: AVSampleFormat; search_flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // int av_opt_set_video_rate(void *obj, const char *name, AVRational val, int search_flags);
-function av_opt_set_video_rate(obj: Pointer; const name: PAnsiChar; val: AVRational; search_flags: int): int; cdecl; external avutil_dll;
+function av_opt_set_video_rate(obj: Pointer; const name: PAnsiChar; val: AVRational; search_flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // int av_opt_set_channel_layout(void *obj, const char *name, int64_t ch_layout, int search_flags);
-function av_opt_set_channel_layout(obj: Pointer; const name: PAnsiChar; ch_layout: int64_t; search_flags: int): int; cdecl; external avutil_dll;
+function av_opt_set_channel_layout(obj: Pointer; const name: PAnsiChar; ch_layout: int64_t; search_flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @note Any old dictionary present is discarded and replaced with a copy of the new one. The
   * caller still owns val is and responsible for freeing it.
 *)
 // int av_opt_set_dict_val(void *obj, const char *name, const AVDictionary *val, int search_flags);
-function av_opt_set_dict_val(obj: Pointer; const name: PAnsiChar; const val: pAVDictionary; search_flags: int): int; cdecl; external avutil_dll;
+function av_opt_set_dict_val(obj: Pointer; const name: PAnsiChar; const val: pAVDictionary; search_flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Set a binary option to an integer list.
@@ -3532,29 +3532,29 @@ function av_opt_set_int_list(obj: Pointer; name: PAnsiChar; list: Pointer; item_
   * to NULL instead of an allocated empty string.
 *)
 // int av_opt_get         (void *obj, const char *name, int search_flags, uint8_t   **out_val);
-function av_opt_get(obj: Pointer; const name: PAnsiChar; search_flags: int; Var out_val: puint8_t): int; cdecl; external avutil_dll;
+function av_opt_get(obj: Pointer; const name: PAnsiChar; search_flags: int; Var out_val: puint8_t): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // int av_opt_get_int     (void *obj, const char *name, int search_flags, int64_t    *out_val);
-function av_opt_get_int(obj: Pointer; const name: PAnsiChar; search_flags: int; var out_val: int64_t): int; cdecl; external avutil_dll;
+function av_opt_get_int(obj: Pointer; const name: PAnsiChar; search_flags: int; var out_val: int64_t): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // int av_opt_get_double  (void *obj, const char *name, int search_flags, double     *out_val);
-function av_opt_get_double(obj: Pointer; const name: PAnsiChar; search_flags: int; out_val: double): int; cdecl; external avutil_dll;
+function av_opt_get_double(obj: Pointer; const name: PAnsiChar; search_flags: int; out_val: double): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // int av_opt_get_q       (void *obj, const char *name, int search_flags, AVRational *out_val);
-function av_opt_get_q(obj: Pointer; const name: PAnsiChar; search_flags: int; var out_val: AVRational): int; cdecl; external avutil_dll;
+function av_opt_get_q(obj: Pointer; const name: PAnsiChar; search_flags: int; var out_val: AVRational): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // int av_opt_get_image_size(void *obj, const char *name, int search_flags, int *w_out, int *h_out);
-function av_opt_get_image_size(obj: Pointer; const name: PAnsiChar; search_flags: int; var w_out, h_out: int): int; cdecl; external avutil_dll;
+function av_opt_get_image_size(obj: Pointer; const name: PAnsiChar; search_flags: int; var w_out, h_out: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // int av_opt_get_pixel_fmt (void *obj, const char *name, int search_flags, enum AVPixelFormat *out_fmt);
-function av_opt_get_pixel_fmt(obj: Pointer; const name: PAnsiChar; search_flags: int; var out_fmt: AVPixelFormat): int; cdecl; external avutil_dll;
+function av_opt_get_pixel_fmt(obj: Pointer; const name: PAnsiChar; search_flags: int; var out_fmt: AVPixelFormat): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // int av_opt_get_sample_fmt(void *obj, const char *name, int search_flags, enum AVSampleFormat *out_fmt);
-function av_opt_get_sample_fmt(obj: Pointer; const name: PAnsiChar; search_flags: int; var out_fmt: AVSampleFormat): int; cdecl; external avutil_dll;
+function av_opt_get_sample_fmt(obj: Pointer; const name: PAnsiChar; search_flags: int; var out_fmt: AVSampleFormat): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // int av_opt_get_video_rate(void *obj, const char *name, int search_flags, AVRational *out_val);
-function av_opt_get_video_rate(obj: Pointer; const name: PAnsiChar; search_flags: int; var out_val: AVRational): int; cdecl; external avutil_dll;
+function av_opt_get_video_rate(obj: Pointer; const name: PAnsiChar; search_flags: int; var out_val: AVRational): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 // int av_opt_get_channel_layout(void *obj, const char *name, int search_flags, int64_t *ch_layout);
-function av_opt_get_channel_layout(obj: Pointer; const name: PAnsiChar; search_flags: int; var ch_layout: int64_t): int; cdecl; external avutil_dll;
+function av_opt_get_channel_layout(obj: Pointer; const name: PAnsiChar; search_flags: int; var ch_layout: int64_t): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @param[out] out_val The returned dictionary is a copy of the actual value and must
   * be freed with av_dict_free() by the caller
 *)
 // int av_opt_get_dict_val(void *obj, const char *name, int search_flags, AVDictionary **out_val);
-function av_opt_get_dict_val(obj: Pointer; const name: PAnsiChar; search_flags: int; var out_val: pAVDictionary): int; cdecl; external avutil_dll;
+function av_opt_get_dict_val(obj: Pointer; const name: PAnsiChar; search_flags: int; var out_val: pAVDictionary): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @}
 *)
@@ -3567,13 +3567,13 @@ function av_opt_get_dict_val(obj: Pointer; const name: PAnsiChar; search_flags: 
   *          or written to.
 *)
 // void *av_opt_ptr(const AVClass *avclass, void *obj, const char *name);
-function av_opt_ptr(const avclass: pAVClass; obj: Pointer; const name: PAnsiChar): Pointer; cdecl; external avutil_dll;
+function av_opt_ptr(const avclass: pAVClass; obj: Pointer; const name: PAnsiChar): Pointer; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Free an AVOptionRanges struct and set it to NULL.
 *)
 // void av_opt_freep_ranges(AVOptionRanges **ranges);
-procedure av_opt_freep_ranges(var ranges: pAVOptionRanges); cdecl; external avutil_dll;
+procedure av_opt_freep_ranges(var ranges: pAVOptionRanges); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Get a list of allowed ranges for the given option.
@@ -3589,7 +3589,7 @@ procedure av_opt_freep_ranges(var ranges: pAVOptionRanges); cdecl; external avut
   * @return number of compontents returned on success, a negative errro code otherwise
 *)
 // int av_opt_query_ranges(AVOptionRanges **, void *obj, const char *key, int flags);
-function av_opt_query_ranges(Var ranges: pAVOptionRanges; obj: Pointer; const key: PAnsiChar; flags: int): int; cdecl; external avutil_dll;
+function av_opt_query_ranges(Var ranges: pAVOptionRanges; obj: Pointer; const key: PAnsiChar; flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Copy options from src object into dest object.
@@ -3602,7 +3602,7 @@ function av_opt_query_ranges(Var ranges: pAVOptionRanges; obj: Pointer; const ke
   * @return 0 on success, negative on error
 *)
 // int av_opt_copy(void *dest, const void *src);
-function av_opt_copy(dest: Pointer; const src: Pointer): int; cdecl; external avutil_dll;
+function av_opt_copy(dest: Pointer; const src: Pointer): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Get a default list of allowed ranges for the given option.
@@ -3619,7 +3619,7 @@ function av_opt_copy(dest: Pointer; const src: Pointer): int; cdecl; external av
   * @return number of compontents returned on success, a negative errro code otherwise
 *)
 // int av_opt_query_ranges_default(AVOptionRanges **, void *obj, const char *key, int flags);
-function av_opt_query_ranges_default(var ranges: pAVOptionRanges; obj: Pointer; const key: PAnsiChar; flags: int): int; cdecl; external avutil_dll;
+function av_opt_query_ranges_default(var ranges: pAVOptionRanges; obj: Pointer; const key: PAnsiChar; flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Check if given option is set to its default value.
@@ -3634,7 +3634,7 @@ function av_opt_query_ranges_default(var ranges: pAVOptionRanges; obj: Pointer; 
   *             <0 on error
 *)
 // int av_opt_is_set_to_default(void *obj, const AVOption *o);
-function av_opt_is_set_to_default(obj: Pointer; const o: pAVOption): int; cdecl; external avutil_dll;
+function av_opt_is_set_to_default(obj: Pointer; const o: pAVOption): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Check if given option is set to its default value.
@@ -3647,7 +3647,7 @@ function av_opt_is_set_to_default(obj: Pointer; const o: pAVOption): int; cdecl;
   *                     <0 on error
 *)
 // int av_opt_is_set_to_default_by_name(void *obj, const char *name, int search_flags);
-function av_opt_is_set_to_default_by_name(obj: Pointer; const name: PAnsiChar; search_flags: int): int; cdecl; external avutil_dll;
+function av_opt_is_set_to_default_by_name(obj: Pointer; const name: PAnsiChar; search_flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
   AV_OPT_SERIALIZE_SKIP_DEFAULTS = $00000001;
@@ -3677,7 +3677,7 @@ const
   // const char key_val_sep, const char pairs_sep);
 
 function av_opt_serialize(obj: Pointer; opt_flags: int; flags: int; Var buffer: PAnsiChar; const key_val_sep: AnsiChar; const pairs_sep: AnsiChar): int; cdecl;
-  external avutil_dll;
+  external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 {$ENDREGION}
 {$REGION 'log.h'}
@@ -3708,7 +3708,7 @@ function av_opt_serialize(obj: Pointer; opt_flags: int; flags: int; Var buffer: 
 // void av_log(void *avcl, int level, const char *fmt, ...) av_printf_format(3, 4);
 procedure av_log(avcl: Pointer; level: int; const fmt: PAnsiChar);
 cdecl varargs;
-external avutil_dll;
+external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Send the specified message to the log if the level is less than or equal
@@ -3726,7 +3726,7 @@ external avutil_dll;
   * @param vl The arguments referenced by the format string.
 *)
 // void av_vlog(void *avcl, int level, const char *fmt, va_list vl);
-procedure av_vlog(avcl: Pointer; level: int; const fmt: PAnsiChar; vl: PVA_LIST); cdecl; external avutil_dll;
+procedure av_vlog(avcl: Pointer; level: int; const fmt: PAnsiChar; vl: PVA_LIST); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Get the current log level
@@ -3736,7 +3736,7 @@ procedure av_vlog(avcl: Pointer; level: int; const fmt: PAnsiChar; vl: PVA_LIST)
   * @return Current log level
 *)
 // int av_log_get_level(void);
-function av_log_get_level(): int; cdecl; external avutil_dll;
+function av_log_get_level(): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Set the log level
@@ -3746,7 +3746,7 @@ function av_log_get_level(): int; cdecl; external avutil_dll;
   * @param level Logging level
 *)
 // void av_log_set_level(int level);
-procedure av_log_set_level(level: int); cdecl; external avutil_dll;
+procedure av_log_set_level(level: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Set the logging callback
@@ -3763,7 +3763,7 @@ Type
   Tav_log_callback = procedure(p: Pointer; lvl: Integer; fmt: PAnsiChar; vl: PVA_LIST);
 cdecl varargs;
 
-procedure av_log_set_callback(callbackproc: Tav_log_callback); cdecl; external avutil_dll;
+procedure av_log_set_callback(callbackproc: Tav_log_callback); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Default logging callback
@@ -3779,7 +3779,7 @@ procedure av_log_set_callback(callbackproc: Tav_log_callback); cdecl; external a
   * @param vl The arguments referenced by the format string.
 *)
 // void av_log_default_callback(void *avcl, int level, const char *fmt, va_list vl);
-procedure av_log_default_callback(avcl: Pointer; level: int; const fmt: PAnsiChar; vl: PVA_LIST); cdecl; external avutil_dll;
+procedure av_log_default_callback(avcl: Pointer; level: int; const fmt: PAnsiChar; vl: PVA_LIST); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return the context name
@@ -3789,10 +3789,10 @@ procedure av_log_default_callback(avcl: Pointer; level: int; const fmt: PAnsiCha
   * @return The AVClass class_name
 *)
 // const char* av_default_item_name(void* ctx);
-function av_default_item_name(ctx: Pointer): PAnsiChar; cdecl; external avutil_dll;
+function av_default_item_name(ctx: Pointer): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // AVClassCategory av_default_get_category(void *ptr);
-function av_default_get_category(ptr: Pointer): AVClassCategory; cdecl; external avutil_dll;
+function av_default_get_category(ptr: Pointer): AVClassCategory; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Format a line of log the same way as the default callback.
@@ -3804,7 +3804,7 @@ function av_default_get_category(ptr: Pointer): AVClassCategory; cdecl; external
 // void av_log_format_line(void *ptr, int level, const char *fmt, va_list vl,
 // char *line, int line_size, int *print_prefix);
 procedure av_log_format_line(ptr: Pointer; level: int; const fmt: PAnsiChar; vl: PVA_LIST; line: PAnsiChar; line_size: int; Var print_prefix: int); cdecl;
-  external avutil_dll;
+  external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Format a line of log the same way as the default callback.
@@ -3823,7 +3823,7 @@ procedure av_log_format_line(ptr: Pointer; level: int; const fmt: PAnsiChar; vl:
 // int av_log_format_line2(void *ptr, int level, const char *fmt, va_list vl,
 // char *line, int line_size, int *print_prefix);
 function av_log_format_line2(ptr: Pointer; level: int; const fmt: PAnsiChar; vl: PVA_LIST; line: PAnsiChar; line_size: int; Var print_prefix: int): int; cdecl;
-  external avutil_dll;
+  external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
   (* *
@@ -3845,17 +3845,17 @@ const
   AV_LOG_PRINT_LEVEL = 2;
 
   // void av_log_set_flags(int arg);
-procedure av_log_set_flags(arg: int); cdecl; external avutil_dll;
+procedure av_log_set_flags(arg: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // int av_log_get_flags(void);
-function av_log_get_flags(): int; cdecl; external avutil_dll;
+function av_log_get_flags(): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'avutil.h'}
 (* *
   * Return the LIBAVUTIL_VERSION_INT constant.
 *)
 // unsigned avutil_version(void);
-function avutil_version(): unsigned; cdecl; external avutil_dll;
+function avutil_version(): unsigned; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return an informative version string. This usually is the actual release
@@ -3863,26 +3863,26 @@ function avutil_version(): unsigned; cdecl; external avutil_dll;
   * and can change any time. It should never be parsed by code.
 *)
 // const char *av_version_info(void);
-function av_version_info(): PAnsiChar; cdecl; external avutil_dll;
+function av_version_info(): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return the libavutil build-time configuration.
 *)
 // const char *avutil_configuration(void);
-function avutil_configuration(): PAnsiChar; cdecl; external avutil_dll;
+function avutil_configuration(): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return the libavutil license.
 *)
 // const char *avutil_license(void);
-function avutil_license(): PAnsiChar; cdecl; external avutil_dll;
+function avutil_license(): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return a string describing the media_type enum, NULL if media_type
   * is unknown.
 *)
 // const char *av_get_media_type_string(enum AVMediaType media_type);
-function av_get_media_type_string(media_type: AVMediaType): PAnsiChar; cdecl; external avutil_dll;
+function av_get_media_type_string(media_type: AVMediaType): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return a single letter to describe the given picture type
@@ -3892,7 +3892,7 @@ function av_get_media_type_string(media_type: AVMediaType): PAnsiChar; cdecl; ex
   * representing the picture type, '?' if pict_type is unknown
 *)
 // char av_get_picture_type_char(enum AVPictureType pict_type);
-function av_get_picture_type_char(pict_type: AVPictureType): AnsiChar; cdecl; external avutil_dll;
+function av_get_picture_type_char(pict_type: AVPictureType): AnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return x default pointer in case p is NULL.
@@ -3913,7 +3913,7 @@ function av_x_if_null(const p: Pointer; const x: Pointer): Pointer; inline;
 *)
 // unsigned av_int_list_length_for_size(unsigned elsize,
 // const void *list, uint64_t term) av_pure;
-function av_int_list_length_for_size(elsize: unsigned; const list: Pointer; term: uint64_t): unsigned; cdecl; external avutil_dll;
+function av_int_list_length_for_size(elsize: unsigned; const list: Pointer; term: uint64_t): unsigned; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Compute the length of an integer list.
@@ -3932,13 +3932,13 @@ function av_int_list_length(list: Pointer; item_size: int; term: int64_t): int; 
   * errno.
 *)
 // FILE *av_fopen_utf8(const char *path, const char *mode);
-function av_fopen_utf8(const path: PAnsiChar; const mode: PAnsiChar): pFile; cdecl; external avutil_dll;
+function av_fopen_utf8(const path: PAnsiChar; const mode: PAnsiChar): pFile; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Return the fractional representation of the internal time base.
 *)
 // AVRational av_get_time_base_q(void);
-function av_get_time_base_q(): AVRational; cdecl; external avutil_dll;
+function av_get_time_base_q(): AVRational; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
   AV_FOURCC_MAX_STRING_SIZE = 32;
@@ -3954,7 +3954,7 @@ const
     * @return the buffer in input
   *)
   // char *av_fourcc_make_string(char *buf, uint32_t fourcc);
-function av_fourcc_make_string(buf: PAnsiChar; fourcc: uint32_t): PAnsiChar; cdecl; external avutil_dll;
+function av_fourcc_make_string(buf: PAnsiChar; fourcc: uint32_t): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'file.h'}
 (* *
@@ -3972,7 +3972,7 @@ function av_fourcc_make_string(buf: PAnsiChar; fourcc: uint32_t): PAnsiChar; cde
 // av_warn_unused_result
 // int av_file_map(const char *filename, uint8_t **bufptr, size_t *size,
 // int log_offset, void *log_ctx);
-function av_file_map(const filename: PAnsiChar; var bufptr: puint8_t; var size: size_t; log_offset: int; log_ctx: Pointer): int; cdecl; external avutil_dll;
+function av_file_map(const filename: PAnsiChar; var bufptr: puint8_t; var size: size_t; log_offset: int; log_ctx: Pointer): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Unmap or free the buffer bufptr created by av_file_map().
   *
@@ -3980,7 +3980,7 @@ function av_file_map(const filename: PAnsiChar; var bufptr: puint8_t; var size: 
   * by av_file_map()
 *)
 // void av_file_unmap(uint8_t *bufptr, size_t size);
-procedure av_file_unmap(bufptr: puint8_t; size: size_t); cdecl; external avutil_dll;
+procedure av_file_unmap(bufptr: puint8_t; size: size_t); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Wrapper to work around the lack of mkstemp() on mingw.
   * Also, tries to create file in /tmp first, if possible.
@@ -3994,7 +3994,7 @@ procedure av_file_unmap(bufptr: puint8_t; size: size_t); cdecl; external avutil_
   * @deprecated as fd numbers cannot be passed saftely between libs on some platforms
 *)
 // int av_tempfile(const char *prefix, char **filename, int log_offset, void *log_ctx);
-function av_tempfile(const prefix: PAnsiChar; var filename: PAnsiChar; log_offset: int; log_ctx: Pointer): int; cdecl; external avutil_dll;
+function av_tempfile(const prefix: PAnsiChar; var filename: PAnsiChar; log_offset: int; log_ctx: Pointer): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'error.h'}
 
@@ -4428,7 +4428,7 @@ const
     * cannot be found
   *)
   // int av_strerror(int errnum, char *errbuf, size_t errbuf_size);
-function av_strerror(errnum: int; errbuf: PAnsiChar; errbuf_size: size_t): int; cdecl; external avutil_dll;
+function av_strerror(errnum: int; errbuf: PAnsiChar; errbuf_size: size_t): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Fill the provided buffer with a string containing an error string
   * corresponding to the AVERROR code errnum.
@@ -4505,20 +4505,20 @@ const
     * detect the enabled cpu flags.
   *)
   // int av_get_cpu_flags(void);
-function av_get_cpu_flags(): int; cdecl; external avutil_dll;
+function av_get_cpu_flags(): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Disables cpu detection and forces the specified flags.
   * -1 is a special case that disables forcing of specific flags.
 *)
 // void av_force_cpu_flags(int flags);
-procedure av_force_cpu_flags(flags: int); cdecl; external avutil_dll;
+procedure av_force_cpu_flags(flags: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Set a mask on flags returned by av_get_cpu_flags().
   * This function is mainly useful for testing.
   * Please use av_force_cpu_flags() and av_get_cpu_flags() instead which are more flexible
 *)
 // attribute_deprecated void av_set_cpu_flags_mask(int mask);
-procedure av_set_cpu_flags_mask(mask: int); cdecl; external avutil_dll;
+procedure av_set_cpu_flags_mask(mask: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
   deprecated 'Please use av_force_cpu_flags() and av_get_cpu_flags() instead which are more flexible';
 (* *
   * Parse CPU flags from a string.
@@ -4530,19 +4530,19 @@ procedure av_set_cpu_flags_mask(mask: int); cdecl; external avutil_dll;
   * @return a combination of AV_CPU_* flags, negative on error.
 *)
 // attribute_deprecated int av_parse_cpu_flags(const char *s);
-function av_parse_cpu_flags(const s: PAnsiChar): int; cdecl; external avutil_dll; deprecated 'Please use av_parse_cpu_caps() when possible';
+function av_parse_cpu_flags(const s: PAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF}; deprecated 'Please use av_parse_cpu_caps() when possible';
 (* *
   * Parse CPU caps from a string and update the given AV_CPU_* flags based on that.
   *
   * @return negative on error.
 *)
 // int av_parse_cpu_caps(unsigned *flags, const char *s);
-function av_parse_cpu_caps(var flags: unsigned; const s: PAnsiChar): int; cdecl; external avutil_dll;
+function av_parse_cpu_caps(var flags: unsigned; const s: PAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return the number of logical CPU cores present.
 *)
 // int av_cpu_count(void);
-function av_cpu_count(): int; cdecl; external avutil_dll;
+function av_cpu_count(): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Get the maximum data alignment that may be required by FFmpeg.
   *
@@ -4553,7 +4553,7 @@ function av_cpu_count(): int; cdecl; external avutil_dll;
   *  present.
 *)
 // size_t av_cpu_max_align(void);
-function av_cpu_max_align(): size_t; cdecl; external avutil_dll;
+function av_cpu_max_align(): size_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'audio_fifo.h'}
 
@@ -4576,7 +4576,7 @@ type
     * @param af  AVAudioFifo to free
   *)
   // void av_audio_fifo_free(AVAudioFifo *af);
-procedure av_audio_fifo_free(af: pAVAudioFifo); cdecl; external avutil_dll;
+procedure av_audio_fifo_free(af: pAVAudioFifo); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Allocate an AVAudioFifo.
   *
@@ -4587,7 +4587,7 @@ procedure av_audio_fifo_free(af: pAVAudioFifo); cdecl; external avutil_dll;
 *)
 // AVAudioFifo *av_audio_fifo_alloc(enum AVSampleFormat sample_fmt, int channels,
 // int nb_samples);
-function av_audio_fifo_alloc(sample_fmt: AVSampleFormat; channels: int; nb_samples: int): pAVAudioFifo; cdecl; external avutil_dll;
+function av_audio_fifo_alloc(sample_fmt: AVSampleFormat; channels: int; nb_samples: int): pAVAudioFifo; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Reallocate an AVAudioFifo.
   *
@@ -4597,7 +4597,7 @@ function av_audio_fifo_alloc(sample_fmt: AVSampleFormat; channels: int; nb_sampl
 *)
 // av_warn_unused_result
 // int av_audio_fifo_realloc(AVAudioFifo *af, int nb_samples);
-function av_audio_fifo_realloc(af: pAVAudioFifo; nb_samples: int): int; cdecl; external avutil_dll;
+function av_audio_fifo_realloc(af: pAVAudioFifo; nb_samples: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Write data to an AVAudioFifo.
   *
@@ -4615,7 +4615,7 @@ function av_audio_fifo_realloc(af: pAVAudioFifo; nb_samples: int): int; cdecl; e
   *                    actually written will always be nb_samples.
 *)
 // int av_audio_fifo_write(AVAudioFifo *af, void **data, int nb_samples);
-function av_audio_fifo_write(af: pAVAudioFifo; var data: puint8_t; nb_samples: int): int; cdecl; external avutil_dll;
+function av_audio_fifo_write(af: pAVAudioFifo; var data: puint8_t; nb_samples: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Peek data from an AVAudioFifo.
   *
@@ -4631,7 +4631,7 @@ function av_audio_fifo_write(af: pAVAudioFifo; var data: puint8_t; nb_samples: i
   *                    nb_samples if av_audio_fifo_size is less than nb_samples.
 *)
 // int av_audio_fifo_peek(AVAudioFifo *af, void **data, int nb_samples);
-function av_audio_fifo_peek(af: pAVAudioFifo; var data: puint8_t; nb_samples: int): int; cdecl; external avutil_dll;
+function av_audio_fifo_peek(af: pAVAudioFifo; var data: puint8_t; nb_samples: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Peek data from an AVAudioFifo.
   *
@@ -4648,7 +4648,7 @@ function av_audio_fifo_peek(af: pAVAudioFifo; var data: puint8_t; nb_samples: in
   *                    nb_samples if av_audio_fifo_size is less than nb_samples.
 *)
 // int av_audio_fifo_peek_at(AVAudioFifo *af, void **data, int nb_samples, int offset);
-function av_audio_fifo_peek_at(af: pAVAudioFifo; var data: Pointer; nb_samples: int; offset: int): int; cdecl; external avutil_dll;
+function av_audio_fifo_peek_at(af: pAVAudioFifo; var data: Pointer; nb_samples: int; offset: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Read data from an AVAudioFifo.
   *
@@ -4664,7 +4664,7 @@ function av_audio_fifo_peek_at(af: pAVAudioFifo; var data: Pointer; nb_samples: 
   *                    nb_samples if av_audio_fifo_size is less than nb_samples.
 *)
 // int av_audio_fifo_read(AVAudioFifo *af, void **data, int nb_samples);
-function av_audio_fifo_read(af: pAVAudioFifo; var data: Pointer; nb_samples: int): int; cdecl; external avutil_dll;
+function av_audio_fifo_read(af: pAVAudioFifo; var data: Pointer; nb_samples: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Drain data from an AVAudioFifo.
   *
@@ -4675,7 +4675,7 @@ function av_audio_fifo_read(af: pAVAudioFifo; var data: Pointer; nb_samples: int
   * @return            0 if OK, or negative AVERROR code on failure
 *)
 // int av_audio_fifo_drain(AVAudioFifo *af, int nb_samples);
-function av_audio_fifo_drain(af: pAVAudioFifo; nb_samples: int): int; cdecl; external avutil_dll;
+function av_audio_fifo_drain(af: pAVAudioFifo; nb_samples: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Reset the AVAudioFifo buffer.
   *
@@ -4684,7 +4684,7 @@ function av_audio_fifo_drain(af: pAVAudioFifo; nb_samples: int): int; cdecl; ext
   * @param af  AVAudioFifo to reset
 *)
 // void av_audio_fifo_reset(AVAudioFifo *af);
-procedure av_audio_fifo_reset(af: pAVAudioFifo); cdecl; external avutil_dll;
+procedure av_audio_fifo_reset(af: pAVAudioFifo); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Get the current number of samples in the AVAudioFifo available for reading.
   *
@@ -4692,7 +4692,7 @@ procedure av_audio_fifo_reset(af: pAVAudioFifo); cdecl; external avutil_dll;
   * @return    number of samples available for reading
 *)
 // int av_audio_fifo_size(AVAudioFifo *af);
-function av_audio_fifo_size(af: pAVAudioFifo): int; cdecl; external avutil_dll;
+function av_audio_fifo_size(af: pAVAudioFifo): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Get the current number of samples in the AVAudioFifo available for writing.
   *
@@ -4700,7 +4700,7 @@ function av_audio_fifo_size(af: pAVAudioFifo): int; cdecl; external avutil_dll;
   * @return    number of samples available for writing
 *)
 // int av_audio_fifo_space(AVAudioFifo *af);
-function av_audio_fifo_space(af: pAVAudioFifo): int; cdecl; external avutil_dll;
+function av_audio_fifo_space(af: pAVAudioFifo): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'avstring.h'}
 (* *
@@ -4713,7 +4713,7 @@ function av_audio_fifo_space(af: pAVAudioFifo): int; cdecl; external avutil_dll;
   * @return non-zero if the prefix matches, zero otherwise
 *)
 // int av_strstart(const char *str, const char *pfx, const char **ptr);
-function av_strstart(const str: PAnsiChar; const pfx: PAnsiChar; const ptr: ppAnsiChar): int; cdecl; external avutil_dll;
+function av_strstart(const str: PAnsiChar; const pfx: PAnsiChar; const ptr: ppAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Return non-zero if pfx is a prefix of str independent of case. If
   * it is, *ptr is set to the address of the first character in str
@@ -4725,7 +4725,7 @@ function av_strstart(const str: PAnsiChar; const pfx: PAnsiChar; const ptr: ppAn
   * @return non-zero if the prefix matches, zero otherwise
 *)
 // int av_stristart(const char *str, const char *pfx, const char **ptr);
-function av_stristart(const str: PAnsiChar; const pfx: PAnsiChar; const ptr: ppAnsiChar): int; cdecl; external avutil_dll;
+function av_stristart(const str: PAnsiChar; const pfx: PAnsiChar; const ptr: ppAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Locate the first case-independent occurrence in the string haystack
   * of the string needle.  A zero-length string needle is considered to
@@ -4739,7 +4739,7 @@ function av_stristart(const str: PAnsiChar; const pfx: PAnsiChar; const ptr: ppA
   *                 or a null pointer if no match
 *)
 // char *av_stristr(const char *haystack, const char *needle);
-function av_stristr(const haystack: PAnsiChar; const needle: PAnsiChar): PAnsiChar; cdecl; external avutil_dll;
+function av_stristr(const haystack: PAnsiChar; const needle: PAnsiChar): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Locate the first occurrence of the string needle in the string haystack
   * where not more than hay_length characters are searched. A zero-length
@@ -4754,7 +4754,7 @@ function av_stristr(const haystack: PAnsiChar; const needle: PAnsiChar): PAnsiCh
   *                   or a null pointer if no match
 *)
 // char *av_strnstr(const char *haystack, const char *needle, size_t hay_length);
-function av_strnstr(const haystack: PAnsiChar; const needle: PAnsiChar; hay_length: size_t): PAnsiChar; cdecl; external avutil_dll;
+function av_strnstr(const haystack: PAnsiChar; const needle: PAnsiChar; hay_length: size_t): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Copy the string src to dst, but no more than size - 1 bytes, and
   * null-terminate dst.
@@ -4771,7 +4771,7 @@ function av_strnstr(const haystack: PAnsiChar; const needle: PAnsiChar; hay_leng
   * the end of the buffer and possibly crash.
 *)
 // size_t av_strlcpy(char *dst, const char *src, size_t size);
-function av_strlcpy(dst: PAnsiChar; const src: PAnsiChar; size: size_t): size_t; cdecl; external avutil_dll;
+function av_strlcpy(dst: PAnsiChar; const src: PAnsiChar; size: size_t): size_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Append the string src to the string dst, but to a total length of
   * no more than size - 1 bytes, and null-terminate dst.
@@ -4789,7 +4789,7 @@ function av_strlcpy(dst: PAnsiChar; const src: PAnsiChar; size: size_t): size_t;
   * will read beyond the end of the buffer and possibly crash.
 *)
 // size_t av_strlcat(char *dst, const char *src, size_t size);
-function av_strlcat(dst: PAnsiChar; const src: PAnsiChar; size: size_t): size_t; cdecl; external avutil_dll;
+function av_strlcat(dst: PAnsiChar; const src: PAnsiChar; size: size_t): size_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Append output to a string, according to a format. Never write out of
   * the destination buffer, and always put a terminating 0 within
@@ -4827,7 +4827,7 @@ function av_strnlen(const s: PAnsiChar; len: size_t): size_t; inline;
   * Convert a number to an av_malloced string.
 *)
 // char *av_d2str(double d);
-function av_d2str(d: double): PAnsiChar; cdecl; external avutil_dll;
+function av_d2str(d: double): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Unescape the given string until a non escaped terminating char,
   * and return the token corresponding to the unescaped string.
@@ -4843,7 +4843,7 @@ function av_d2str(d: double): PAnsiChar; cdecl; external avutil_dll;
   * the user, NULL in case of allocation failure
 *)
 // char *av_get_token(const char **buf, const char *term);
-function av_get_token(const buf: ppAnsiChar; const term: PAnsiChar): PAnsiChar; cdecl; external avutil_dll;
+function av_get_token(const buf: ppAnsiChar; const term: PAnsiChar): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Split the string into several tokens which can be accessed by
   * successive calls to av_strtok().
@@ -4867,7 +4867,7 @@ function av_get_token(const buf: ppAnsiChar; const term: PAnsiChar): PAnsiChar; 
   * @return the found token, or NULL when no token is found
 *)
 // char *av_strtok(char *s, const char *delim, char **saveptr);
-function av_strtok(s: PAnsiChar; const delim: PAnsiChar; saveptr: ppAnsiChar): PAnsiChar; cdecl; external avutil_dll;
+function av_strtok(s: PAnsiChar; const delim: PAnsiChar; saveptr: ppAnsiChar): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Locale-independent conversion of ASCII isdigit.
 *)
@@ -4909,26 +4909,26 @@ function av_isxdigit(c1: int): Boolean; inline;
   * @note This means only ASCII-range characters are case-insensitive
 *)
 // int av_strcasecmp(const char *a, const char *b);
-function av_strcasecmp(const a: PAnsiChar; const b: PAnsiChar): int; cdecl; external avutil_dll;
+function av_strcasecmp(const a: PAnsiChar; const b: PAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Locale-independent case-insensitive compare.
   * @note This means only ASCII-range characters are case-insensitive
 *)
 // int av_strncasecmp(const char *a, const char *b, size_t n);
-function av_strncasecmp(const a: PAnsiChar; const b: PAnsiChar; n: size_t): int; cdecl; external avutil_dll;
+function av_strncasecmp(const a: PAnsiChar; const b: PAnsiChar; n: size_t): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Locale-independent strings replace.
   * @note This means only ASCII-range characters are replace
 *)
 // char *av_strireplace(const char *str, const char *from, const char *to);
-function av_strireplace(const str: PAnsiChar; const from: PAnsiChar; const _to: PAnsiChar): PAnsiChar; cdecl; external avutil_dll;
+function av_strireplace(const str: PAnsiChar; const from: PAnsiChar; const _to: PAnsiChar): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Thread safe basename.
   * @param path the path, on DOS both \ and / are considered separators.
   * @return pointer to the basename substring.
 *)
 // const char *av_basename(const char *path);
-function av_basename(const path: PAnsiChar): PAnsiChar; cdecl; external avutil_dll;
+function av_basename(const path: PAnsiChar): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Thread safe dirname.
   * @param path the path, on DOS both \ and / are considered separators.
@@ -4936,7 +4936,7 @@ function av_basename(const path: PAnsiChar): PAnsiChar; cdecl; external avutil_d
   * @note the function may change the input string.
 *)
 // const char *av_dirname(char *path);
-function av_dirname(path: PAnsiChar): PAnsiChar; cdecl; external avutil_dll;
+function av_dirname(path: PAnsiChar): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Match instances of a name in a comma-separated list of names.
   * List entries are checked from the start to the end of the names list,
@@ -4949,7 +4949,7 @@ function av_dirname(path: PAnsiChar): PAnsiChar; cdecl; external avutil_dll;
   * @return 1 on match, 0 otherwise.
 *)
 // int av_match_name(const char *name, const char *names);
-function av_match_name(const name: PAnsiChar; const names: PAnsiChar): int; cdecl; external avutil_dll;
+function av_match_name(const name: PAnsiChar; const names: PAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Append path component to the existing path.
   * Path separator '/' is placed between when needed.
@@ -4959,7 +4959,7 @@ function av_match_name(const name: PAnsiChar; const names: PAnsiChar): int; cdec
   * @return new path or NULL on error.
 *)
 // char *av_append_path_component(const char *path, const char *component);
-function av_append_path_component(const path: PAnsiChar; const component: PAnsiChar): PAnsiChar; cdecl; external avutil_dll;
+function av_append_path_component(const path: PAnsiChar; const component: PAnsiChar): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 type
   AVEscapeMode = ( //
@@ -5008,7 +5008,7 @@ const
   // av_warn_unused_result
   // int av_escape(char **dst, const char *src, const char *special_chars,
   // enum AVEscapeMode mode, int flags);
-function av_escape(var dst: PAnsiChar; const src: PAnsiChar; const special_chars: PAnsiChar; mode: AVEscapeMode; flags: int): int; cdecl; external avutil_dll;
+function av_escape(var dst: PAnsiChar; const src: PAnsiChar; const special_chars: PAnsiChar; mode: AVEscapeMode; flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
   AV_UTF8_FLAG_ACCEPT_INVALID_BIG_CODES = 1;
@@ -5053,14 +5053,14 @@ const
   // av_warn_unused_result
   // int av_utf8_decode(int32_t *codep, const uint8_t **bufp, const uint8_t *buf_end,
   // unsigned int flags);
-function av_utf8_decode(var codep: int32_t; const bufp: ppuint8_t; const buf_end: puint8_t; flags: unsigned_int): int; cdecl; external avutil_dll;
+function av_utf8_decode(var codep: int32_t; const bufp: ppuint8_t; const buf_end: puint8_t; flags: unsigned_int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Check if a name is in a list.
   * @returns 0 if not found, or the 1 based index where it has been found in the
   *            list.
 *)
 // int av_match_list(const char *name, const char *list, char separator);
-function av_match_list(const name: PAnsiChar; const list: PAnsiChar; separator: AnsiChar): int; cdecl; external avutil_dll;
+function av_match_list(const name: PAnsiChar; const list: PAnsiChar; separator: AnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * See libc sscanf manual for more information.
@@ -5094,7 +5094,7 @@ const
     *                   Check also AV_BPRINT_SIZE_* macros.
   *)
   // void av_bprint_init(AVBPrint *buf, unsigned size_init, unsigned size_max);
-procedure av_bprint_init(buf: pAVBPrint; size_init: unsigned; size_max: unsigned); cdecl; external avutil_dll;
+procedure av_bprint_init(buf: pAVBPrint; size_init: unsigned; size_max: unsigned); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Init a print buffer using a pre-existing buffer.
   *
@@ -5105,7 +5105,7 @@ procedure av_bprint_init(buf: pAVBPrint; size_init: unsigned; size_max: unsigned
   * @param size    size of buffer
 *)
 // void av_bprint_init_for_buffer(AVBPrint *buf, char *buffer, unsigned size);
-procedure av_bprint_init_for_buffer(buf: pAVBPrint; buffer: PAnsiChar; size: unsigned); cdecl; external avutil_dll;
+procedure av_bprint_init_for_buffer(buf: pAVBPrint; buffer: PAnsiChar; size: unsigned); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Append a formatted string to a print buffer.
 *)
@@ -5115,12 +5115,12 @@ procedure av_bprint_init_for_buffer(buf: pAVBPrint; buffer: PAnsiChar; size: uns
   * Append a formatted string to a print buffer.
 *)
 // void av_vbprintf(AVBPrint *buf, const char *fmt, va_list vl_arg);
-procedure av_vbprintf(buf: pAVBPrint; const fmt: PAnsiChar; vl_arg: PVA_LIST); cdecl; external avutil_dll;
+procedure av_vbprintf(buf: pAVBPrint; const fmt: PAnsiChar; vl_arg: PVA_LIST); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Append char c n times to a print buffer.
 *)
 // void av_bprint_chars(AVBPrint *buf, char c, unsigned n);
-procedure av_bprint_chars(buf: pAVBPrint; c: AnsiChar; n: unsigned); cdecl; external avutil_dll;
+procedure av_bprint_chars(buf: pAVBPrint; c: AnsiChar; n: unsigned); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Append data to a print buffer.
   *
@@ -5129,7 +5129,7 @@ procedure av_bprint_chars(buf: pAVBPrint; c: AnsiChar; n: unsigned); cdecl; exte
   * param size size of data
 *)
 // void av_bprint_append_data(AVBPrint *buf, const char *data, unsigned size);
-procedure av_bprint_append_data(buf: pAVBPrint; const data: PAnsiChar; size: unsigned); cdecl; external avutil_dll;
+procedure av_bprint_append_data(buf: pAVBPrint; const data: PAnsiChar; size: unsigned); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 type
   ptm = ^tm;
@@ -5149,7 +5149,7 @@ type
     * the bprint buffer is near the limit stated by the size_max option.
   *)
   // void av_bprint_strftime(AVBPrint *buf, const char *fmt, const struct tm *tm);
-procedure av_bprint_strftime(buf: pAVBPrint; const fmt: PAnsiChar; const tm: ptm); cdecl; external avutil_dll;
+procedure av_bprint_strftime(buf: pAVBPrint; const fmt: PAnsiChar; const tm: ptm); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Allocate bytes in the buffer for external use.
   *
@@ -5161,12 +5161,12 @@ procedure av_bprint_strftime(buf: pAVBPrint; const fmt: PAnsiChar; const tm: ptm
 *)
 // void av_bprint_get_buffer(AVBPrint *buf, unsigned size,
 // unsigned char **mem, unsigned *actual_size);
-procedure av_bprint_get_buffer(buf: pAVBPrint; size: unsigned; var mem: punsigned_char; var actual_size: unsigned); cdecl; external avutil_dll;
+procedure av_bprint_get_buffer(buf: pAVBPrint; size: unsigned; var mem: punsigned_char; var actual_size: unsigned); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Reset the string to "" but keep internal allocated data.
 *)
 // void av_bprint_clear(AVBPrint *buf);
-procedure av_bprint_clear(buf: pAVBPrint); cdecl; external avutil_dll;
+procedure av_bprint_clear(buf: pAVBPrint); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Test if the print buffer is complete (not truncated).
   *
@@ -5188,7 +5188,7 @@ function av_bprint_is_complete(const buf: pAVBPrint): Boolean; inline;
   * @return  0 for success or error code (probably AVERROR(ENOMEM))
 *)
 // int av_bprint_finalize(AVBPrint *buf, char **ret_str);
-function av_bprint_finalize(buf: pAVBPrint; var ret_str: PAnsiChar): int; cdecl; external avutil_dll;
+function av_bprint_finalize(buf: pAVBPrint; var ret_str: PAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Escape the content in src and append it to dstbuf.
   *
@@ -5204,7 +5204,7 @@ function av_bprint_finalize(buf: pAVBPrint; var ret_str: PAnsiChar): int; cdecl;
 *)
 // void av_bprint_escape(AVBPrint *dstbuf, const char *src, const char *special_chars,
 // enum AVEscapeMode mode, int flags);
-procedure av_bprint_escape(dstbuf: pAVBPrint; const src: PAnsiChar; const special_chars: PAnsiChar; mode: AVEscapeMode; flags: int); cdecl; external avutil_dll;
+procedure av_bprint_escape(dstbuf: pAVBPrint; const src: PAnsiChar; const special_chars: PAnsiChar; mode: AVEscapeMode; flags: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'display.h'}
 (* *
@@ -5259,7 +5259,7 @@ type
     *       recommended to round the return value to nearest integer before use.
   *)
   // double av_display_rotation_get(const int32_t matrix[9]);
-function av_display_rotation_get(const matrix: Tav_display_matrix): double; cdecl; external avutil_dll;
+function av_display_rotation_get(const matrix: Tav_display_matrix): double; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Initialize a transformation matrix describing a pure counterclockwise
   * rotation by the specified angle (in degrees).
@@ -5269,7 +5269,7 @@ function av_display_rotation_get(const matrix: Tav_display_matrix): double; cdec
   * @param angle rotation angle in degrees.
 *)
 // void av_display_rotation_set(int32_t matrix[9], double angle);
-procedure av_display_rotation_set(matrix: Tav_display_matrix; angle: double); cdecl; external avutil_dll;
+procedure av_display_rotation_set(matrix: Tav_display_matrix; angle: double); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Flip the input matrix horizontally and/or vertically.
   *
@@ -5278,7 +5278,7 @@ procedure av_display_rotation_set(matrix: Tav_display_matrix; angle: double); cd
   * @param vflip whether the matrix should be flipped vertically
 *)
 // void av_display_matrix_flip(int32_t matrix[9], int hflip, int vflip);
-procedure av_display_matrix_flip(matrix: Tav_display_matrix; hflip: int; vflip: int); cdecl; external avutil_dll;
+procedure av_display_matrix_flip(matrix: Tav_display_matrix; hflip: int; vflip: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'eval.h'}
 
@@ -5319,7 +5319,7 @@ type
 
 function av_expr_parse_and_eval(var res: double; const s: PAnsiChar; const_names: ppAnsiChar; const const_values: pdouble; func1_names: ppAnsiChar;
   funcs1: Tav_expr_funcs1; func2_names: ppAnsiChar; funcs2: Tav_expr_funcs2; opaque: Pointer; log_offset: int; log_ctx: Pointer): int; cdecl;
-  external avutil_dll;
+  external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Parse an expression.
   *
@@ -5344,7 +5344,7 @@ function av_expr_parse_and_eval(var res: double; const s: PAnsiChar; const_names
 // int log_offset, void *log_ctx);
 
 function av_expr_parse(var expr: pAVExpr; const s: PAnsiChar; const_names: ppAnsiChar; func1_names: ppAnsiChar; funcs1: Tav_expr_funcs1;
-  func2_names: ppAnsiChar; funcs2: Tav_expr_funcs2; log_offset: int; log_ctx: Pointer): int; cdecl; external avutil_dll;
+  func2_names: ppAnsiChar; funcs2: Tav_expr_funcs2; log_offset: int; log_ctx: Pointer): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Evaluate a previously parsed expression.
   *
@@ -5353,12 +5353,12 @@ function av_expr_parse(var expr: pAVExpr; const s: PAnsiChar; const_names: ppAns
   * @return the value of the expression
 *)
 // double av_expr_eval(AVExpr *e, const double *const_values, void *opaque);
-function av_expr_eval(e: pAVExpr; const const_values: pdouble; opaque: Pointer): double; cdecl; external avutil_dll;
+function av_expr_eval(e: pAVExpr; const const_values: pdouble; opaque: Pointer): double; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Free a parsed expression previously created with av_expr_parse().
 *)
 // void av_expr_free(AVExpr *e);
-procedure av_expr_free(e: pAVExpr); cdecl; external avutil_dll;
+procedure av_expr_free(e: pAVExpr); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Parse the string in numstr and return its value as a double. If
   * the string is empty, contains only whitespaces, or does not contain
@@ -5377,7 +5377,7 @@ procedure av_expr_free(e: pAVExpr); cdecl; external avutil_dll;
   * after the last parsed character
 *)
 // double av_strtod(const char *numstr, char **tail);
-function av_strtod(const numstr: PAnsiChar; var tail: PAnsiChar): double; cdecl; external avutil_dll;
+function av_strtod(const numstr: PAnsiChar; var tail: PAnsiChar): double; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'fifo.h'}
 
@@ -5396,7 +5396,7 @@ type
     * @return AVFifoBuffer or NULL in case of memory allocation failure
   *)
   // AVFifoBuffer *av_fifo_alloc(unsigned int size);
-function av_fifo_alloc(size: unsigned_int): pAVFifoBuffer; cdecl; external avutil_dll;
+function av_fifo_alloc(size: unsigned_int): pAVFifoBuffer; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Initialize an AVFifoBuffer.
   * @param nmemb number of elements
@@ -5404,25 +5404,25 @@ function av_fifo_alloc(size: unsigned_int): pAVFifoBuffer; cdecl; external avuti
   * @return AVFifoBuffer or NULL in case of memory allocation failure
 *)
 // AVFifoBuffer *av_fifo_alloc_array(size_t nmemb, size_t size);
-function av_fifo_alloc_array(nmemb: size_t; size: size_t): pAVFifoBuffer; cdecl; external avutil_dll;
+function av_fifo_alloc_array(nmemb: size_t; size: size_t): pAVFifoBuffer; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Free an AVFifoBuffer.
   * @param f AVFifoBuffer to free
 *)
 // void av_fifo_free(AVFifoBuffer *f);
-procedure av_fifo_free(f: pAVFifoBuffer); cdecl; external avutil_dll;
+procedure av_fifo_free(f: pAVFifoBuffer); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Free an AVFifoBuffer and reset pointer to NULL.
   * @param f AVFifoBuffer to free
 *)
 // void av_fifo_freep(AVFifoBuffer **f);
-procedure av_fifo_freep(var f: pAVFifoBuffer); cdecl; external avutil_dll;
+procedure av_fifo_freep(var f: pAVFifoBuffer); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Reset the AVFifoBuffer to the state right after av_fifo_alloc, in particular it is emptied.
   * @param f AVFifoBuffer to reset
 *)
 // void av_fifo_reset(AVFifoBuffer *f);
-procedure av_fifo_reset(f: pAVFifoBuffer); cdecl; external avutil_dll;
+procedure av_fifo_reset(f: pAVFifoBuffer); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Return the amount of data in bytes in the AVFifoBuffer, that is the
   * amount of data you can read from it.
@@ -5430,7 +5430,7 @@ procedure av_fifo_reset(f: pAVFifoBuffer); cdecl; external avutil_dll;
   * @return size
 *)
 // int av_fifo_size(const AVFifoBuffer *f);
-function av_fifo_size(const f: pAVFifoBuffer): int; cdecl; external avutil_dll;
+function av_fifo_size(const f: pAVFifoBuffer): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Return the amount of space in bytes in the AVFifoBuffer, that is the
   * amount of data you can write into it.
@@ -5438,7 +5438,7 @@ function av_fifo_size(const f: pAVFifoBuffer): int; cdecl; external avutil_dll;
   * @return size
 *)
 // int av_fifo_space(const AVFifoBuffer *f);
-function av_fifo_space(const f: pAVFifoBuffer): int; cdecl; external avutil_dll;
+function av_fifo_space(const f: pAVFifoBuffer): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Feed data at specific position from an AVFifoBuffer to a user-supplied callback.
@@ -5454,7 +5454,7 @@ type
   Tav_fifo_proc = procedure(p1: Pointer; p2: Pointer; p3: int); cdecl;
   Tav_fifo_func = function(p1: Pointer; p2: Pointer; p3: int): int; cdecl;
 
-function av_fifo_generic_peek_at(f: pAVFifoBuffer; dest: Pointer; offset: int; buf_size: int; func: Tav_fifo_proc): int; cdecl; external avutil_dll;
+function av_fifo_generic_peek_at(f: pAVFifoBuffer; dest: Pointer; offset: int; buf_size: int; func: Tav_fifo_proc): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Feed data from an AVFifoBuffer to a user-supplied callback.
   * Similar as av_fifo_gereric_read but without discarding data.
@@ -5464,7 +5464,7 @@ function av_fifo_generic_peek_at(f: pAVFifoBuffer; dest: Pointer; offset: int; b
   * @param dest data destination
 *)
 // int av_fifo_generic_peek(AVFifoBuffer *f, void *dest, int buf_size, void (*func)(void*, void*, int));
-function av_fifo_generic_peek(f: pAVFifoBuffer; dest: Pointer; buf_size: int; func: Tav_fifo_proc): int; cdecl; external avutil_dll;
+function av_fifo_generic_peek(f: pAVFifoBuffer; dest: Pointer; buf_size: int; func: Tav_fifo_proc): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Feed data from an AVFifoBuffer to a user-supplied callback.
   * @param f AVFifoBuffer to read from
@@ -5473,7 +5473,7 @@ function av_fifo_generic_peek(f: pAVFifoBuffer; dest: Pointer; buf_size: int; fu
   * @param dest data destination
 *)
 // int av_fifo_generic_read(AVFifoBuffer *f, void *dest, int buf_size, void (*func)(void*, void*, int));
-function av_fifo_generic_read(f: pAVFifoBuffer; dest: Pointer; buf_size: int; func: Tav_fifo_proc): int; cdecl; external avutil_dll;
+function av_fifo_generic_read(f: pAVFifoBuffer; dest: Pointer; buf_size: int; func: Tav_fifo_proc): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Feed data from a user-supplied callback to an AVFifoBuffer.
   * @param f AVFifoBuffer to write to
@@ -5488,7 +5488,7 @@ function av_fifo_generic_read(f: pAVFifoBuffer; dest: Pointer; buf_size: int; fu
   * @return the number of bytes written to the FIFO
 *)
 // int av_fifo_generic_write(AVFifoBuffer *f, void *src, int size, int (*func)(void*, void*, int));
-function av_fifo_generic_write(f: pAVFifoBuffer; src: Pointer; size: int; func: Tav_fifo_func): int; cdecl; external avutil_dll;
+function av_fifo_generic_write(f: pAVFifoBuffer; src: Pointer; size: int; func: Tav_fifo_func): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Resize an AVFifoBuffer.
   * In case of reallocation failure, the old FIFO is kept unchanged.
@@ -5498,7 +5498,7 @@ function av_fifo_generic_write(f: pAVFifoBuffer; src: Pointer; size: int; func: 
   * @return <0 for failure, >=0 otherwise
 *)
 // int av_fifo_realloc2(AVFifoBuffer *f, unsigned int size);
-function av_fifo_realloc2(f: pAVFifoBuffer; size: unsigned_int): int; cdecl; external avutil_dll;
+function av_fifo_realloc2(f: pAVFifoBuffer; size: unsigned_int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Enlarge an AVFifoBuffer.
   * In case of reallocation failure, the old FIFO is kept unchanged.
@@ -5509,14 +5509,14 @@ function av_fifo_realloc2(f: pAVFifoBuffer; size: unsigned_int): int; cdecl; ext
   * @return <0 for failure, >=0 otherwise
 *)
 // int av_fifo_grow(AVFifoBuffer *f, unsigned int additional_space);
-function av_fifo_grow(f: pAVFifoBuffer; additional_space: unsigned_int): int; cdecl; external avutil_dll;
+function av_fifo_grow(f: pAVFifoBuffer; additional_space: unsigned_int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Read and discard the specified amount of data from an AVFifoBuffer.
   * @param f AVFifoBuffer to read from
   * @param size amount of data to read in bytes
 *)
 // void av_fifo_drain(AVFifoBuffer *f, int size);
-procedure av_fifo_drain(f: pAVFifoBuffer; size: int); cdecl; external avutil_dll;
+procedure av_fifo_drain(f: pAVFifoBuffer; size: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Return a pointer to the data stored in a FIFO buffer at a certain offset.
   * The FIFO buffer is not modified.
@@ -5745,7 +5745,7 @@ type
     *         not found.
   *)
   // enum AVHWDeviceType av_hwdevice_find_type_by_name(const char *name);
-function av_hwdevice_find_type_by_name(const name: PAnsiChar): AVHWDeviceType; cdecl; external avutil_dll;
+function av_hwdevice_find_type_by_name(const name: PAnsiChar): AVHWDeviceType; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* * Get the string name of an AVHWDeviceType.
   *
   * @param type Type from enum AVHWDeviceType.
@@ -5753,7 +5753,7 @@ function av_hwdevice_find_type_by_name(const name: PAnsiChar): AVHWDeviceType; c
   *         is not valid.
 *)
 // const char *av_hwdevice_get_type_name(enum AVHWDeviceType type);
-function av_hwdevice_get_type_name(_type: AVHWDeviceType): PAnsiChar; cdecl; external avutil_dll;
+function av_hwdevice_get_type_name(_type: AVHWDeviceType): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Iterate over supported device types.
   *
@@ -5763,7 +5763,7 @@ function av_hwdevice_get_type_name(_type: AVHWDeviceType): PAnsiChar; cdecl; ext
   *         AV_HWDEVICE_TYPE_NONE if there are no more.
 *)
 // enum AVHWDeviceType av_hwdevice_iterate_types(enum AVHWDeviceType prev);
-function av_hwdevice_iterate_types(prev: AVHWDeviceType): AVHWDeviceType; cdecl; external avutil_dll;
+function av_hwdevice_iterate_types(prev: AVHWDeviceType): AVHWDeviceType; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Allocate an AVHWDeviceContext for a given hardware type.
   *
@@ -5772,7 +5772,7 @@ function av_hwdevice_iterate_types(prev: AVHWDeviceType): AVHWDeviceType; cdecl;
   *         on failure.
 *)
 // AVBufferRef *av_hwdevice_ctx_alloc(enum AVHWDeviceType type);
-function av_hwdevice_ctx_alloc(_type: AVHWDeviceType): pAVBufferRef; cdecl; external avutil_dll;
+function av_hwdevice_ctx_alloc(_type: AVHWDeviceType): pAVBufferRef; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Finalize the device context before use. This function must be called after
   * the context is filled with all the required information and before it is
@@ -5782,7 +5782,7 @@ function av_hwdevice_ctx_alloc(_type: AVHWDeviceType): pAVBufferRef; cdecl; exte
   * @return 0 on success, a negative AVERROR code on failure
 *)
 // int av_hwdevice_ctx_init(AVBufferRef *ref);
-function av_hwdevice_ctx_init(ref: pAVBufferRef): int; cdecl; external avutil_dll;
+function av_hwdevice_ctx_init(ref: pAVBufferRef): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Open a device of the specified type and create an AVHWDeviceContext for it.
   *
@@ -5811,7 +5811,7 @@ function av_hwdevice_ctx_init(ref: pAVBufferRef): int; cdecl; external avutil_dl
 // int av_hwdevice_ctx_create(AVBufferRef **device_ctx, enum AVHWDeviceType type,
 // const char *device, AVDictionary *opts, int flags);
 function av_hwdevice_ctx_create(var device_ctx: pAVBufferRef; _type: AVHWDeviceType; const device: PAnsiChar; opts: pAVDictionary; flags: int): int; cdecl;
-  external avutil_dll;
+  external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Create a new device of the specified type from an existing device.
   *
@@ -5836,7 +5836,7 @@ function av_hwdevice_ctx_create(var device_ctx: pAVBufferRef; _type: AVHWDeviceT
 // int av_hwdevice_ctx_create_derived(AVBufferRef **dst_ctx,
 // enum AVHWDeviceType type,
 // AVBufferRef *src_ctx, int flags);
-function av_hwdevice_ctx_create_derived(var dst_ctx: pAVBufferRef; _type: AVHWDeviceType; src_ctx: pAVBufferRef; flags: int): int; cdecl; external avutil_dll;
+function av_hwdevice_ctx_create_derived(var dst_ctx: pAVBufferRef; _type: AVHWDeviceType; src_ctx: pAVBufferRef; flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Allocate an AVHWFramesContext tied to a given device context.
   *
@@ -5847,7 +5847,7 @@ function av_hwdevice_ctx_create_derived(var dst_ctx: pAVBufferRef; _type: AVHWDe
   *         on failure.
 *)
 // AVBufferRef *av_hwframe_ctx_alloc(AVBufferRef *device_ctx);
-function av_hwframe_ctx_alloc(device_ctx: pAVBufferRef): pAVBufferRef; cdecl; external avutil_dll;
+function av_hwframe_ctx_alloc(device_ctx: pAVBufferRef): pAVBufferRef; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Finalize the context before use. This function must be called after the
   * context is filled with all the required information and before it is attached
@@ -5857,7 +5857,7 @@ function av_hwframe_ctx_alloc(device_ctx: pAVBufferRef): pAVBufferRef; cdecl; ex
   * @return 0 on success, a negative AVERROR code on failure
 *)
 // int av_hwframe_ctx_init(AVBufferRef *ref);
-function av_hwframe_ctx_init(ref: pAVBufferRef): int; cdecl; external avutil_dll;
+function av_hwframe_ctx_init(ref: pAVBufferRef): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Allocate a new frame attached to the given AVHWFramesContext.
   *
@@ -5868,7 +5868,7 @@ function av_hwframe_ctx_init(ref: pAVBufferRef): int; cdecl; external avutil_dll
   * @return 0 on success, a negative AVERROR code on failure
 *)
 // int av_hwframe_get_buffer(AVBufferRef *hwframe_ctx, AVFrame *frame, int flags);
-function av_hwframe_get_buffer(hwframe_ctx: pAVBufferRef; frame: pAVFrame; flags: int): int; cdecl; external avutil_dll;
+function av_hwframe_get_buffer(hwframe_ctx: pAVBufferRef; frame: pAVFrame; flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Copy data to or from a hw surface. At least one of dst/src must have an
   * AVHWFramesContext attached.
@@ -5899,7 +5899,7 @@ function av_hwframe_get_buffer(hwframe_ctx: pAVBufferRef; frame: pAVFrame; flags
   * @return 0 on success, a negative AVERROR error code on failure.
 *)
 // int av_hwframe_transfer_data(AVFrame *dst, const AVFrame *src, int flags);
-function av_hwframe_transfer_data(dst: pAVFrame; const src: pAVFrame; flags: int): int; cdecl; external avutil_dll;
+function av_hwframe_transfer_data(dst: pAVFrame; const src: pAVFrame; flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 type
   AVHWFrameTransferDirection = (
@@ -5931,7 +5931,7 @@ type
   // enum AVHWFrameTransferDirection dir,
   // enum AVPixelFormat **formats, int flags);
 function av_hwframe_transfer_get_formats(hwframe_ctx: pAVBufferRef; dir: AVHWFrameTransferDirection; var formats: pAVPixelFormat; flags: int): int; cdecl;
-  external avutil_dll;
+  external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 type
   (* *
@@ -5982,7 +5982,7 @@ type
     *         success or NULL on failure.
   *)
   // void *av_hwdevice_hwconfig_alloc(AVBufferRef *device_ctx);
-function av_hwdevice_hwconfig_alloc(device_ctx: pAVBufferRef): Pointer; cdecl; external avutil_dll;
+function av_hwdevice_hwconfig_alloc(device_ctx: pAVBufferRef): Pointer; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Get the constraints on HW frames given a device and the HW-specific
   * configuration to be used with that device.  If no HW-specific
@@ -5996,14 +5996,14 @@ function av_hwdevice_hwconfig_alloc(device_ctx: pAVBufferRef): Pointer; cdecl; e
   *         on the device, or NULL if not available.
 *)
 // AVHWFramesConstraints *av_hwdevice_get_hwframe_constraints(AVBufferRef *ref,const void *hwconfig);
-function av_hwdevice_get_hwframe_constraints(ref: pAVBufferRef; const hwconfig: Pointer): pAVHWFramesConstraints; cdecl; external avutil_dll;
+function av_hwdevice_get_hwframe_constraints(ref: pAVBufferRef; const hwconfig: Pointer): pAVHWFramesConstraints; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Free an AVHWFrameConstraints structure.
   *
   * @param constraints The (filled or unfilled) AVHWFrameConstraints structure.
 *)
 // void av_hwframe_constraints_free(AVHWFramesConstraints **constraints);
-procedure av_hwframe_constraints_free(var constraints: pAVHWFramesConstraints); cdecl; external avutil_dll;
+procedure av_hwframe_constraints_free(var constraints: pAVHWFramesConstraints); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
   (* *
@@ -6068,7 +6068,7 @@ const
     * @return Zero on success, negative AVERROR code on failure.
   *)
   // int av_hwframe_map(AVFrame *dst, const AVFrame *src, int flags);
-function av_hwframe_map(dst: pAVFrame; const src: pAVFrame; flags: int): int; cdecl; external avutil_dll;
+function av_hwframe_map(dst: pAVFrame; const src: pAVFrame; flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Create and initialise an AVHWFramesContext as a mapping of another existing
   * AVHWFramesContext on a different device.
@@ -6092,7 +6092,7 @@ function av_hwframe_map(dst: pAVFrame; const src: pAVFrame; flags: int): int; cd
 // AVBufferRef *source_frame_ctx,
 // int flags);
 function av_hwframe_ctx_create_derived(var derived_frame_ctx: pAVBufferRef; format: AVPixelFormat; derived_device_ctx: pAVBufferRef;
-  source_frame_ctx: pAVBufferRef; flags: int): int; cdecl; external avutil_dll;
+  source_frame_ctx: pAVBufferRef; flags: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'hwcontext_mediacodec.h'}
 
@@ -6453,19 +6453,19 @@ const
     * not counted.
   *)
   // int av_get_bits_per_pixel(const AVPixFmtDescriptor *pixdesc);
-function av_get_bits_per_pixel(const pixdesc: pAVPixFmtDescriptor): int; cdecl; external avutil_dll;
+function av_get_bits_per_pixel(const pixdesc: pAVPixFmtDescriptor): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Return the number of bits per pixel for the pixel format
   * described by pixdesc, including any padding or unused bits.
 *)
 // int av_get_padded_bits_per_pixel(const AVPixFmtDescriptor *pixdesc);
-function av_get_padded_bits_per_pixel(const pixdesc: pAVPixFmtDescriptor): int; cdecl; external avutil_dll;
+function av_get_padded_bits_per_pixel(const pixdesc: pAVPixFmtDescriptor): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return a pixel format descriptor for provided pixel format or NULL if
   * this pixel format is unknown.
 *)
 // const AVPixFmtDescriptor *av_pix_fmt_desc_get(enum AVPixelFormat pix_fmt);
-function av_pix_fmt_desc_get(pix_fmt: AVPixelFormat): pAVPixFmtDescriptor; cdecl; external avutil_dll;
+function av_pix_fmt_desc_get(pix_fmt: AVPixelFormat): pAVPixFmtDescriptor; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Iterate over all pixel format descriptors known to libavutil.
   *
@@ -6474,13 +6474,13 @@ function av_pix_fmt_desc_get(pix_fmt: AVPixelFormat): pAVPixFmtDescriptor; cdecl
   * @return next descriptor or NULL after the last descriptor
 *)
 // const AVPixFmtDescriptor *av_pix_fmt_desc_next(const AVPixFmtDescriptor *prev);
-function av_pix_fmt_desc_next(const prev: pAVPixFmtDescriptor): pAVPixFmtDescriptor; cdecl; external avutil_dll;
+function av_pix_fmt_desc_next(const prev: pAVPixFmtDescriptor): pAVPixFmtDescriptor; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return an AVPixelFormat id described by desc, or AV_PIX_FMT_NONE if desc
   * is not a valid pointer to a pixel format descriptor.
 *)
 // enum AVPixelFormat av_pix_fmt_desc_get_id(const AVPixFmtDescriptor *desc);
-function av_pix_fmt_desc_get_id(const desc: pAVPixFmtDescriptor): AVPixelFormat; cdecl; external avutil_dll;
+function av_pix_fmt_desc_get_id(const desc: pAVPixFmtDescriptor): AVPixelFormat; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Utility function to access log2_chroma_w log2_chroma_h from
   * the pixel format AVPixFmtDescriptor.
@@ -6492,63 +6492,63 @@ function av_pix_fmt_desc_get_id(const desc: pAVPixFmtDescriptor): AVPixelFormat;
   * @return 0 on success, AVERROR(ENOSYS) on invalid or unknown pixel format
 *)
 // int av_pix_fmt_get_chroma_sub_sample(enum AVPixelFormat pix_fmt,int *h_shift, int *v_shift);
-function av_pix_fmt_get_chroma_sub_sample(pix_fmt: AVPixelFormat; var h_shift: int; var v_shift: int): int; cdecl; external avutil_dll;
+function av_pix_fmt_get_chroma_sub_sample(pix_fmt: AVPixelFormat; var h_shift: int; var v_shift: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return number of planes in pix_fmt, a negative AVERROR if pix_fmt is not a
   * valid pixel format.
 *)
 // int av_pix_fmt_count_planes(enum AVPixelFormat pix_fmt);
-function av_pix_fmt_count_planes(pix_fmt: AVPixelFormat): int; cdecl; external avutil_dll;
+function av_pix_fmt_count_planes(pix_fmt: AVPixelFormat): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return the name for provided color range or NULL if unknown.
 *)
 // const char *av_color_range_name(enum AVColorRange range);
-function av_color_range_name(range: AVColorRange): PAnsiChar; cdecl; external avutil_dll;
+function av_color_range_name(range: AVColorRange): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return the AVColorRange value for name or an AVError if not found.
 *)
 // int av_color_range_from_name(const char *name);
-function av_color_range_from_name(const name: PAnsiChar): int; cdecl; external avutil_dll;
+function av_color_range_from_name(const name: PAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return the name for provided color primaries or NULL if unknown.
 *)
 // const char *av_color_primaries_name(enum AVColorPrimaries primaries);
-function av_color_primaries_name(primaries: AVColorPrimaries): PAnsiChar; cdecl; external avutil_dll;
+function av_color_primaries_name(primaries: AVColorPrimaries): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return the AVColorPrimaries value for name or an AVError if not found.
 *)
 // int av_color_primaries_from_name(const char *name);
-function av_color_primaries_from_name(const name: PAnsiChar): int; cdecl; external avutil_dll;
+function av_color_primaries_from_name(const name: PAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return the name for provided color transfer or NULL if unknown.
 *)
 // const char *av_color_transfer_name(enum AVColorTransferCharacteristic transfer);
-function av_color_transfer_name(transfer: AVColorTransferCharacteristic): PAnsiChar; cdecl; external avutil_dll;
+function av_color_transfer_name(transfer: AVColorTransferCharacteristic): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return the AVColorTransferCharacteristic value for name or an AVError if not found.
 *)
 // int av_color_transfer_from_name(const char *name);
-function av_color_transfer_from_name(const name: PAnsiChar): int; cdecl; external avutil_dll;
+function av_color_transfer_from_name(const name: PAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return the name for provided color space or NULL if unknown.
 *)
 // const char *av_color_space_name(enum AVColorSpace space);
-function av_color_space_name(space: AVColorSpace): PAnsiChar; cdecl; external avutil_dll;
+function av_color_space_name(space: AVColorSpace): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return the AVColorSpace value for name or an AVError if not found.
 *)
 // int av_color_space_from_name(const char *name);
-function av_color_space_from_name(const name: PAnsiChar): int; cdecl; external avutil_dll;
+function av_color_space_from_name(const name: PAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return the name for provided chroma location or NULL if unknown.
 *)
 // const char *av_chroma_location_name(enum AVChromaLocation location);
-function av_chroma_location_name(location: AVChromaLocation): PAnsiChar; cdecl; external avutil_dll;
+function av_chroma_location_name(location: AVChromaLocation): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * @return the AVChromaLocation value for name or an AVError if not found.
 *)
 // int av_chroma_location_from_name(const char *name);
-function av_chroma_location_from_name(const name: PAnsiChar): int; cdecl; external avutil_dll;
+function av_chroma_location_from_name(const name: PAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Return the pixel format corresponding to name.
   *
@@ -6561,7 +6561,7 @@ function av_chroma_location_from_name(const name: PAnsiChar): int; cdecl; extern
   * Finally if no pixel format has been found, returns AV_PIX_FMT_NONE.
 *)
 // enum AVPixelFormat av_get_pix_fmt(const char *name);
-function av_get_pix_fmt(const name: PAnsiChar): AVPixelFormat; cdecl; external avutil_dll;
+function av_get_pix_fmt(const name: PAnsiChar): AVPixelFormat; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Return the short name for a pixel format, NULL in case pix_fmt is
   * unknown.
@@ -6569,7 +6569,7 @@ function av_get_pix_fmt(const name: PAnsiChar): AVPixelFormat; cdecl; external a
   * @see av_get_pix_fmt(), av_get_pix_fmt_string()
 *)
 // const char *av_get_pix_fmt_name(enum AVPixelFormat pix_fmt);
-function av_get_pix_fmt_name(pix_fmt: AVPixelFormat): PAnsiChar; cdecl; external avutil_dll;
+function av_get_pix_fmt_name(pix_fmt: AVPixelFormat): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Print in buf the string corresponding to the pixel format with
   * number pix_fmt, or a header if pix_fmt is negative.
@@ -6582,7 +6582,7 @@ function av_get_pix_fmt_name(pix_fmt: AVPixelFormat): PAnsiChar; cdecl; external
 *)
 
 // char *av_get_pix_fmt_string(char *buf, int buf_size, enum AVPixelFormat pix_fmt);
-function av_get_pix_fmt_string(buf: PAnsiChar; buf_size: int; pix_fmt: AVPixelFormat): PAnsiChar; cdecl; external avutil_dll;
+function av_get_pix_fmt_string(buf: PAnsiChar; buf_size: int; pix_fmt: AVPixelFormat): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Read a line from an image, and write the values of the
@@ -6625,13 +6625,13 @@ Type
   // int dst_element_size);
 
 procedure av_read_image_line2(dst: Pointer; const data: pav_read_array4_puint8_t; const linesize: pav_read_array4_int; const desc: pAVPixFmtDescriptor;
-  x, y, c, w, read_pal_component, dst_element_size: int); cdecl; external avutil_dll;
+  x, y, c, w, read_pal_component, dst_element_size: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // void av_read_image_line(uint16_t *dst, const uint8_t *data[4],
 // const int linesize[4], const AVPixFmtDescriptor *desc,
 // int x, int y, int c, int w, int read_pal_component);
 procedure av_read_image_line(dst: puint16_t; const data: pav_read_array4_puint8_t; const linesize: pav_read_array4_int; const desc: pAVPixFmtDescriptor;
-  x, y, c, w: int; read_pal_component: int); cdecl; external avutil_dll;
+  x, y, c, w: int; read_pal_component: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Write the values from src to the pixel format component c of an
   * image line.
@@ -6652,13 +6652,13 @@ procedure av_read_image_line(dst: puint16_t; const data: pav_read_array4_puint8_
 // const int linesize[4], const AVPixFmtDescriptor *desc,
 // int x, int y, int c, int w, int src_element_size);
 procedure av_write_image_line2(const src: puint16_t; data: pav_read_array4_puint8_t; const linesize: pav_read_array4_int; const desc: pAVPixFmtDescriptor;
-  x: int; y: int; c: int; w: int; src_element_size: int); cdecl; external avutil_dll;
+  x: int; y: int; c: int; w: int; src_element_size: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // void av_write_image_line(const uint16_t *src, uint8_t *data[4],
 // const int linesize[4], const AVPixFmtDescriptor *desc,
 // int x, int y, int c, int w);
 procedure av_write_image_line(const src: puint16_t; data: pav_read_array4_puint8_t; const linesize: pav_read_array4_int; const desc: pAVPixFmtDescriptor;
-  x: int; y: int; c: int; w: int); cdecl; external avutil_dll;
+  x: int; y: int; c: int; w: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Utility function to swap the endianness of a pixel format.
   *
@@ -6668,7 +6668,7 @@ procedure av_write_image_line(const src: puint16_t; data: pav_read_array4_puint8
   * otherwise AV_PIX_FMT_NONE
 *)
 // enum AVPixelFormat av_pix_fmt_swap_endianness(enum AVPixelFormat pix_fmt);
-function av_pix_fmt_swap_endianness(pix_fmt: AVPixelFormat): AVPixelFormat; cdecl; external avutil_dll;
+function av_pix_fmt_swap_endianness(pix_fmt: AVPixelFormat): AVPixelFormat; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 const
   FF_LOSS_RESOLUTION = $0001; (* *< loss due to resolution change *)
@@ -6699,7 +6699,7 @@ const
   // int av_get_pix_fmt_loss(enum AVPixelFormat dst_pix_fmt,
   // enum AVPixelFormat src_pix_fmt,
   // int has_alpha);
-function av_get_pix_fmt_loss(dst_pix_fmt: AVPixelFormat; src_pix_fmt: AVPixelFormat; has_alpha: int): int; cdecl; external avutil_dll;
+function av_get_pix_fmt_loss(dst_pix_fmt: AVPixelFormat; src_pix_fmt: AVPixelFormat; has_alpha: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Compute what kind of losses will occur when converting from one specific
   * pixel format to another.
@@ -6721,7 +6721,7 @@ function av_get_pix_fmt_loss(dst_pix_fmt: AVPixelFormat; src_pix_fmt: AVPixelFor
 // enum AVPixelFormat av_find_best_pix_fmt_of_2(enum AVPixelFormat dst_pix_fmt1, enum AVPixelFormat dst_pix_fmt2,
 // enum AVPixelFormat src_pix_fmt, int has_alpha, int *loss_ptr);
 function av_find_best_pix_fmt_of_2(dst_pix_fmt1: AVPixelFormat; dst_pix_fmt2: AVPixelFormat; src_pix_fmt: AVPixelFormat; has_alpha: int; var loss_ptr: int)
-  : AVPixelFormat; cdecl; external avutil_dll;
+  : AVPixelFormat; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'imgutils.h'}
 
@@ -6754,7 +6754,7 @@ type
   // void av_image_fill_max_pixsteps(int max_pixsteps[4], int max_pixstep_comps[4],
   // const AVPixFmtDescriptor *pixdesc);
 procedure av_image_fill_max_pixsteps(max_pixsteps: pav_image_array4_int; max_pixstep_comps: pav_image_array4_int; const pixdesc: pAVPixFmtDescriptor); cdecl;
-  external avutil_dll;
+  external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Compute the size of an image line with format pix_fmt and width
   * width for the plane plane.
@@ -6762,7 +6762,7 @@ procedure av_image_fill_max_pixsteps(max_pixsteps: pav_image_array4_int; max_pix
   * @return the computed size in bytes
 *)
 // int av_image_get_linesize(enum AVPixelFormat pix_fmt, int width, int plane);
-function av_image_get_linesize(pix_fmt: AVPixelFormat; width: int; plane: int): int; cdecl; external avutil_dll;
+function av_image_get_linesize(pix_fmt: AVPixelFormat; width: int; plane: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Fill plane linesizes for an image with pixel format pix_fmt and
   * width width.
@@ -6771,7 +6771,7 @@ function av_image_get_linesize(pix_fmt: AVPixelFormat; width: int; plane: int): 
   * @return >= 0 in case of success, a negative error code otherwise
 *)
 // int av_image_fill_linesizes(int linesizes[4], enum AVPixelFormat pix_fmt, int width);
-function av_image_fill_linesizes(linesizes: pav_image_array4_int; pix_fmt: AVPixelFormat; width: int): int; cdecl; external avutil_dll;
+function av_image_fill_linesizes(linesizes: pav_image_array4_int; pix_fmt: AVPixelFormat; width: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Fill plane data pointers for an image with pixel format pix_fmt and
   * height height.
@@ -6786,7 +6786,7 @@ function av_image_fill_linesizes(linesizes: pav_image_array4_int; pix_fmt: AVPix
 // int av_image_fill_pointers(uint8_t *data[4], enum AVPixelFormat pix_fmt, int height,
 // uint8_t *ptr, const int linesizes[4]);
 function av_image_fill_pointers(data: pav_image_array4_puint8_t; pix_fmt: AVPixelFormat; height: int; ptr: puint8_t; const linesizes: pav_image_array4_int)
-  : int; cdecl; external avutil_dll;
+  : int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Allocate an image with size w and h and pixel format pix_fmt, and
   * fill pointers and linesizes accordingly.
@@ -6806,7 +6806,7 @@ function av_image_alloc(               //
   h: int;                              //
   pix_fmt: AVPixelFormat;              //
   align: int):                         //
-  int; cdecl; overload; external avutil_dll;
+  int; cdecl; overload; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 function av_image_alloc(  //
   pointers: Pointer;      //
@@ -6815,7 +6815,7 @@ function av_image_alloc(  //
   h: int;                 //
   pix_fmt: AVPixelFormat; //
   align: int):            //
-  int; cdecl; overload; external avutil_dll;
+  int; cdecl; overload; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Copy image plane from src to dst.
@@ -6833,7 +6833,7 @@ function av_image_alloc(  //
 // const uint8_t *src, int src_linesize,
 // int bytewidth, int height);
 procedure av_image_copy_plane(dst: puint8_t; dst_linesize: int; const src: puint8_t; src_linesize: int; bytewidth: int; height: int); cdecl;
-  external avutil_dll;
+  external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Copy image in src_data to dst_data.
   *
@@ -6844,7 +6844,7 @@ procedure av_image_copy_plane(dst: puint8_t; dst_linesize: int; const src: puint
 // const uint8_t *src_data[4], const int src_linesizes[4],
 // enum AVPixelFormat pix_fmt, int width, int height);
 procedure av_image_copy(dst_data: pav_image_array4_puint8_t; dst_linesizes: pav_image_array4_int; const src_data: pav_image_array4_puint8_t;
-  const src_linesizes: pav_image_array4_int; pix_fmt: AVPixelFormat; width: int; height: int); cdecl; external avutil_dll;
+  const src_linesizes: pav_image_array4_int; pix_fmt: AVPixelFormat; width: int; height: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Copy image data located in uncacheable (e.g. GPU mapped) memory. Where
   * available, this function will use special functionality for reading from such
@@ -6863,7 +6863,7 @@ procedure av_image_copy(dst_data: pav_image_array4_puint8_t; dst_linesizes: pav_
 // const uint8_t *src_data[4], const ptrdiff_t src_linesizes[4],
 // enum AVPixelFormat pix_fmt, int width, int height);
 procedure av_image_copy_uc_from(dst_data: pav_image_array4_puint8_t; const dst_linesizes: pav_image_array4_ptrdiff_t; const src_data: pav_image_array4_puint8_t;
-  const src_linesizes: pav_image_array4_ptrdiff_t; pix_fmt: AVPixelFormat; width: int; height: int); cdecl; external avutil_dll;
+  const src_linesizes: pav_image_array4_ptrdiff_t; pix_fmt: AVPixelFormat; width: int; height: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Setup the data pointers and linesizes based on the specified image
   * parameters and the provided array.
@@ -6894,7 +6894,7 @@ procedure av_image_copy_uc_from(dst_data: pav_image_array4_puint8_t; const dst_l
 // const uint8_t *src,
 // enum AVPixelFormat pix_fmt, int width, int height, int align);
 function av_image_fill_arrays(dst_data: pav_image_array4_puint8_t; dst_linesize: pav_image_array4_int; const src: puint8_t; pix_fmt: AVPixelFormat; width: int;
-  height: int; align: int): int; cdecl; external avutil_dll;
+  height: int; align: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Return the size in bytes of the amount of data required to store an
   * image with the given parameters.
@@ -6906,7 +6906,7 @@ function av_image_fill_arrays(dst_data: pav_image_array4_puint8_t; dst_linesize:
   * @return the buffer size in bytes, a negative error code in case of failure
 *)
 // int av_image_get_buffer_size(enum AVPixelFormat pix_fmt, int width, int height, int align);
-function av_image_get_buffer_size(pix_fmt: AVPixelFormat; width: int; height: int; align: int): int; cdecl; external avutil_dll;
+function av_image_get_buffer_size(pix_fmt: AVPixelFormat; width: int; height: int; align: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Copy image data from an image into a buffer.
   *
@@ -6928,7 +6928,7 @@ function av_image_get_buffer_size(pix_fmt: AVPixelFormat; width: int; height: in
 // const uint8_t * const src_data[4], const int src_linesize[4],
 // enum AVPixelFormat pix_fmt, int width, int height, int align);
 function av_image_copy_to_buffer(dst: puint8_t; dst_size: int; const src_data: pav_image_array4_puint8_t; const src_linesize: pav_image_array4_int;
-  pix_fmt: AVPixelFormat; width: int; height: int; align: int): int; cdecl; external avutil_dll;
+  pix_fmt: AVPixelFormat; width: int; height: int; align: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Check if the given dimension of an image is valid, meaning that all
   * bytes of the image can be addressed with a signed int.
@@ -6940,7 +6940,7 @@ function av_image_copy_to_buffer(dst: puint8_t; dst_size: int; const src_data: p
   * @return >= 0 if valid, a negative error code otherwise
 *)
 // int av_image_check_size(unsigned int w, unsigned int h, int log_offset, void *log_ctx);
-function av_image_check_size(w: unsigned_int; h: unsigned_int; log_offset: int; log_ctx: Pointer): int; cdecl; external avutil_dll;
+function av_image_check_size(w: unsigned_int; h: unsigned_int; log_offset: int; log_ctx: Pointer): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Check if the given dimension of an image is valid, meaning that all
   * bytes of a plane of an image with the specified pix_fmt can be addressed
@@ -6956,7 +6956,7 @@ function av_image_check_size(w: unsigned_int; h: unsigned_int; log_offset: int; 
 *)
 // int av_image_check_size2(unsigned int w, unsigned int h, int64_t max_pixels, enum AVPixelFormat pix_fmt, int log_offset, void *log_ctx);
 function av_image_check_size2(w: unsigned_int; h: unsigned_int; max_pixels: int64_t; pix_fmt: AVPixelFormat; log_offset: int; log_ctx: Pointer): int; cdecl;
-  external avutil_dll;
+  external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Check if the given sample aspect ratio of an image is valid.
   *
@@ -6970,7 +6970,7 @@ function av_image_check_size2(w: unsigned_int; h: unsigned_int; max_pixels: int6
   * @return 0 if valid, a negative AVERROR code otherwise
 *)
 // int av_image_check_sar(unsigned int w, unsigned int h, AVRational sar);
-function av_image_check_sar(w: unsigned_int; h: unsigned_int; sar: AVRational): int; cdecl; external avutil_dll;
+function av_image_check_sar(w: unsigned_int; h: unsigned_int; sar: AVRational): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Overwrite the image data with black. This is suitable for filling a
   * sub-rectangle of an image, meaning the padding between the right most pixel
@@ -6998,14 +6998,14 @@ function av_image_check_sar(w: unsigned_int; h: unsigned_int; sar: AVRational): 
 // enum AVPixelFormat pix_fmt, enum AVColorRange range,
 // int width, int height);
 function av_image_fill_black(dst_data: pav_image_array4_puint8_t; const dst_linesize: pav_image_array4_ptrdiff_t; pix_fmt: AVPixelFormat; range: AVColorRange;
-  width: int; height: int): int; cdecl; external avutil_dll;
+  width: int; height: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'time.h'}
 (* *
   * Get the current time in microseconds.
 *)
 // int64_t av_gettime(void);
-function av_gettime(): int64_t; cdecl; external avutil_dll;
+function av_gettime(): int64_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Get the current time in microseconds since some unspecified starting point.
   * On platforms that support it, the time comes from a monotonic clock
@@ -7014,13 +7014,13 @@ function av_gettime(): int64_t; cdecl; external avutil_dll;
   * clock is not available.
 *)
 // int64_t av_gettime_relative(void);
-function av_gettime_relative(): int64_t; cdecl; external avutil_dll;
+function av_gettime_relative(): int64_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Indicates with a boolean result if the av_gettime_relative() time source
   * is monotonic.
 *)
 // int av_gettime_relative_is_monotonic(void);
-function av_gettime_relative_is_monotonic(): int; cdecl; external avutil_dll;
+function av_gettime_relative_is_monotonic(): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Sleep for a period of time.  Although the duration is expressed in
   * microseconds, the actual delay may be rounded to the precision of the
@@ -7030,7 +7030,7 @@ function av_gettime_relative_is_monotonic(): int; cdecl; external avutil_dll;
   * @return zero on success or (negative) error code.
 *)
 // int av_usleep(unsigned usec);
-function av_usleep(usec: unsigned): int; cdecl; external avutil_dll;
+function av_usleep(usec: unsigned): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'timestamp.h'}
 
@@ -7086,7 +7086,7 @@ function av_ts2timestr(ts: int64_t; tb: pAVRational): PAnsiChar;
   * @see av_mallocz()
 *)
 // void *av_malloc(size_t size) av_malloc_attrib av_alloc_size(1);
-function av_malloc(size: size_t): Pointer; cdecl; external avutil_dll;
+function av_malloc(size: size_t): Pointer; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Allocate a memory block with alignment suitable for all memory accesses
@@ -7098,7 +7098,7 @@ function av_malloc(size: size_t): Pointer; cdecl; external avutil_dll;
   * @see av_malloc()
 *)
 // void *av_mallocz(size_t size) av_malloc_attrib av_alloc_size(1);
-function av_mallocz(size: size_t): Pointer; cdecl; external avutil_dll;
+function av_mallocz(size: size_t): Pointer; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Allocate a memory block for an array with av_malloc().
   *
@@ -7155,7 +7155,7 @@ function av_calloc(nmemb: size_t; size: size_t): Pointer;
   * @see av_reallocp()
 *)
 // void *av_realloc(void *ptr, size_t size) av_alloc_size(2);
-function av_realloc(ptr: Pointer; size: size_t): Pointer; cdecl; external avutil_dll;
+function av_realloc(ptr: Pointer; size: size_t): Pointer; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Allocate, reallocate, or free a block of memory through a pointer to a
   * pointer.
@@ -7177,7 +7177,7 @@ function av_realloc(ptr: Pointer; size: size_t): Pointer; cdecl; external avutil
 *)
 // av_warn_unused_result
 // int av_reallocp(void *ptr, size_t size);
-function av_reallocp(ptr: Pointer; size: size_t): int; cdecl; external avutil_dll;
+function av_reallocp(ptr: Pointer; size: size_t): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Allocate, reallocate, or free a block of memory.
   *
@@ -7194,7 +7194,7 @@ function av_reallocp(ptr: Pointer; size: size_t): int; cdecl; external avutil_dl
   *   pattern.
 *)
 // void *av_realloc_f(void *ptr, size_t nelem, size_t elsize);
-function av_realloc_f(ptr: Pointer; nelem: size_t; elsize: size_t): Pointer; cdecl; external avutil_dll;
+function av_realloc_f(ptr: Pointer; nelem: size_t; elsize: size_t): Pointer; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Allocate, reallocate, or free an array.
   *
@@ -7214,7 +7214,7 @@ function av_realloc_f(ptr: Pointer; nelem: size_t; elsize: size_t): Pointer; cde
   * @see av_reallocp_array()
 *)
 // av_alloc_size(2, 3) void *av_realloc_array(void *ptr, size_t nmemb, size_t size);
-function av_realloc_array(ptr: Pointer; nmemb: size_t; size: size_t): Pointer; cdecl; external avutil_dll;
+function av_realloc_array(ptr: Pointer; nmemb: size_t; size: size_t): Pointer; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Allocate, reallocate, or free an array through a pointer to a pointer.
   *
@@ -7233,7 +7233,7 @@ function av_realloc_array(ptr: Pointer; nmemb: size_t; size: size_t): Pointer; c
   *          correctly aligned.
 *)
 // av_alloc_size(2, 3) int av_reallocp_array(void *ptr, size_t nmemb, size_t size);
-function av_reallocp_array(ptr: Pointer; nmemb: size_t; size: size_t): int; cdecl; external avutil_dll;
+function av_reallocp_array(ptr: Pointer; nmemb: size_t; size: size_t): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Reallocate the given buffer if it is not large enough, otherwise do nothing.
   *
@@ -7267,7 +7267,7 @@ function av_reallocp_array(ptr: Pointer; nmemb: size_t; size: size_t): int; cdec
   * @see av_fast_malloc()
 *)
 // void *av_fast_realloc(void *ptr, unsigned int *size, size_t min_size);
-function av_fast_realloc(ptr: Pointer; var size: unsigned_int; min_size: size_t): Pointer; cdecl; external avutil_dll;
+function av_fast_realloc(ptr: Pointer; var size: unsigned_int; min_size: size_t): Pointer; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Allocate a buffer, reusing the given one if large enough.
   *
@@ -7298,7 +7298,7 @@ function av_fast_realloc(ptr: Pointer; var size: unsigned_int; min_size: size_t)
   * @see av_fast_mallocz()
 *)
 // void av_fast_malloc(void *ptr, unsigned int *size, size_t min_size);
-procedure av_fast_malloc(ptr: Pointer; var size: unsigned_int; min_size: size_t); cdecl; external avutil_dll;
+procedure av_fast_malloc(ptr: Pointer; var size: unsigned_int; min_size: size_t); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Allocate and clear a buffer, reusing the given one if large enough.
   *
@@ -7318,7 +7318,7 @@ procedure av_fast_malloc(ptr: Pointer; var size: unsigned_int; min_size: size_t)
   * @see av_fast_malloc()
 *)
 // void av_fast_mallocz(void *ptr, unsigned int *size, size_t min_size);
-procedure av_fast_mallocz(ptr: Pointer; var size: unsigned_int; min_size: size_t); cdecl; external avutil_dll;
+procedure av_fast_mallocz(ptr: Pointer; var size: unsigned_int; min_size: size_t); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Free a memory block which has been allocated with a function of av_malloc()
   * or av_realloc() family.
@@ -7331,7 +7331,7 @@ procedure av_fast_mallocz(ptr: Pointer; var size: unsigned_int; min_size: size_t
   * @see av_freep()
 *)
 // void av_free(void *ptr);
-procedure av_free(ptr: Pointer); cdecl; external avutil_dll;
+procedure av_free(ptr: Pointer); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Free a memory block which has been allocated with a function of av_malloc()
   * or av_realloc() family, and set the pointer pointing to it to `NULL`.
@@ -7354,7 +7354,7 @@ procedure av_free(ptr: Pointer); cdecl; external avutil_dll;
   * @see av_free()
 *)
 // void av_freep(void *ptr);
-procedure av_freep(ptr: Pointer); cdecl; external avutil_dll;
+procedure av_freep(ptr: Pointer); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Duplicate a string.
   *
@@ -7364,7 +7364,7 @@ procedure av_freep(ptr: Pointer); cdecl; external avutil_dll;
   * @see av_strndup()
 *)
 // char *av_strdup(const char *s) av_malloc_attrib;
-function av_strdup(const s: PAnsiChar): PAnsiChar; cdecl; external avutil_dll;
+function av_strdup(const s: PAnsiChar): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Duplicate a substring of a string.
   *
@@ -7375,7 +7375,7 @@ function av_strdup(const s: PAnsiChar): PAnsiChar; cdecl; external avutil_dll;
   *         substring of `s` or `NULL` if the string cannot be allocated
 *)
 // char *av_strndup(const char *s, size_t len) av_malloc_attrib;
-function av_strndup(const s: PAnsiChar; len: size_t): PAnsiChar; cdecl; external avutil_dll;
+function av_strndup(const s: PAnsiChar; len: size_t): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Duplicate a buffer with av_malloc().
   *
@@ -7385,7 +7385,7 @@ function av_strndup(const s: PAnsiChar; len: size_t): PAnsiChar; cdecl; external
   *         copy of `p` or `NULL` if the buffer cannot be allocated
 *)
 // void *av_memdup(const void *p, size_t size);
-function av_memdup(const p: Pointer; size: size_t): Pointer; cdecl; external avutil_dll;
+function av_memdup(const p: Pointer; size: size_t): Pointer; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Overlapping memcpy() implementation.
   *
@@ -7398,7 +7398,7 @@ function av_memdup(const p: Pointer; size: size_t): Pointer; cdecl; external avu
   *       thus creating a repeating pattern with a period length of `back`.
 *)
 // void av_memcpy_backptr(uint8_t *dst, int back, int cnt);
-procedure av_memcpy_backptr(dst: puint8_t; back: int; cnt: int); cdecl; external avutil_dll;
+procedure av_memcpy_backptr(dst: puint8_t; back: int; cnt: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * @defgroup lavu_mem_dynarray Dynamic Array
@@ -7497,7 +7497,7 @@ procedure av_memcpy_backptr(dst: puint8_t; back: int; cnt: int); cdecl; external
   * @see av_dynarray_add_nofree(), av_dynarray2_add()
 *)
 // void av_dynarray_add(void *tab_ptr, int *nb_ptr, void *elem);
-procedure av_dynarray_add(tab_ptr: Pointer; var nb_ptr: int; elem: Pointer); cdecl; external avutil_dll;
+procedure av_dynarray_add(tab_ptr: Pointer; var nb_ptr: int; elem: Pointer); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Add an element to a dynamic array.
   *
@@ -7510,7 +7510,7 @@ procedure av_dynarray_add(tab_ptr: Pointer; var nb_ptr: int; elem: Pointer); cde
 *)
 // av_warn_unused_result
 // int av_dynarray_add_nofree(void *tab_ptr, int *nb_ptr, void *elem);
-function av_dynarray_add_nofree(tab_ptr: Pointer; var nb_ptr: int; elem: Pointer): int; cdecl; external avutil_dll;
+function av_dynarray_add_nofree(tab_ptr: Pointer; var nb_ptr: int; elem: Pointer): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Add an element of size `elem_size` to a dynamic array.
   *
@@ -7536,7 +7536,7 @@ function av_dynarray_add_nofree(tab_ptr: Pointer; var nb_ptr: int; elem: Pointer
 *)
 // void *av_dynarray2_add(void **tab_ptr, int *nb_ptr, size_t elem_size,
 // const uint8_t *elem_data);
-function av_dynarray2_add(var tab_ptr: Pointer; var nb_ptr: int; elem_size: size_t; const elem_data: puint8_t): Pointer; cdecl; external avutil_dll;
+function av_dynarray2_add(var tab_ptr: Pointer; var nb_ptr: int; elem_size: size_t; const elem_data: puint8_t): Pointer; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * @defgroup lavu_mem_misc Miscellaneous Functions
@@ -7571,7 +7571,7 @@ function av_size_mult(a: size_t; b: size_t; var r: size_t): int; inline;
 *)
 
 // void av_max_alloc(size_t max);
-procedure av_max_alloc(max: size_t); cdecl; external avutil_dll;
+procedure av_max_alloc(max: size_t); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'timecode.h'}
 
@@ -7610,7 +7610,7 @@ type
     * @warning        adjustment is only valid in NTSC 29.97 and 59.94
   *)
   // int av_timecode_adjust_ntsc_framenum2(int framenum, int fps);
-function av_timecode_adjust_ntsc_framenum2(framenum: int; fps: int): int; cdecl; external avutil_dll;
+function av_timecode_adjust_ntsc_framenum2(framenum: int; fps: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Convert frame number to SMPTE 12M binary representation.
   *
@@ -7625,7 +7625,7 @@ function av_timecode_adjust_ntsc_framenum2(framenum: int; fps: int): int; cdecl;
   *       correction (PC) bits are set to zero.
 *)
 // uint32_t av_timecode_get_smpte_from_framenum(const AVTimecode *tc, int framenum);
-function av_timecode_get_smpte_from_framenum(const tc: pAVTimecode; framenum: int): uint32_t; cdecl; external avutil_dll;
+function av_timecode_get_smpte_from_framenum(const tc: pAVTimecode; framenum: int): uint32_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Load timecode string in buf.
   *
@@ -7639,7 +7639,7 @@ function av_timecode_get_smpte_from_framenum(const tc: pAVTimecode; framenum: in
   * @note The frame number is relative to tc->start.
 *)
 // char *av_timecode_make_string(const AVTimecode *tc, char *buf, int framenum);
-function av_timecode_make_string(const tc: pAVTimecode; buf: PAnsiChar; framenum: int): PAnsiChar; cdecl; external avutil_dll;
+function av_timecode_make_string(const tc: pAVTimecode; buf: PAnsiChar; framenum: int): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Get the timecode string from the SMPTE timecode format.
   *
@@ -7650,7 +7650,7 @@ function av_timecode_make_string(const tc: pAVTimecode; buf: PAnsiChar; framenum
   * @return           the buf parameter
 *)
 // char *av_timecode_make_smpte_tc_string(char *buf, uint32_t tcsmpte, int prevent_df);
-function av_timecode_make_smpte_tc_string(buf: PAnsiChar; tcsmpte: uint32_t; prevent_df: int): PAnsiChar; cdecl; external avutil_dll;
+function av_timecode_make_smpte_tc_string(buf: PAnsiChar; tcsmpte: uint32_t; prevent_df: int): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Get the timecode string from the 25-bit timecode format (MPEG GOP format).
   *
@@ -7659,7 +7659,7 @@ function av_timecode_make_smpte_tc_string(buf: PAnsiChar; tcsmpte: uint32_t; pre
   * @return        the buf parameter
 *)
 // char *av_timecode_make_mpeg_tc_string(char *buf, uint32_t tc25bit);
-function av_timecode_make_mpeg_tc_string(buf: PAnsiChar; tc25bit: uint32_t): PAnsiChar; cdecl; external avutil_dll;
+function av_timecode_make_mpeg_tc_string(buf: PAnsiChar; tc25bit: uint32_t): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Init a timecode struct with the passed parameters.
   *
@@ -7673,7 +7673,7 @@ function av_timecode_make_mpeg_tc_string(buf: PAnsiChar; tc25bit: uint32_t): PAn
   * @return            0 on success, AVERROR otherwise
 *)
 // int av_timecode_init(AVTimecode *tc, AVRational rate, int flags, int frame_start, void *log_ctx);
-function av_timecode_init(tc: pAVTimecode; rate: AVRational; flags: int; rame_start: int; log_ctx: Pointer): int; cdecl; external avutil_dll;
+function av_timecode_init(tc: pAVTimecode; rate: AVRational; flags: int; rame_start: int; log_ctx: Pointer): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Parse timecode representation (hh:mm:ss[:;.]ff).
   *
@@ -7685,14 +7685,14 @@ function av_timecode_init(tc: pAVTimecode; rate: AVRational; flags: int; rame_st
   * @return        0 on success, AVERROR otherwise
 *)
 // int av_timecode_init_from_string(AVTimecode *tc, AVRational rate, const char *str, void *log_ctx);
-function av_timecode_init_from_string(tc: pAVTimecode; rate: AVRational; const str: PAnsiChar; log_ctx: Pointer): int; cdecl; external avutil_dll;
+function av_timecode_init_from_string(tc: pAVTimecode; rate: AVRational; const str: PAnsiChar; log_ctx: Pointer): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Check if the timecode feature is available for the given frame rate
   *
   * @return 0 if supported, <0 otherwise
 *)
 // int av_timecode_check_frame_rate(AVRational rate);
-function av_timecode_check_frame_rate(rate: AVRational): int; cdecl; external avutil_dll;
+function av_timecode_check_frame_rate(rate: AVRational): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'mathematics.h'}
 
@@ -7762,7 +7762,7 @@ const
     * if a == 0 and b == 0, returns 0.
   *)
   // int64_t av_const av_gcd(int64_t a, int64_t b);
-function av_gcd(a, b: int64_t): int64_t; cdecl; external avutil_dll;
+function av_gcd(a, b: int64_t): int64_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Rescale a 64-bit integer with rounding to nearest.
   *
@@ -7774,7 +7774,7 @@ function av_gcd(a, b: int64_t): int64_t; cdecl; external avutil_dll;
   * @see av_rescale_rnd(), av_rescale_q(), av_rescale_q_rnd()
 *)
 // int64_t av_rescale(int64_t a, int64_t b, int64_t c) av_const;
-function av_rescale(a, b, c: int64_t): int64_t; cdecl; external avutil_dll;
+function av_rescale(a, b, c: int64_t): int64_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Rescale a 64-bit integer with specified rounding.
   *
@@ -7784,7 +7784,7 @@ function av_rescale(a, b, c: int64_t): int64_t; cdecl; external avutil_dll;
   * @see av_rescale(), av_rescale_q(), av_rescale_q_rnd()
 *)
 // int64_t av_rescale_rnd(int64_t a, int64_t b, int64_t c, enum AVRounding rnd) av_const;
-function av_rescale_rnd(a, b, c: int64_t; rnd: AVRounding): int64_t; cdecl; external avutil_dll;
+function av_rescale_rnd(a, b, c: int64_t; rnd: AVRounding): int64_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Rescale a 64-bit integer by 2 rational numbers.
   *
@@ -7795,7 +7795,7 @@ function av_rescale_rnd(a, b, c: int64_t; rnd: AVRounding): int64_t; cdecl; exte
   * @see av_rescale(), av_rescale_rnd(), av_rescale_q_rnd()
 *)
 // int64_t av_rescale_q(int64_t a, AVRational bq, AVRational cq) av_const;
-function av_rescale_q(a: int64_t; bq: AVRational; cq: AVRational): int64_t; cdecl; external avutil_dll;
+function av_rescale_q(a: int64_t; bq: AVRational; cq: AVRational): int64_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Rescale a 64-bit integer by 2 rational numbers with specified rounding.
   *
@@ -7804,7 +7804,7 @@ function av_rescale_q(a: int64_t; bq: AVRational; cq: AVRational): int64_t; cdec
   * @see av_rescale(), av_rescale_rnd(), av_rescale_q()
 *)
 // int64_t av_rescale_q_rnd(int64_t a, AVRational bq, AVRational cq, enum AVRounding rnd) av_const;
-function av_rescale_q_rnd(a: int64_t; bq: AVRational; cq: AVRational; rnd: AVRounding): int64_t; cdecl; external avutil_dll;
+function av_rescale_q_rnd(a: int64_t; bq: AVRational; cq: AVRational; rnd: AVRounding): int64_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Compare two timestamps each in its own time base.
   *
@@ -7818,7 +7818,7 @@ function av_rescale_q_rnd(a: int64_t; bq: AVRational; cq: AVRational; rnd: AVRou
   * the `int64_t` range when represented in the other's timebase.
 *)
 // int av_compare_ts(int64_t ts_a, AVRational tb_a, int64_t ts_b, AVRational tb_b);
-function av_compare_ts(ts_a: int64_t; tb_a: AVRational; ts_b: int64_t; tb_b: AVRational): int; cdecl; external avutil_dll;
+function av_compare_ts(ts_a: int64_t; tb_a: AVRational; ts_b: int64_t; tb_b: AVRational): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Compare the remainders of two integer operands divided by a common divisor.
   *
@@ -7838,7 +7838,7 @@ function av_compare_ts(ts_a: int64_t; tb_a: AVRational; ts_b: int64_t; tb_b: AVR
   *         - zero             if `a % mod == b % mod`
 *)
 // int64_t av_compare_mod(uint64_t a, uint64_t b, uint64_t mod);
-function av_compare_mod(a: uint64_t; b: uint64_t; _mod: uint64_t): int64_t; cdecl; external avutil_dll;
+function av_compare_mod(a: uint64_t; b: uint64_t; _mod: uint64_t): int64_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Rescale a timestamp while preserving known durations.
   *
@@ -7866,7 +7866,7 @@ function av_compare_mod(a: uint64_t; b: uint64_t; _mod: uint64_t): int64_t; cdec
 *)
 // int64_t av_rescale_delta(AVRational in_tb, int64_t in_ts,  AVRational fs_tb, int duration, int64_t *last, AVRational out_tb);
 function av_rescale_delta(in_tb: AVRational; in_ts: int64_t; fs_tb: AVRational; duration: int; var last: int64_t; out_tb: AVRational): int64_t; cdecl;
-  external avutil_dll;
+  external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Add a value to a timestamp.
   *
@@ -7879,7 +7879,7 @@ function av_rescale_delta(in_tb: AVRational; in_ts: int64_t; fs_tb: AVRational; 
   * @param[in] inc_tb Time base of `inc`
 *)
 // int64_t av_add_stable(AVRational ts_tb, int64_t ts, AVRational inc_tb, int64_t inc);
-function av_add_stable(ts_tb: AVRational; ts: int64_t; inc_tb: AVRational; inc: int64_t): int64_t; cdecl; external avutil_dll;
+function av_add_stable(ts_tb: AVRational; ts: int64_t; inc_tb: AVRational; inc: int64_t): int64_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'parseutils.h'}
 (* *
@@ -7901,7 +7901,7 @@ function av_add_stable(ts_tb: AVRational; ts: int64_t; inc_tb: AVRational; inc: 
   * @return >= 0 on success, a negative error code otherwise
 *)
 // int av_parse_ratio(AVRational *q, const char *str, int max, int log_offset, void *log_ctx);
-function av_parse_ratio(q: pAVRational; const str: PAnsiChar; max, log_offset: int; log_ctx: Pointer): int; cdecl; external avutil_dll;
+function av_parse_ratio(q: pAVRational; const str: PAnsiChar; max, log_offset: int; log_ctx: Pointer): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 // #define av_parse_ratio_quiet(rate, str, max) av_parse_ratio(rate, str, max, AV_LOG_MAX_OFFSET, NULL)
 function av_parse_ratio_quiet(q: pAVRational; const str: PAnsiChar; max: int): int; inline;
@@ -7918,7 +7918,7 @@ function av_parse_ratio_quiet(q: pAVRational; const str: PAnsiChar; max: int): i
   * @return >= 0 on success, a negative error code otherwise
 *)
 // int av_parse_video_size(int *width_ptr, int *height_ptr, const char *str);
-function av_parse_video_size(var width_ptr: int; var height_ptr: int; const str: PAnsiChar): int; cdecl; external avutil_dll;
+function av_parse_video_size(var width_ptr: int; var height_ptr: int; const str: PAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Parse str and store the detected values in *rate.
   *
@@ -7929,7 +7929,7 @@ function av_parse_video_size(var width_ptr: int; var height_ptr: int; const str:
   * @return >= 0 on success, a negative error code otherwise
 *)
 // int av_parse_video_rate(AVRational *rate, const char *str);
-function av_parse_video_rate(rate: pAVRational; const str: PAnsiChar): int; cdecl; external avutil_dll;
+function av_parse_video_rate(rate: pAVRational; const str: PAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Put the RGBA values that correspond to color_string in rgba_color.
   *
@@ -7950,7 +7950,7 @@ function av_parse_video_rate(rate: pAVRational; const str: PAnsiChar): int; cdec
   * failure (for example if color_string cannot be parsed).
 *)
 // int av_parse_color(uint8_t *rgba_color, const char *color_string, int slen, void *log_ctx);
-function av_parse_color(rgba_color: puint8_t; const color_string: PAnsiChar; slen: int; log_ctx: Pointer): int; cdecl; external avutil_dll;
+function av_parse_color(rgba_color: puint8_t; const color_string: PAnsiChar; slen: int; log_ctx: Pointer): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Get the name of a color from the internal table of hard-coded named
   * colors.
@@ -7963,7 +7963,7 @@ function av_parse_color(rgba_color: puint8_t; const color_string: PAnsiChar; sle
   * @return the color name string or NULL if color_idx is not in the array
 *)
 // const char *av_get_known_color_name(int color_idx, const uint8_t **rgb);
-function av_get_known_color_name(color_idx: int; const rgb: ppuint8_t): PAnsiChar; cdecl; external avutil_dll;
+function av_get_known_color_name(color_idx: int; const rgb: ppuint8_t): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Parse timestr and return in *time a corresponding number of
   * microseconds.
@@ -7997,7 +7997,7 @@ function av_get_known_color_name(color_idx: int; const rgb: ppuint8_t): PAnsiCha
   * AVERROR code otherwise
 *)
 // int av_parse_time(int64_t *timeval, const char *timestr, int duration);
-function av_parse_time(timeval: pint64_t; const timestr: PAnsiChar; duration: int): int; cdecl; external avutil_dll;
+function av_parse_time(timeval: pint64_t; const timestr: PAnsiChar; duration: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Attempt to find a specific tag in a URL.
   *
@@ -8005,7 +8005,7 @@ function av_parse_time(timeval: pint64_t; const timestr: PAnsiChar; duration: in
   * Return 1 if found.
 *)
 // int av_find_info_tag(char *arg, int arg_size, const char *tag1, const char *info);
-function av_find_info_tag(arg: PAnsiChar; arg_size: int; const tag1: PAnsiChar; const info: PAnsiChar): int; cdecl; external avutil_dll;
+function av_find_info_tag(arg: PAnsiChar; arg_size: int; const tag1: PAnsiChar; const info: PAnsiChar): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Simplified version of strptime
   *
@@ -8037,13 +8037,13 @@ function av_find_info_tag(arg: PAnsiChar; arg_size: int; const tag1: PAnsiChar; 
   *         the string. On failure NULL is returned.
 *)
 // char *av_small_strptime(const char *p, const char *fmt, struct tm *dt);
-function av_small_strptime(const p: PAnsiChar; const fmt: PAnsiChar; dt: ptm): PAnsiChar; cdecl; external avutil_dll;
+function av_small_strptime(const p: PAnsiChar; const fmt: PAnsiChar; dt: ptm): PAnsiChar; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Convert the decomposed UTC time in tm to a time_t value.
 *)
 // time_t av_timegm(struct tm *tm);
-function av_timegm(tm: ptm): time_t; cdecl; external avutil_dll;
+function av_timegm(tm: ptm): time_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'motion_vector.h'}
 
@@ -8096,7 +8096,7 @@ type
     * Allocate an AVMD5 context.
   *)
   // struct AVMD5 *av_md5_alloc(void);
-function av_md5_alloc(): pAVMD5; cdecl; external avutil_dll;
+function av_md5_alloc(): pAVMD5; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Initialize MD5 hashing.
@@ -8104,7 +8104,7 @@ function av_md5_alloc(): pAVMD5; cdecl; external avutil_dll;
   * @param ctx pointer to the function context (of size av_md5_size)
 *)
 // void av_md5_init(struct AVMD5 *ctx);
-procedure av_md5_init(ctx: pAVMD5); cdecl; external avutil_dll;
+procedure av_md5_init(ctx: pAVMD5); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Update hash value.
@@ -8125,7 +8125,7 @@ procedure av_md5_update(ctx: pAVMD5; const src: puint8_t; len:
 {$ELSE}
   size_t
 {$ENDIF}
-  ); cdecl; external avutil_dll;
+  ); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Finish hashing and output digest value.
@@ -8134,7 +8134,7 @@ procedure av_md5_update(ctx: pAVMD5; const src: puint8_t; len:
   * @param dst buffer where output digest value is stored
 *)
 // void av_md5_final(struct AVMD5 *ctx, uint8_t *dst);
-procedure av_md5_final(ctx: pAVMD5; dst: puint8_t); cdecl; external avutil_dll;
+procedure av_md5_final(ctx: pAVMD5; dst: puint8_t); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Hash an array of data.
@@ -8155,7 +8155,7 @@ procedure av_md5_sum(dst: puint8_t; const src: puint8_t; const len:
 {$ELSE}
   size_t
 {$ENDIF}
-  ); cdecl; external avutil_dll;
+  ); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 {$ENDREGION}
 {$REGION 'avassert.h'}
@@ -8165,7 +8165,7 @@ procedure av_md5_sum(dst: puint8_t; const src: puint8_t; const len:
   * This will av_assert0() that the cpu is not in MMX state on X86
 *)
 // void av_assert0_fpu(void);
-procedure av_assert0_fpu(); cdecl; external avutil_dll;
+procedure av_assert0_fpu(); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'intfloat.h'}
 
@@ -8266,7 +8266,7 @@ type
     *         on failure.
   *)
   // AVMasteringDisplayMetadata *av_mastering_display_metadata_alloc(void);
-function av_mastering_display_metadata_alloc(): pAVMasteringDisplayMetadata; cdecl; external avutil_dll;
+function av_mastering_display_metadata_alloc(): pAVMasteringDisplayMetadata; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Allocate a complete AVMasteringDisplayMetadata and add it to the frame.
   *
@@ -8275,7 +8275,7 @@ function av_mastering_display_metadata_alloc(): pAVMasteringDisplayMetadata; cde
   * @return The AVMasteringDisplayMetadata structure to be filled by caller.
 *)
 // AVMasteringDisplayMetadata *av_mastering_display_metadata_create_side_data(AVFrame *frame);
-function av_mastering_display_metadata_create_side_data(frame: pAVFrame): pAVMasteringDisplayMetadata; cdecl; external avutil_dll;
+function av_mastering_display_metadata_create_side_data(frame: pAVFrame): pAVMasteringDisplayMetadata; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 type
   (* *
@@ -8308,7 +8308,7 @@ type
     *         on failure.
   *)
   // AVContentLightMetadata *av_content_light_metadata_alloc(size_t *size);
-function av_content_light_metadata_alloc(var size: size_t): pAVContentLightMetadata; cdecl; external avutil_dll;
+function av_content_light_metadata_alloc(var size: size_t): pAVContentLightMetadata; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Allocate a complete AVContentLightMetadata and add it to the frame.
   *
@@ -8317,7 +8317,7 @@ function av_content_light_metadata_alloc(var size: size_t): pAVContentLightMetad
   * @return The AVContentLightMetadata structure to be filled by caller.
 *)
 // AVContentLightMetadata *av_content_light_metadata_create_side_data(AVFrame *frame);
-function av_content_light_metadata_create_side_data(frame: pAVFrame): pAVContentLightMetadata; cdecl; external avutil_dll;
+function av_content_light_metadata_create_side_data(frame: pAVFrame): pAVContentLightMetadata; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'pixelutils.h'}
 
@@ -8347,7 +8347,7 @@ type
     *         invalid parameters)
   *)
   // av_pixelutils_sad_fn av_pixelutils_get_sad_fn(int w_bits, int h_bits, int aligned, void *log_ctx);
-function av_pixelutils_get_sad_fn(w_bits: int; h_bits: int; aligned: int; log_ctx: Pointer): av_pixelutils_sad_fn; cdecl; external avutil_dll;
+function av_pixelutils_get_sad_fn(w_bits: int; h_bits: int; aligned: int; log_ctx: Pointer): av_pixelutils_sad_fn; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'random_seed.h'}
 (* *
@@ -8358,7 +8358,7 @@ function av_pixelutils_get_sad_fn(w_bits: int; h_bits: int; aligned: int; log_ct
   * PRNG. The quality of the seed depends on the platform.
 *)
 // uint32_t av_get_random_seed(void);
-function av_get_random_seed(): uint32_t; cdecl; external avutil_dll;
+function av_get_random_seed(): uint32_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'aes.h'}
 
@@ -8372,14 +8372,14 @@ Type
     * Allocate an AVAES context.
   *)
   // struct AVAES *av_aes_alloc(void);
-function av_aes_alloc: pAVAES; cdecl; external avutil_dll;
+function av_aes_alloc: pAVAES; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Initialize an AVAES context.
   * @param key_bits 128, 192 or 256
   * @param decrypt 0 for encryption, 1 for decryption
 *)
 // int av_aes_init(struct AVAES *a, const uint8_t *key, int key_bits, int decrypt);
-function av_aes_init(a: pAVAES; const key: puint8_t; key_bits: int; decrypt: int): int; cdecl; external avutil_dll;
+function av_aes_init(a: pAVAES; const key: puint8_t; key_bits: int; decrypt: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 (* *
   * Encrypt or decrypt a buffer using a previously initialized context.
   * @param count number of 16 byte blocks
@@ -8389,7 +8389,7 @@ function av_aes_init(a: pAVAES; const key: puint8_t; key_bits: int; decrypt: int
   * @param decrypt 0 for encryption, 1 for decryption
 *)
 // void av_aes_crypt(struct AVAES *a, uint8_t *dst, const uint8_t *src, int count, uint8_t *iv, int decrypt);
-procedure av_aes_crypt(a: pAVAES; dst: puint8_t; const src: puint8_t; count: int; iv: puint8_t; decrypt: int); cdecl; external avutil_dll;
+procedure av_aes_crypt(a: pAVAES; dst: puint8_t; const src: puint8_t; count: int; iv: puint8_t; decrypt: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'twofish.h'}
 
@@ -8405,7 +8405,7 @@ type
     * To free the struct: av_free(ptr)
   *)
   // struct AVTWOFISH *av_twofish_alloc(void);
-function av_twofish_alloc: pAVTWOFISH; cdecl; external avutil_dll;
+function av_twofish_alloc: pAVTWOFISH; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Initialize an AVTWOFISH context.
@@ -8415,7 +8415,7 @@ function av_twofish_alloc: pAVTWOFISH; cdecl; external avutil_dll;
   * @param key_bits number of keybits: 128, 192, 256 If less than the required, padded with zeroes to nearest valid value; return value is 0 if key_bits is 128/192/256, -1 if less than 0, 1 otherwise
 *)
 // int av_twofish_init(struct AVTWOFISH *ctx, const uint8_t *key, int key_bits);
-function av_twofish_init(ctx: pAVTWOFISH; const key: puint8_t; key_bits: int): int; cdecl; external avutil_dll;
+function av_twofish_init(ctx: pAVTWOFISH; const key: puint8_t; key_bits: int): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Encrypt or decrypt a buffer using a previously initialized context
@@ -8428,7 +8428,7 @@ function av_twofish_init(ctx: pAVTWOFISH; const key: puint8_t; key_bits: int): i
   * @param decrypt 0 for encryption, 1 for decryption
 *)
 // void av_twofish_crypt(struct AVTWOFISH *ctx, uint8_t *dst, const uint8_t *src, int count, uint8_t* iv, int decrypt);
-procedure av_twofish_crypt(ctx: pAVTWOFISH; dst: puint8_t; const src: puint8_t; count: int; iv: puint8_t; decrypt: int); cdecl; external avutil_dll;
+procedure av_twofish_crypt(ctx: pAVTWOFISH; dst: puint8_t; const src: puint8_t; count: int; iv: puint8_t; decrypt: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'tea.h'}
 
@@ -8443,7 +8443,7 @@ type
     * To free the struct: av_free(ptr)
   *)
   // struct AVTEA *av_tea_alloc(void);
-function av_tea_alloc: pAVTEA; cdecl; external avutil_dll;
+function av_tea_alloc: pAVTEA; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Initialize an AVTEA context.
@@ -8453,7 +8453,7 @@ function av_tea_alloc: pAVTEA; cdecl; external avutil_dll;
   * @param rounds the number of rounds in TEA (64 is the "standard")
 *)
 // void av_tea_init(struct AVTEA *ctx, const uint8_t key[16], int rounds);
-procedure av_tea_init(ctx: pAVTEA; const key: puint8_t; rounds: int); cdecl; external avutil_dll;
+procedure av_tea_init(ctx: pAVTEA; const key: puint8_t; rounds: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Encrypt or decrypt a buffer using a previously initialized context.
@@ -8467,7 +8467,7 @@ procedure av_tea_init(ctx: pAVTEA; const key: puint8_t; rounds: int); cdecl; ext
 *)
 // void av_tea_crypt(struct AVTEA *ctx, uint8_t *dst, const uint8_t *src,
 // int count, uint8_t *iv, int decrypt);
-procedure av_tea_crypt(ctx: pAVTEA; dst: puint8_t; const src: puint8_t; count: int; iv: puint8_t; decrypt: int); cdecl; external avutil_dll;
+procedure av_tea_crypt(ctx: pAVTEA; dst: puint8_t; const src: puint8_t; count: int; iv: puint8_t; decrypt: int); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 {$ENDREGION}
 {$REGION 'hwcontext_videotoolbox.h'}
@@ -8476,21 +8476,21 @@ procedure av_tea_crypt(ctx: pAVTEA; dst: puint8_t; const src: puint8_t; count: i
   * Returns AV_PIX_FMT_NONE if no known equivalent was found.
 *)
 // enum AVPixelFormat av_map_videotoolbox_format_to_pixfmt(uint32_t cv_fmt);
-function av_map_videotoolbox_format_to_pixfmt(cv_fmt: uint32_t): AVPixelFormat; cdecl; external avutil_dll;
+function av_map_videotoolbox_format_to_pixfmt(cv_fmt: uint32_t): AVPixelFormat; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Convert an AVPixelFormat to a VideoToolbox (actually CoreVideo) format.
   * Returns 0 if no known equivalent was found.
 *)
 // uint32_t av_map_videotoolbox_format_from_pixfmt(enum AVPixelFormat pix_fmt);
-function av_map_videotoolbox_format_from_pixfmt(pix_fmt: AVPixelFormat): uint32_t; cdecl; external avutil_dll;
+function av_map_videotoolbox_format_from_pixfmt(pix_fmt: AVPixelFormat): uint32_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Same as av_map_videotoolbox_format_from_pixfmt function, but can map and
   * return full range pixel formats via a flag.
 *)
 // uint32_t av_map_videotoolbox_format_from_pixfmt2(enum AVPixelFormat pix_fmt, bool full_range);
-// function av_map_videotoolbox_format_from_pixfmt2(pix_fmt: AVPixelFormat; full_range: bool): uint32_t; cdecl; external avutil_dll; //4.2.2
+// function av_map_videotoolbox_format_from_pixfmt2(pix_fmt: AVPixelFormat; full_range: bool): uint32_t; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF}; //4.2.2
 
 {$ENDREGION}
 {$REGION 'tx.h'}
@@ -8567,13 +8567,13 @@ Type
   *)
   // int av_tx_init(AVTXContext **ctx, av_tx_fn *tx, enum AVTXType type, int inv, int len, const void *scale, uint64_t flags);
 function av_tx_init(Var ctx: pAVTXContext; tx: av_tx_fn; &type: AVTXType; inv, len: int; const scale: Pointer; flags: uint64_t): int; cdecl;
-  external avutil_dll;
+  external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (*
   * Frees a context and sets ctx to NULL, does nothing when ctx == NULL
 *)
 // void av_tx_uninit(AVTXContext **ctx);
-procedure av_tx_uninit(Var ctx: pAVTXContext); cdecl; external avutil_dll;
+procedure av_tx_uninit(Var ctx: pAVTXContext); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 {$REGION 'lfg.h'}
 
@@ -8592,7 +8592,7 @@ type
   end;
 
   // void av_lfg_init(AVLFG *c, unsigned int seed);
-procedure av_lfg_init(c: pAVLFG; seed: uint); cdecl; external avutil_dll;
+procedure av_lfg_init(c: pAVLFG; seed: uint); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Seed the state of the ALFG using binary data.
@@ -8600,7 +8600,7 @@ procedure av_lfg_init(c: pAVLFG; seed: uint); cdecl; external avutil_dll;
   * Return value: 0 on success, negative value (AVERROR) on failure.
 *)
 // int av_lfg_init_from_data(AVLFG *c, const uint8_t *data, unsigned int length);
-function av_lfg_init_from_data(c: pAVLFG; const data: puint8_t; length: uint): int; cdecl; external avutil_dll;
+function av_lfg_init_from_data(c: pAVLFG; const data: puint8_t; length: uint): int; cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 
 (* *
   * Get the next random unsigned 32-bit number using an ALFG.
@@ -8640,7 +8640,7 @@ function av_mlfg_get(c: pAVLFG): uint; inline;
 Type
   Tav_bmg_get_arrayofdouble = array [0 .. 1] of double;
 
-procedure av_bmg_get(lfg: pAVLFG; &out: Tav_bmg_get_arrayofdouble); cdecl; external avutil_dll;
+procedure av_bmg_get(lfg: pAVLFG; &out: Tav_bmg_get_arrayofdouble); cdecl; external avutil_dll{$IFDEF FF_DELAYED} delayed{$ENDIF};
 {$ENDREGION}
 
 implementation

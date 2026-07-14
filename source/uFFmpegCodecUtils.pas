@@ -1,9 +1,13 @@
 unit uFFmpegCodecUtils;
 
+{$IFDEF FPC}
+{$MODE Delphi}
+{$ENDIF}
+
 interface
 
 uses
-  System.SysUtils,
+  {$I ffmpeg_rtl.inc},
   ffmpeg_types,
   libavcodec,
   libavutil;
