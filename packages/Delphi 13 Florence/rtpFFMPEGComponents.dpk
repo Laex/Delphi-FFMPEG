@@ -1,0 +1,82 @@
+package rtpFFMPEGComponents;
+
+{ $R *.res}
+{$R *.otares}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS ON}
+{$RANGECHECKS ON}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$DESCRIPTION 'Delphi-FFMPEG: high-level reader, decoder, player, encoder components'}
+{$RUNONLY}
+{$IMPLICITBUILD OFF}
+
+requires
+  rtl,
+  vcl,
+  fmx,
+  rtpFFMPEG;
+
+contains
+  uFFException in '..\..\source\components\uFFException.pas',
+  uFFHooks in '..\..\source\components\uFFHooks.pas',
+  uFFComponentLink in '..\..\source\components\uFFComponentLink.pas',
+  uFFComponentBase in '..\..\source\components\uFFComponentBase.pas',
+  uFFTranscodeEngine in '..\..\source\components\uFFTranscodeEngine.pas',
+  uFFMemoryAccessAdapter in '..\..\source\components\uFFMemoryAccessAdapter.pas',
+  uFFFrameInputAdapter in '..\..\source\components\uFFFrameInputAdapter.pas',
+  uFFLinkedPlayback in '..\..\source\components\uFFLinkedPlayback.pas',
+  uFFBitmapEncoder in '..\..\source\components\uFFBitmapEncoder.pas',
+  uFFMediaInfo in '..\..\source\components\uFFMediaInfo.pas',
+  uFFThumbnailExtractor in '..\..\source\components\uFFThumbnailExtractor.pas',
+  uFFTranscodePreset in '..\..\source\components\uFFTranscodePreset.pas',
+  uFFRemuxJob in '..\..\source\components\uFFRemuxJob.pas',
+  uFFFrameFilter in '..\..\source\components\uFFFrameFilter.pas',
+  uFFHardwareDecode in '..\..\source\components\uFFHardwareDecode.pas',
+  uFFSubtitleDecoder in '..\..\source\components\uFFSubtitleDecoder.pas',
+  uFFSubtitleBitmap in '..\..\source\components\uFFSubtitleBitmap.pas',
+  uFFSubtitleAss in '..\..\source\components\uFFSubtitleAss.pas',
+  uFFSubtitleOverlay in '..\..\source\components\uFFSubtitleOverlay.pas',
+  uFFPlayerControl in '..\..\source\components\uFFPlayerControl.pas',
+  uFFPacket in '..\..\source\components\uFFPacket.pas',
+  uFFFrame in '..\..\source\components\uFFFrame.pas',
+  uFFReader in '..\..\source\components\uFFReader.pas',
+  uFFDecoder in '..\..\source\components\uFFDecoder.pas',
+  uFFFrameConverter in '..\..\source\components\uFFFrameConverter.pas',
+  uFFFrameBitmap in '..\..\source\components\uFFFrameBitmap.pas',
+  uFFAudioResampler in '..\..\source\components\uFFAudioResampler.pas',
+  uFFAudioOutputBase in '..\..\source\components\uFFAudioOutputBase.pas',
+  uFFAudioOutputWin in '..\..\source\components\uFFAudioOutputWin.pas',
+  uFFAudioOutputALSA in '..\..\source\components\uFFAudioOutputALSA.pas',
+  uFFAudioOutputSDL in '..\..\source\components\uFFAudioOutputSDL.pas',
+  uFFAudioOutput in '..\..\source\components\uFFAudioOutput.pas',
+  uFFPlatformTime in '..\..\source\components\uFFPlatformTime.pas',
+  uFFPacketQueue in '..\..\source\components\uFFPacketQueue.pas',
+  uFFPlaybackClock in '..\..\source\components\uFFPlaybackClock.pas',
+  uFFPlaybackEngine in '..\..\source\components\uFFPlaybackEngine.pas',
+  uFFVideoPlayer in '..\..\source\components\uFFVideoPlayer.pas',
+  uFFFMXFrameBitmap in '..\..\source\components\uFFFMXFrameBitmap.pas',
+  uFFFMXVideoPlayer in '..\..\source\components\uFFFMXVideoPlayer.pas',
+  uFFEncoder in '..\..\source\components\uFFEncoder.pas',
+  uFFWriter in '..\..\source\components\uFFWriter.pas';
+
+end.

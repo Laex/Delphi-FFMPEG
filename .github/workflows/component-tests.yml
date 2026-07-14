@@ -1,0 +1,67 @@
+name: Component Tests
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+
+jobs:
+  fpc-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install FPC and FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y fpc ffmpeg wget tar
+          mkdir -p bin/linux64
+          if [ ! -f bin/linux64/libavutil.so.60 ]; then
+            VER=7.1.1
+            URL="https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-n${VER}-latest-linux64-gpl-shared-${VER}.tar.xz"
+            wget -q "$URL" -O /tmp/ffmpeg.tar.xz
+            tar -xf /tmp/ffmpeg.tar.xz -C /tmp
+            cp /tmp/ffmpeg-n${VER}-latest-linux64-gpl-shared-${VER}/lib/*.so* bin/linux64/
+          fi
+          bash tools/generate_test_av.sh || true
+
+      - name: Run component tests (FPC)
+        run: bash tests/linux/run_components.sh
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: component-test-logs-linux
+          path: bin/out/component_tests/
+
+  delphi-win64:
+    runs-on: windows-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download FFmpeg DLLs and test media
+        shell: pwsh
+        run: |
+          if (-not (Test-Path bin/win64/avutil-60.dll)) {
+            & bin/scripts/download_ffmpeg_dll.ps1
+          }
+          & tools/setup_dev_environment.ps1 -SkipDownload
+
+      - name: Run component tests (Delphi)
+        shell: pwsh
+        run: |
+          $dcc = 'C:\Program Files (x86)\Embarcadero\Studio\37.0\bin\dcc64.exe'
+          if (-not (Test-Path $dcc)) {
+            Write-Host 'SKIP: Delphi not installed on runner'
+            exit 0
+          }
+          & tests/run_components.ps1 -Compiler Delphi -IncludeGuiTests
+
+      - name: Upload logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: component-test-logs-windows
+          path: bin/out/component_tests/

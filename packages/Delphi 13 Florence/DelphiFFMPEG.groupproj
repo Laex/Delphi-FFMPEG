@@ -1,0 +1,72 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{AC7D1E54-2E6F-7A8B-D9C0-43526B7A89DE}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="rtpFFMPEG.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="rtpFFMPEGComponents.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="dclFFMPEGComponents.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="..\..\examples\components\multidemo\multidemo.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="rtpFFMPEG">
+        <MSBuild Projects="rtpFFMPEG.dproj"/>
+    </Target>
+    <Target Name="rtpFFMPEG:Clean">
+        <MSBuild Projects="rtpFFMPEG.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="rtpFFMPEG:Make">
+        <MSBuild Projects="rtpFFMPEG.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="rtpFFMPEGComponents">
+        <MSBuild Projects="rtpFFMPEGComponents.dproj"/>
+    </Target>
+    <Target Name="rtpFFMPEGComponents:Clean">
+        <MSBuild Projects="rtpFFMPEGComponents.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="rtpFFMPEGComponents:Make">
+        <MSBuild Projects="rtpFFMPEGComponents.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="dclFFMPEGComponents">
+        <MSBuild Projects="dclFFMPEGComponents.dproj"/>
+    </Target>
+    <Target Name="dclFFMPEGComponents:Clean">
+        <MSBuild Projects="dclFFMPEGComponents.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="dclFFMPEGComponents:Make">
+        <MSBuild Projects="dclFFMPEGComponents.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="multidemo">
+        <MSBuild Projects="..\..\examples\components\multidemo\multidemo.dproj"/>
+    </Target>
+    <Target Name="multidemo:Clean">
+        <MSBuild Projects="..\..\examples\components\multidemo\multidemo.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="multidemo:Make">
+        <MSBuild Projects="..\..\examples\components\multidemo\multidemo.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="rtpFFMPEG;rtpFFMPEGComponents;dclFFMPEGComponents;multidemo"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="rtpFFMPEG:Clean;rtpFFMPEGComponents:Clean;dclFFMPEGComponents:Clean;multidemo:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="rtpFFMPEG:Make;rtpFFMPEGComponents:Make;dclFFMPEGComponents:Make;multidemo:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
