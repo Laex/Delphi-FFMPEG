@@ -40,6 +40,9 @@ buildall
 *.cfg
 *.hpp
 *.otares
+!packages/Delphi 13 Florence/rtpFFMPEG.otares
+!packages/Delphi 13 Florence/rtpFFMPEGComponents.otares
+!packages/Delphi 13 Florence/dclFFMPEGComponents.otares
 *Resource.rc
 
 #
