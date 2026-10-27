@@ -82,8 +82,6 @@ begin
 
     input_filename := PAnsiChar(ansistring(ParamStr(1)));
 
-    (* register codecs and formats and other lavf/lavc components *)
-    av_register_all();
     (* slurp file content into buffer *)
     ret := av_file_map(input_filename, buffer, buffer_size, 0, nil);
     if (ret < 0) then
